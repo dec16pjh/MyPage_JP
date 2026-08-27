@@ -84,24 +84,38 @@
     transform:translate(-50%,-50%);
     z-index:50;
     text-align:center;
-    width:340px;
-    padding:34px 28px;
-    border-radius:50%;
-    background:radial-gradient(closest-side, rgba(8,8,11,0.92), rgba(8,8,11,0.55) 72%, rgba(8,8,11,0) 100%);
+    width:420px;
+    padding:44px 30px;
+    border-radius:36px;
+    background:radial-gradient(closest-side, rgba(8,8,11,0.94), rgba(8,8,11,0.6) 68%, rgba(8,8,11,0) 100%);
   }
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
-    font-size:12px;font-weight:700;letter-spacing:.16em;
+    font-size:13px;font-weight:800;letter-spacing:.22em;
     color:var(--accent);text-transform:uppercase;
-    margin-bottom:10px;
+    margin-bottom:14px;
   }
   .center h1{
-    font-size:23px;margin:0 0 8px;font-weight:800;letter-spacing:-0.01em;
-    line-height:1.3;
+    font-size:52px;margin:0 0 14px;font-weight:900;letter-spacing:-0.02em;
+    line-height:1.05;
+    font-family:"Pretendard","Segoe UI",sans-serif;
   }
-  .center h1 em{color:var(--accent);font-style:normal;}
+  .center h1 .grad{
+    display:block;
+    background:linear-gradient(90deg, var(--travel), var(--accent), var(--creative), var(--project), var(--accent-2), var(--travel));
+    background-size:300% 100%;
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    animation:gradShift 8s ease infinite;
+  }
+  @keyframes gradShift{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+  }
   .center p{
-    font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.55;
+    font-size:13px;color:var(--ink-soft);margin:0;line-height:1.6;
   }
 
   .item{
@@ -144,14 +158,14 @@
   .cap .g{font-size:10.5px;color:var(--cat);font-weight:700;margin-top:6px;display:block;}
 
   .legend{
-    display:flex;justify-content:center;gap:14px;
-    margin-top:14px;flex-wrap:wrap;
+    display:flex;justify-content:center;gap:16px;
+    margin-top:18px;flex-wrap:wrap;
   }
   .legend span{
-    display:inline-flex;align-items:center;gap:5px;
-    font-size:10.5px;color:var(--ink-soft);font-weight:600;
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:800;letter-spacing:.02em;
   }
-  .legend i{width:8px;height:8px;border-radius:50%;display:inline-block;}
+  .legend i{width:9px;height:9px;border-radius:50%;display:inline-block;box-shadow:0 0 10px 1px currentColor;}
 
   @keyframes spiralIn{
     to{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--rot));}
@@ -200,12 +214,12 @@
 
     <div class="center">
       <div class="eyebrow">MyPage_JP</div>
-      <h1>박종호<br><em>(John Park)</em>의 웹 아카이브</h1>
+      <h1><span class="grad">John's<br>My Page</span></h1>
       <p>그동안 만들어 공유한 페이지들.<br>이미지에 마우스를 올려보세요.</p>
       <div class="legend">
-        <span><i style="background:var(--travel)"></i>여행</span>
-        <span><i style="background:var(--project)"></i>프로젝트</span>
-        <span><i style="background:var(--creative)"></i>창작</span>
+        <span style="color:var(--travel)"><i style="background:var(--travel)"></i>Travel</span>
+        <span style="color:var(--project)"><i style="background:var(--project)"></i>Project</span>
+        <span style="color:var(--creative)"><i style="background:var(--creative)"></i>Creative</span>
       </div>
     </div>
 
