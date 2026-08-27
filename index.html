@@ -82,6 +82,8 @@
     aspect-ratio:16/10;
     width:100%;
     display:block;
+    object-fit:cover;
+    background:var(--pill-bg);
   }
   .card-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
   .card-title{font-size:16px;font-weight:750;letter-spacing:-0.01em;}
@@ -100,7 +102,7 @@
     <h1>박종호<span>(John Park)</span>의 웹 아카이브</h1>
     <p class="sub">그동안 만들어 공유했던 페이지와 프로젝트를 한곳에 모았습니다. 카드를 클릭하면 각 페이지로 이동합니다.</p>
     <div class="meta-row">
-      <span class="meta-pill">총 7개 링크</span>
+      <span class="meta-pill">총 8개 링크</span>
       <span class="meta-pill">여행 · 프로젝트 · 창작</span>
       <span class="meta-pill">최근 업데이트 2026-08-27</span>
     </div>
@@ -112,25 +114,7 @@
     <div class="grid">
 
       <a class="card" href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--travel-a)"/><stop offset="1" stop-color="var(--travel-b)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g1)"/>
-          <circle cx="250" cy="45" r="30" fill="#fff" opacity=".25"/>
-          <path d="M0 170 Q80 140 160 168 T320 158 V200 H0 Z" fill="#ffffff" opacity=".18"/>
-          <g transform="translate(110,58)">
-            <rect x="-4" y="0" width="8" height="86" fill="#fff"/>
-            <rect x="84" y="0" width="8" height="86" fill="#fff"/>
-            <rect x="-16" y="-4" width="120" height="12" rx="2" fill="#fff"/>
-            <rect x="-24" y="12" width="136" height="10" rx="2" fill="#fff"/>
-            <rect x="-4" y="70" width="8" height="16" fill="#fff"/>
-            <rect x="84" y="70" width="8" height="16" fill="#fff"/>
-          </g>
-          <g fill="#fff" opacity=".9">
-            <circle cx="235" cy="140" r="6"/><circle cx="255" cy="150" r="5"/><circle cx="270" cy="132" r="4.5"/>
-          </g>
-        </svg>
+        <img class="cover" src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
         <div class="card-body">
           <div class="card-title">福岡家族旅行 2026</div>
           <div class="card-desc">2026년 후쿠오카 가족여행 일정 플래너 · 날짜별 코스와 맛집 정리</div>
@@ -139,16 +123,7 @@
       </a>
 
       <a class="card" href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--travel-b)"/><stop offset="1" stop-color="var(--travel-a)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g2)"/>
-          <circle cx="60" cy="50" r="26" fill="#fff" opacity=".85"/>
-          <path d="M0 130 L70 70 L120 110 L170 55 L230 120 L320 90 V200 H0 Z" fill="#fff" opacity=".9"/>
-          <path d="M0 150 Q90 130 180 150 T320 140 V200 H0 Z" fill="#2f6fae" opacity=".55"/>
-          <path d="M0 168 Q90 150 180 168 T320 160 V200 H0 Z" fill="#2f6fae" opacity=".8"/>
-        </svg>
+        <img class="cover" src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
         <div class="card-body">
           <div class="card-title">강릉 가족여행 1박 2일</div>
           <div class="card-desc">아이와 함께하는 강릉 1박 2일 코스 · 숙소와 액티비티 모음</div>
@@ -165,19 +140,7 @@
     <div class="grid">
 
       <a class="card" href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--project-a)"/><stop offset="1" stop-color="var(--project-b)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g3)"/>
-          <path d="M20 150 Q100 60 170 110 T300 60" stroke="#fff" stroke-width="4" fill="none" stroke-dasharray="2 12" stroke-linecap="round" opacity=".85"/>
-          <circle cx="20" cy="150" r="7" fill="#fff"/>
-          <circle cx="300" cy="60" r="7" fill="#fff"/>
-          <g transform="translate(250,40) rotate(35)">
-            <path d="M0 0 L26 8 L0 16 L6 8 Z" fill="#fff"/>
-          </g>
-          <path d="M20 150 c0 -20 18 -20 18 0 c0 20 -18 32 -18 32 c0 0 -18 -12 -18 -32 c0 -20 18 -20 18 0" fill="#fff" opacity=".95" transform="translate(0,-2) scale(1)"/>
-        </svg>
+        <img class="cover" src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
         <div class="card-body">
           <div class="card-title">AI 여행 플래너</div>
           <div class="card-desc">"추억을 계획하세요" · Claude 기반으로 여행 일정을 자동 생성하는 웹앱</div>
@@ -186,19 +149,7 @@
       </a>
 
       <a class="card" href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--project-b)"/><stop offset="1" stop-color="var(--project-a)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g4)"/>
-          <rect x="118" y="52" width="84" height="70" rx="16" fill="#fff"/>
-          <circle cx="142" cy="82" r="7" fill="#3f7cf0"/>
-          <circle cx="178" cy="82" r="7" fill="#3f7cf0"/>
-          <rect x="140" y="98" width="40" height="6" rx="3" fill="#3f7cf0" opacity=".6"/>
-          <rect x="150" y="40" width="20" height="14" rx="4" fill="#fff"/>
-          <path d="M60 150 h30 M60 150 v-14 M90 150 v-24" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".8"/>
-          <path d="M230 150 h30 M240 150 v-20 M260 150 v-30" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity=".8"/>
-        </svg>
+        <img class="cover" src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
         <div class="card-body">
           <div class="card-title">바이어 Agent 설계도</div>
           <div class="card-desc">바이어 응대를 자동화하는 AI 에이전트 구조 설계 문서</div>
@@ -211,21 +162,20 @@
 
   <!-- ===================== 창작 & 기타 ===================== -->
   <section class="group">
-    <div class="group-head"><h2>🎨 창작 · 기타</h2><span class="count">3</span></div>
+    <div class="group-head"><h2>🎨 창작 · 기타</h2><span class="count">4</span></div>
     <div class="grid">
 
+      <a class="card" href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
+        <img class="cover" src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
+        <div class="card-body">
+          <div class="card-title">광화문, 3초</div>
+          <div class="card-desc">JP 히어로 웹툰 1화</div>
+          <div class="card-foot"><span>GitHub Pages</span><span class="go">바로가기 →</span></div>
+        </div>
+      </a>
+
       <a class="card" href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g8" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--creative-a)"/><stop offset="1" stop-color="var(--creative-b)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g8)"/>
-          <path d="M100 60 h60 v90 q-30 -10 -60 0 Z" fill="#fff"/>
-          <path d="M220 60 h-60 v90 q30 -10 60 0 Z" fill="#fff" opacity=".85"/>
-          <line x1="112" y1="76" x2="150" y2="76" stroke="var(--creative-a)" stroke-width="3" opacity=".5"/>
-          <line x1="112" y1="90" x2="150" y2="90" stroke="var(--creative-a)" stroke-width="3" opacity=".5"/>
-          <line x1="112" y1="104" x2="140" y2="104" stroke="var(--creative-a)" stroke-width="3" opacity=".5"/>
-        </svg>
+        <img class="cover" src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
         <div class="card-body">
           <div class="card-title">박종호의 브런치 아카이브</div>
           <div class="card-desc">그동안 쓴 브런치 글을 모아둔 개인 아카이브</div>
@@ -234,17 +184,7 @@
       </a>
 
       <a class="card" href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g9" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--creative-b)"/><stop offset="1" stop-color="var(--creative-a)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g9)"/>
-          <path d="M100 70 h120 a14 14 0 0 1 14 14 v34 a14 14 0 0 1 -14 14 h-70 l-20 20 v-20 h-30 a14 14 0 0 1 -14 -14 v-34 a14 14 0 0 1 14 -14 Z" fill="#fff"/>
-          <g transform="translate(160,52)">
-            <path d="M-22 0 l10 -16 l12 10 l12 -10 l10 16 Z" fill="#fff"/>
-            <circle cx="-12" cy="-14" r="4" fill="#fff"/><circle cx="12" cy="-14" r="4" fill="#fff"/>
-          </g>
-        </svg>
+        <img class="cover" src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
         <div class="card-body">
           <div class="card-title">귀족학교 생존기 · 웹툰</div>
           <div class="card-desc">웹툰 1–2화 연재본</div>
@@ -253,18 +193,7 @@
       </a>
 
       <a class="card" href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
-        <svg class="cover" viewBox="0 0 320 200" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="g10" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="var(--creative-a)"/><stop offset="1" stop-color="var(--creative-b)"/>
-          </linearGradient></defs>
-          <rect width="320" height="200" fill="url(#g10)"/>
-          <circle cx="160" cy="100" r="46" fill="none" stroke="#fff" stroke-width="5"/>
-          <circle cx="160" cy="100" r="4" fill="#fff"/>
-          <path d="M160 100 L184 64 L168 96 Z" fill="#fff"/>
-          <path d="M160 100 L136 136 L152 104 Z" fill="#fff" opacity=".65"/>
-          <text x="160" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#fff" opacity=".85">N</text>
-          <text x="160" y="150" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#fff" opacity=".7">S</text>
-        </svg>
+        <img class="cover" src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
         <div class="card-body">
           <div class="card-title">오늘의 길한 방향</div>
           <div class="card-desc">오늘 하루의 방위 운세 안내</div>
