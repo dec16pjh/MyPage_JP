@@ -7,6 +7,7 @@
 <style>
   :root{
     --bg:#08080b;
+    --bg-soft:#111015;
     --ink:#f4f2ec;
     --ink-soft:#9c98a8;
     --accent:#ff6a3d;
@@ -18,298 +19,216 @@
   *{box-sizing:border-box;}
   html,body{
     margin:0;
-    height:100%;
     background:var(--bg);
     color:var(--ink);
     font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    overflow:hidden;
   }
+  .wrap{max-width:1180px;margin:0 auto;padding:72px 28px 90px;}
 
-  .stage{
-    position:fixed;
-    inset:0;
-    overflow:auto;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;
-    scrollbar-color:#3a3844 transparent;
-  }
-
-  .canvas{
-    position:relative;
-    width:1750px;
-    height:1800px;
-    background:
-      radial-gradient(closest-side, rgba(123,92,240,0.22), rgba(123,92,240,0) 70%) 900px 900px / 1200px 1200px no-repeat,
-      radial-gradient(closest-side, rgba(255,106,61,0.14), rgba(255,106,61,0) 70%) 900px 900px / 1700px 1700px no-repeat,
-      var(--bg);
-  }
-
-  .zones{
-    position:absolute;
-    left:900px; top:900px;
-    width:1650px; height:1650px;
-    transform:translate(-50%,-50%);
-    border-radius:50%;
-    background:conic-gradient(from 90deg,
-      var(--travel) 0deg 120deg,
-      var(--project) 120deg 240deg,
-      var(--creative) 240deg 360deg);
-    opacity:0.16;
-    filter:blur(90px);
-    pointer-events:none;
-  }
-
-  .vortex-ring{
-    position:absolute;
-    left:900px; top:900px;
-    width:1px; height:1px;
-    pointer-events:none;
-  }
-  .vortex-ring i{
-    position:absolute;
-    border:1px solid rgba(255,255,255,0.06);
-    border-radius:50%;
-    left:50%; top:50%;
-    transform:translate(-50%,-50%);
-    animation:spin 90s linear infinite;
-  }
-  .vortex-ring i:nth-child(1){width:620px;height:620px;animation-duration:70s;}
-  .vortex-ring i:nth-child(2){width:920px;height:920px;animation-duration:100s;animation-direction:reverse;}
-  .vortex-ring i:nth-child(3){width:1240px;height:1240px;animation-duration:130s;}
-  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
-
-  .center{
-    position:absolute;
-    left:900px; top:900px;
-    transform:translate(-50%,-50%);
-    z-index:50;
-    text-align:center;
-    width:420px;
-    padding:44px 30px;
-    border-radius:36px;
-    background:radial-gradient(closest-side, rgba(8,8,11,0.94), rgba(8,8,11,0.6) 68%, rgba(8,8,11,0) 100%);
-  }
+  header.hero{text-align:center;margin-bottom:64px;}
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
     font-size:13px;font-weight:800;letter-spacing:.22em;
     color:var(--accent);text-transform:uppercase;
-    margin-bottom:14px;
+    margin-bottom:16px;
   }
-  .center h1{
-    font-size:52px;margin:0 0 14px;font-weight:900;letter-spacing:-0.02em;
+  h1{
+    font-size:clamp(38px,6vw,58px);margin:0 0 16px;font-weight:900;letter-spacing:-0.02em;
     line-height:1.05;
-    font-family:"Pretendard","Segoe UI",sans-serif;
   }
-  .center h1 .grad{
-    display:block;
+  h1 .grad{
     background:linear-gradient(90deg, var(--travel), var(--accent), var(--creative), var(--project), var(--accent-2), var(--travel));
     background-size:300% 100%;
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
     animation:gradShift 8s ease infinite;
   }
   @keyframes gradShift{
-    0%{background-position:0% 50%;}
-    50%{background-position:100% 50%;}
-    100%{background-position:0% 50%;}
+    0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;}
   }
-  .center p{
-    font-size:13px;color:var(--ink-soft);margin:0;line-height:1.6;
-  }
-
-  .item{
-    position:absolute;
-    transform:translate(-50%,-50%) scale(0.3) rotate(0deg);
-    display:block;
-    text-decoration:none;
-    border-radius:16px;
-    overflow:hidden;
-    opacity:0;
-    box-shadow:0 18px 40px -12px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04), 0 0 46px -6px var(--cat);
-    animation:spiralIn .9s cubic-bezier(.2,.8,.2,1) forwards;
-    animation-delay:var(--d);
-    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, z-index 0s;
-    cursor:pointer;
-  }
-  .item img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-  }
-  .item:hover{
-    transform:translate(-50%,-50%) scale(1.28) rotate(0deg) !important;
-    box-shadow:0 30px 70px -10px rgba(0,0,0,0.85), 0 0 0 2px var(--cat), 0 0 80px 4px var(--cat);
-    z-index:999 !important;
-  }
-  .cap{
-    position:absolute;
-    left:0; right:0; bottom:0;
-    padding:22px 14px 12px;
-    background:linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0));
-    opacity:0;
-    transform:translateY(6px);
-    transition:opacity .3s ease, transform .3s ease;
-  }
-  .item:hover .cap{opacity:1;transform:translateY(0);}
-  .cap .t{font-size:13px;font-weight:800;color:#fff;letter-spacing:-0.01em;}
-  .cap .s{font-size:10.5px;color:rgba(255,255,255,0.72);margin-top:2px;}
-  .cap .g{font-size:10.5px;color:var(--cat);font-weight:700;margin-top:6px;display:block;}
-
-  .legend{
-    display:flex;justify-content:center;gap:16px;
-    margin-top:18px;flex-wrap:wrap;
-  }
-  .legend span{
-    display:inline-flex;align-items:center;gap:6px;
-    font-size:12.5px;font-weight:800;letter-spacing:.02em;
-  }
+  .sub{font-size:15px;color:var(--ink-soft);max-width:520px;margin:0 auto;line-height:1.6;}
+  .legend{display:flex;justify-content:center;gap:18px;margin-top:22px;flex-wrap:wrap;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;}
   .legend i{width:9px;height:9px;border-radius:50%;display:inline-block;box-shadow:0 0 10px 1px currentColor;}
 
-  @keyframes spiralIn{
-    to{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--rot));}
+  section.group{margin-top:64px;}
+  .group-head{display:flex;align-items:baseline;gap:12px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .group-head h2{font-size:22px;margin:0;font-weight:800;display:flex;align-items:center;gap:10px;}
+  .group-head .dot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 12px 2px currentColor;}
+  .group-head .count{font-size:13px;color:var(--ink-soft);font-weight:700;}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:26px;
   }
+  a.item{
+    position:relative;
+    display:block;
+    aspect-ratio:16/10;
+    border-radius:16px;
+    overflow:hidden;
+    text-decoration:none;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05), 0 0 0 0 var(--cat);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, z-index 0s;
+    cursor:pointer;
+    z-index:1;
+  }
+  a.item img{display:block;width:100%;height:100%;object-fit:cover;}
+  a.item svg{display:block;width:100%;height:100%;}
+  a.item:hover{
+    transform:scale(1.1);
+    box-shadow:0 26px 50px -12px rgba(0,0,0,0.75), 0 0 0 2px var(--cat), 0 0 60px 2px var(--cat);
+    z-index:20;
+  }
+  .cap{
+    position:absolute;left:0;right:0;bottom:0;
+    padding:26px 16px 14px;
+    background:linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0));
+    opacity:0;transform:translateY(6px);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  a.item:hover .cap{opacity:1;transform:translateY(0);}
+  .cap .t{font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.01em;}
+  .cap .s{font-size:11.5px;color:rgba(255,255,255,0.72);margin-top:3px;}
+  .cap .g{font-size:11px;color:var(--cat);font-weight:700;margin-top:7px;display:block;}
+  .meta{
+    position:absolute;top:10px;right:10px;
+    font-size:10px;font-weight:700;color:rgba(255,255,255,0.85);
+    background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);
+    padding:4px 9px;border-radius:999px;
+    opacity:0;transition:opacity .3s ease;
+  }
+  a.item:hover .meta{opacity:1;}
 
   footer{
-    position:absolute;
-    left:900px; bottom:26px;
-    transform:translateX(-50%);
-    font-size:11px;
-    color:#4d4a58;
-    white-space:nowrap;
-    z-index:5;
-  }
-
-  .hint{
-    position:fixed;
-    left:50%; bottom:18px;
-    transform:translateX(-50%);
-    font-size:11.5px;
-    color:var(--ink-soft);
-    background:rgba(20,19,26,0.7);
-    backdrop-filter:blur(6px);
-    padding:8px 16px;
-    border-radius:999px;
-    z-index:100;
-    pointer-events:none;
-    opacity:0;
-    animation:hintFade 6s ease forwards;
-  }
-  @keyframes hintFade{
-    0%{opacity:0;}
-    10%{opacity:1;}
-    80%{opacity:1;}
-    100%{opacity:0;}
+    margin-top:80px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.08);
+    font-size:12px;color:#5a5766;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
   }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<div class="stage" id="stage">
-  <div class="canvas">
-
-    <div class="zones"></div>
-    <div class="vortex-ring"><i></i><i></i><i></i></div>
-
-    <div class="center">
-      <div class="eyebrow">MyPage_JP</div>
-      <h1><span class="grad">John's<br>My Page</span></h1>
-      <p>그동안 만들어 공유한 페이지들.<br>이미지에 마우스를 올려보세요.</p>
-      <div class="legend">
-        <span style="color:var(--travel)"><i style="background:var(--travel)"></i>Travel</span>
-        <span style="color:var(--project)"><i style="background:var(--project)"></i>Project</span>
-        <span style="color:var(--creative)"><i style="background:var(--creative)"></i>Creative</span>
-      </div>
+  <header class="hero">
+    <div class="eyebrow">MyPage_JP</div>
+    <h1><span class="grad">John's My Page</span></h1>
+    <p class="sub">그동안 만들어 공유한 페이지들을 한곳에 모았습니다. 이미지에 마우스를 올려보세요.</p>
+    <div class="legend">
+      <span style="color:var(--travel)"><i style="background:var(--travel)"></i>Travel</span>
+      <span style="color:var(--project)"><i style="background:var(--project)"></i>Project</span>
+      <span style="color:var(--creative)"><i style="background:var(--creative)"></i>Creative</span>
     </div>
+  </header>
 
-    <a class="item" style="left:791px; top:599px; width:380px; height:300px; --rot:-6deg; --d:.05s; --cat:var(--creative)"
-       href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
-      <img src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
-      <div class="cap"><div class="t">광화문, 3초</div><div class="s">JP 히어로 웹툰 1화</div><span class="g">바로가기 →</span></div>
-    </a>
+  <!-- ===================== Travel ===================== -->
+  <section class="group">
+    <div class="group-head">
+      <h2><span class="dot" style="background:var(--travel);color:var(--travel)"></span>Travel</h2>
+      <span class="count">2</span>
+    </div>
+    <div class="grid">
 
-    <a class="item" style="left:1044px; top:505px; width:300px; height:260px; --rot:4deg; --d:.12s; --cat:var(--creative)"
-       href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
-      <img src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
-      <div class="cap"><div class="t">브런치 아카이브</div><div class="s">그동안 쓴 글 모음</div><span class="g">바로가기 →</span></div>
-    </a>
+      <a class="item" style="--cat:var(--travel)" href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener">
+        <img src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
+        <span class="meta">GitHub Pages</span>
+        <div class="cap"><div class="t">福岡家族旅行 2026</div><div class="s">후쿠오카 가족여행 플래너</div><span class="g">바로가기 →</span></div>
+      </a>
 
-    <a class="item" style="left:1298px; top:670px; width:260px; height:360px; --rot:-8deg; --d:.19s; --cat:var(--creative)"
-       href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
-      <img src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
-      <div class="cap"><div class="t">귀족학교 생존기</div><div class="s">웹툰 1–2화 연재본</div><span class="g">바로가기 →</span></div>
-    </a>
+      <a class="item" style="--cat:var(--travel)" href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
+        <img src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
+        <span class="meta">GitHub Pages</span>
+        <div class="cap"><div class="t">강릉 가족여행 1박 2일</div><div class="s">아이와 함께한 코스</div><span class="g">바로가기 →</span></div>
+      </a>
 
-    <a class="item" style="left:1279px; top:867px; width:230px; height:230px; --rot:6deg; --d:.26s; --cat:var(--creative)"
-       href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
-      <img src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
-      <div class="cap"><div class="t">오늘의 길한 방향</div><div class="s">오늘의 방위 운세</div><span class="g">바로가기 →</span></div>
-    </a>
+    </div>
+  </section>
 
-    <a class="item" style="left:867px; top:1279px; width:420px; height:180px; --rot:-4deg; --d:.33s; --cat:var(--travel)"
-       href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
-      <img src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
-      <div class="cap"><div class="t">강릉 가족여행 1박 2일</div><div class="s">아이와 함께한 코스</div><span class="g">바로가기 →</span></div>
-    </a>
+  <!-- ===================== Project ===================== -->
+  <section class="group">
+    <div class="group-head">
+      <h2><span class="dot" style="background:var(--project);color:var(--project)"></span>Project</h2>
+      <span class="count">3</span>
+    </div>
+    <div class="grid">
 
-    <a class="item" style="left:1317px; top:1094px; width:340px; height:210px; --rot:7deg; --d:.4s; --cat:var(--travel)"
-       href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener" >
-      <img src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
-      <div class="cap"><div class="t">福岡家族旅行 2026</div><div class="s">후쿠오카 가족여행 플래너</div><span class="g">바로가기 →</span></div>
-    </a>
+      <a class="item" style="--cat:var(--project)" href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
+        <img src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
+        <span class="meta">GitHub Pages</span>
+        <div class="cap"><div class="t">AI 여행 플래너</div><div class="s">Claude 기반 일정 생성 웹앱</div><span class="g">바로가기 →</span></div>
+      </a>
 
-    <a class="item" style="left:556px; top:1141px; width:300px; height:220px; --rot:-5deg; --d:.47s; --cat:var(--project)"
-       href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
-      <img src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
-      <div class="cap"><div class="t">AI 여행 플래너</div><div class="s">Claude 기반 일정 생성 웹앱</div><span class="g">바로가기 →</span></div>
-    </a>
+      <a class="item" style="--cat:var(--project)" href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
+        <img src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
+        <span class="meta">Claude Artifact</span>
+        <div class="cap"><div class="t">바이어 Agent 설계도</div><div class="s">AI 에이전트 구조 설계</div><span class="g">바로가기 →</span></div>
+      </a>
 
-    <a class="item" style="left:523px; top:636px; width:280px; height:220px; --rot:9deg; --d:.54s; --cat:var(--project)"
-       href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
-      <img src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
-      <div class="cap"><div class="t">바이어 Agent 설계도</div><div class="s">AI 에이전트 구조 설계</div><span class="g">바로가기 →</span></div>
-    </a>
+      <a class="item" style="--cat:var(--project)" href="https://buyer-hub.freeist.chatgpt.site/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice">
+          <defs><linearGradient id="gbh" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#2f6fd6"/><stop offset="1" stop-color="#4da3ff"/>
+          </linearGradient></defs>
+          <rect width="320" height="220" fill="url(#gbh)"/>
+          <circle cx="160" cy="104" r="62" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
+          <ellipse cx="160" cy="104" rx="62" ry="24" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
+          <ellipse cx="160" cy="104" rx="26" ry="62" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
+          <line x1="98" y1="104" x2="222" y2="104" stroke="#fff" stroke-width="2" opacity=".55"/>
+          <g fill="#fff"><circle cx="120" cy="70" r="4.5"/><circle cx="196" cy="80" r="4.5"/><circle cx="132" cy="140" r="4.5"/><circle cx="205" cy="128" r="4.5"/><circle cx="160" cy="45" r="4.5"/></g>
+          <g stroke="#fff" stroke-width="1.4" opacity=".6">
+            <line x1="120" y1="70" x2="160" y2="104"/><line x1="196" y1="80" x2="160" y2="104"/>
+            <line x1="132" y1="140" x2="160" y2="104"/><line x1="205" y1="128" x2="160" y2="104"/>
+            <line x1="160" y1="45" x2="160" y2="104"/>
+          </g>
+          <text x="160" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff" opacity=".9">GLOBAL BUYER CRM</text>
+        </svg>
+        <span class="meta">Live Site</span>
+        <div class="cap"><div class="t">Buyer Desk</div><div class="s">글로벌 바이어 755개사 통합 대시보드</div><span class="g">바로가기 →</span></div>
+      </a>
 
-    <a class="item" style="left:340px; top:900px; width:320px; height:220px; --rot:-3deg; --d:.61s; --cat:var(--project)"
-       href="https://buyer-hub.freeist.chatgpt.site/" target="_blank" rel="noopener">
-      <svg width="100%" height="100%" viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice">
-        <defs><linearGradient id="gbh" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stop-color="#2f6fd6"/><stop offset="1" stop-color="#4da3ff"/>
-        </linearGradient></defs>
-        <rect width="320" height="220" fill="url(#gbh)"/>
-        <circle cx="160" cy="104" r="62" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
-        <ellipse cx="160" cy="104" rx="62" ry="24" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
-        <ellipse cx="160" cy="104" rx="26" ry="62" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
-        <line x1="98" y1="104" x2="222" y2="104" stroke="#fff" stroke-width="2" opacity=".55"/>
-        <g fill="#fff"><circle cx="120" cy="70" r="4.5"/><circle cx="196" cy="80" r="4.5"/><circle cx="132" cy="140" r="4.5"/><circle cx="205" cy="128" r="4.5"/><circle cx="160" cy="45" r="4.5"/></g>
-        <g stroke="#fff" stroke-width="1.4" opacity=".6">
-          <line x1="120" y1="70" x2="160" y2="104"/><line x1="196" y1="80" x2="160" y2="104"/>
-          <line x1="132" y1="140" x2="160" y2="104"/><line x1="205" y1="128" x2="160" y2="104"/>
-          <line x1="160" y1="45" x2="160" y2="104"/>
-        </g>
-        <text x="160" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff" opacity=".9">GLOBAL BUYER CRM</text>
-      </svg>
-      <div class="cap"><div class="t">Buyer Desk</div><div class="s">글로벌 바이어 755개사 통합 대시보드</div><span class="g">바로가기 →</span></div>
-    </a>
+    </div>
+  </section>
 
-    <footer>© 2026 박종호 (John Park) · Claude Code로 정리한 페이지 모음</footer>
+  <!-- ===================== Creative ===================== -->
+  <section class="group">
+    <div class="group-head">
+      <h2><span class="dot" style="background:var(--creative);color:var(--creative)"></span>Creative</h2>
+      <span class="count">4</span>
+    </div>
+    <div class="grid">
 
-  </div>
+      <a class="item" style="--cat:var(--creative)" href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
+        <img src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
+        <span class="meta">GitHub Pages</span>
+        <div class="cap"><div class="t">광화문, 3초</div><div class="s">JP 히어로 웹툰 1화</div><span class="g">바로가기 →</span></div>
+      </a>
+
+      <a class="item" style="--cat:var(--creative)" href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
+        <img src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
+        <span class="meta">GitHub Pages</span>
+        <div class="cap"><div class="t">귀족학교 생존기</div><div class="s">웹툰 1–2화 연재본</div><span class="g">바로가기 →</span></div>
+      </a>
+
+      <a class="item" style="--cat:var(--creative)" href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
+        <img src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
+        <span class="meta">GitHub Pages</span>
+        <div class="cap"><div class="t">브런치 아카이브</div><div class="s">그동안 쓴 글 모음</div><span class="g">바로가기 →</span></div>
+      </a>
+
+      <a class="item" style="--cat:var(--creative)" href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
+        <img src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
+        <span class="meta">Claude Artifact</span>
+        <div class="cap"><div class="t">오늘의 길한 방향</div><div class="s">오늘의 방위 운세</div><span class="g">바로가기 →</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 John Park</span>
+    <span>Claude Code로 정리한 페이지 모음</span>
+  </footer>
+
 </div>
-
-<div class="hint">🌀 스크롤해서 캔버스를 둘러보세요 · 이미지에 마우스를 올리면 확대됩니다</div>
-
-<script>
-  const stage = document.getElementById('stage');
-  const canvasW = 1750, canvasH = 1800;
-  function center(){
-    stage.scrollLeft = (canvasW - stage.clientWidth) / 2;
-    stage.scrollTop = (canvasH - stage.clientHeight) / 2 - 40;
-  }
-  center();
-  window.addEventListener('resize', center);
-</script>
-
 </body>
 </html>
