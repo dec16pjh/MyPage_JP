@@ -6,209 +6,240 @@
 <title>MyPage_JP · 박종호의 웹 아카이브</title>
 <style>
   :root{
-    --bg:#f6f5f2;
-    --bg-soft:#ffffff;
-    --ink:#1c1b19;
-    --ink-soft:#5b5850;
-    --line:#e7e3db;
-    --card-shadow: 0 1px 2px rgba(28,27,25,0.04), 0 8px 24px rgba(28,27,25,0.06);
-    --pill-bg:#efece4;
-    --accent:#b5502e;
-    --travel-a:#ff8a5c; --travel-b:#ffb14e;
-    --project-a:#3f7cf0; --project-b:#38c6c0;
-    --business-a:#7b5cf0; --business-b:#c34fd6;
-    --creative-a:#3fb56a; --creative-b:#a4d661;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#15140f;
-      --bg-soft:#1d1c17;
-      --ink:#f3f1ea;
-      --ink-soft:#b3af a3;
-      --ink-soft:#b0aca0;
-      --line:#33312a;
-      --card-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 10px 30px rgba(0,0,0,0.35);
-      --pill-bg:#2a2820;
-      --accent:#ff9d73;
-    }
+    --bg:#08080b;
+    --ink:#f4f2ec;
+    --ink-soft:#9c98a8;
+    --accent:#ff6a3d;
+    --accent-2:#7b5cf0;
   }
   *{box-sizing:border-box;}
-  body{
+  html,body{
     margin:0;
+    height:100%;
     background:var(--bg);
     color:var(--ink);
-    font-family: "Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    line-height:1.5;
+    font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    overflow:hidden;
   }
-  .wrap{max-width:1080px;margin:0 auto;padding:56px 24px 80px;}
-  header.hero{margin-bottom:48px;}
+
+  .stage{
+    position:fixed;
+    inset:0;
+    overflow:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    scrollbar-color:#3a3844 transparent;
+  }
+
+  .canvas{
+    position:relative;
+    width:1750px;
+    height:1800px;
+    background:
+      radial-gradient(closest-side, rgba(123,92,240,0.22), rgba(123,92,240,0) 70%) 900px 900px / 1200px 1200px no-repeat,
+      radial-gradient(closest-side, rgba(255,106,61,0.14), rgba(255,106,61,0) 70%) 900px 900px / 1700px 1700px no-repeat,
+      var(--bg);
+  }
+
+  .vortex-ring{
+    position:absolute;
+    left:900px; top:900px;
+    width:1px; height:1px;
+    pointer-events:none;
+  }
+  .vortex-ring i{
+    position:absolute;
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:50%;
+    left:50%; top:50%;
+    transform:translate(-50%,-50%);
+    animation:spin 90s linear infinite;
+  }
+  .vortex-ring i:nth-child(1){width:620px;height:620px;animation-duration:70s;}
+  .vortex-ring i:nth-child(2){width:920px;height:920px;animation-duration:100s;animation-direction:reverse;}
+  .vortex-ring i:nth-child(3){width:1240px;height:1240px;animation-duration:130s;}
+  @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+  .center{
+    position:absolute;
+    left:900px; top:900px;
+    transform:translate(-50%,-50%);
+    z-index:50;
+    text-align:center;
+    width:340px;
+    padding:34px 28px;
+    border-radius:50%;
+    background:radial-gradient(closest-side, rgba(8,8,11,0.92), rgba(8,8,11,0.55) 72%, rgba(8,8,11,0) 100%);
+  }
   .eyebrow{
     display:inline-flex;align-items:center;gap:8px;
-    font-size:13px;font-weight:600;letter-spacing:.04em;
+    font-size:12px;font-weight:700;letter-spacing:.16em;
     color:var(--accent);text-transform:uppercase;
-    margin-bottom:14px;
+    margin-bottom:10px;
   }
-  .eyebrow::before{content:"";width:18px;height:2px;background:var(--accent);display:inline-block;}
-  h1{font-size:clamp(30px,5vw,44px);margin:0 0 12px;font-weight:800;letter-spacing:-0.01em;}
-  h1 span{color:var(--accent);}
-  .sub{font-size:16px;color:var(--ink-soft);max-width:640px;margin:0;}
-  .meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px;}
-  .meta-pill{
-    background:var(--pill-bg);color:var(--ink-soft);
-    font-size:13px;font-weight:600;padding:7px 14px;border-radius:999px;
+  .center h1{
+    font-size:23px;margin:0 0 8px;font-weight:800;letter-spacing:-0.01em;
+    line-height:1.3;
   }
-  section.group{margin-top:48px;}
-  .group-head{display:flex;align-items:baseline;gap:10px;margin-bottom:18px;}
-  .group-head h2{font-size:20px;margin:0;font-weight:800;}
-  .group-head .count{font-size:13px;color:var(--ink-soft);font-weight:600;}
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:20px;
+  .center h1 em{color:var(--accent);font-style:normal;}
+  .center p{
+    font-size:12.5px;color:var(--ink-soft);margin:0;line-height:1.55;
   }
-  a.card{
-    display:flex;flex-direction:column;
-    background:var(--bg-soft);
-    border:1px solid var(--line);
-    border-radius:18px;
-    overflow:hidden;
-    text-decoration:none;
-    color:inherit;
-    box-shadow:var(--card-shadow);
-    transition:transform .18s ease, box-shadow .18s ease;
-  }
-  a.card:hover{transform:translateY(-4px);box-shadow:0 4px 8px rgba(28,27,25,0.06), 0 18px 34px rgba(28,27,25,0.12);}
-  .cover{
-    aspect-ratio:16/10;
-    width:100%;
+
+  .item{
+    position:absolute;
+    transform:translate(-50%,-50%) scale(0.3) rotate(0deg);
     display:block;
-    object-fit:cover;
-    background:var(--pill-bg);
+    text-decoration:none;
+    border-radius:16px;
+    overflow:hidden;
+    opacity:0;
+    box-shadow:0 18px 40px -12px rgba(0,0,0,0.7);
+    animation:spiralIn .9s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay:var(--d);
+    transition:transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease, z-index 0s;
+    cursor:pointer;
   }
-  .card-body{padding:16px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1;}
-  .card-title{font-size:16px;font-weight:750;letter-spacing:-0.01em;}
-  .card-desc{font-size:13.5px;color:var(--ink-soft);flex:1;}
-  .card-foot{display:flex;align-items:center;justify-content:space-between;margin-top:6px;font-size:12.5px;color:var(--ink-soft);}
-  .go{font-weight:700;color:var(--accent);}
-  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
-  footer a{color:var(--ink-soft);}
+  .item img{
+    display:block;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+  }
+  .item:hover{
+    transform:translate(-50%,-50%) scale(1.28) rotate(0deg) !important;
+    box-shadow:0 30px 70px -10px rgba(0,0,0,0.85), 0 0 0 2px rgba(255,255,255,0.12);
+    z-index:999 !important;
+  }
+  .cap{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    padding:22px 14px 12px;
+    background:linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0));
+    opacity:0;
+    transform:translateY(6px);
+    transition:opacity .3s ease, transform .3s ease;
+  }
+  .item:hover .cap{opacity:1;transform:translateY(0);}
+  .cap .t{font-size:13px;font-weight:800;color:#fff;letter-spacing:-0.01em;}
+  .cap .s{font-size:10.5px;color:rgba(255,255,255,0.72);margin-top:2px;}
+  .cap .g{font-size:10.5px;color:var(--accent);font-weight:700;margin-top:6px;display:block;}
+
+  @keyframes spiralIn{
+    to{opacity:1; transform:translate(-50%,-50%) scale(1) rotate(var(--rot));}
+  }
+
+  footer{
+    position:absolute;
+    left:900px; bottom:26px;
+    transform:translateX(-50%);
+    font-size:11px;
+    color:#4d4a58;
+    white-space:nowrap;
+    z-index:5;
+  }
+
+  .hint{
+    position:fixed;
+    left:50%; bottom:18px;
+    transform:translateX(-50%);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    background:rgba(20,19,26,0.7);
+    backdrop-filter:blur(6px);
+    padding:8px 16px;
+    border-radius:999px;
+    z-index:100;
+    pointer-events:none;
+    opacity:0;
+    animation:hintFade 6s ease forwards;
+  }
+  @keyframes hintFade{
+    0%{opacity:0;}
+    10%{opacity:1;}
+    80%{opacity:1;}
+    100%{opacity:0;}
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="hero">
-    <div class="eyebrow">MyPage_JP</div>
-    <h1>박종호<span>(John Park)</span>의 웹 아카이브</h1>
-    <p class="sub">그동안 만들어 공유했던 페이지와 프로젝트를 한곳에 모았습니다. 카드를 클릭하면 각 페이지로 이동합니다.</p>
-    <div class="meta-row">
-      <span class="meta-pill">총 8개 링크</span>
-      <span class="meta-pill">여행 · 프로젝트 · 창작</span>
-      <span class="meta-pill">최근 업데이트 2026-08-27</span>
+<div class="stage" id="stage">
+  <div class="canvas">
+
+    <div class="vortex-ring"><i></i><i></i><i></i></div>
+
+    <div class="center">
+      <div class="eyebrow">MyPage_JP</div>
+      <h1>박종호<br><em>(John Park)</em>의 웹 아카이브</h1>
+      <p>그동안 만들어 공유한 페이지들.<br>이미지에 마우스를 올려보세요.</p>
     </div>
-  </header>
 
-  <!-- ===================== 여행 ===================== -->
-  <section class="group">
-    <div class="group-head"><h2>🧳 여행 아카이브</h2><span class="count">2</span></div>
-    <div class="grid">
+    <a class="item" style="left:1180px; top:900px; width:380px; height:300px; --rot:-6deg; --d:.05s"
+       href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
+      <img src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
+      <div class="cap"><div class="t">광화문, 3초</div><div class="s">JP 히어로 웹툰 1화</div><span class="g">바로가기 →</span></div>
+    </a>
 
-      <a class="card" href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener">
-        <img class="cover" src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
-        <div class="card-body">
-          <div class="card-title">福岡家族旅行 2026</div>
-          <div class="card-desc">2026년 후쿠오카 가족여행 일정 플래너 · 날짜별 코스와 맛집 정리</div>
-          <div class="card-foot"><span>GitHub Pages · 2026-08-25</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
+    <a class="item" style="left:598px; top:1177px; width:300px; height:260px; --rot:4deg; --d:.12s"
+       href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
+      <img src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
+      <div class="cap"><div class="t">브런치 아카이브</div><div class="s">그동안 쓴 글 모음</div><span class="g">바로가기 →</span></div>
+    </a>
 
-      <a class="card" href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
-        <img class="cover" src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">강릉 가족여행 1박 2일</div>
-          <div class="card-desc">아이와 함께하는 강릉 1박 2일 코스 · 숙소와 액티비티 모음</div>
-          <div class="card-foot"><span>GitHub Pages · 2026-07-31</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
+    <a class="item" style="left:940px; top:438px; width:260px; height:360px; --rot:-8deg; --d:.19s"
+       href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
+      <img src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
+      <div class="cap"><div class="t">귀족학교 생존기</div><div class="s">웹툰 1–2화 연재본</div><span class="g">바로가기 →</span></div>
+    </a>
 
-    </div>
-  </section>
+    <a class="item" style="left:1207px; top:1301px; width:230px; height:230px; --rot:6deg; --d:.26s"
+       href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
+      <img src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
+      <div class="cap"><div class="t">오늘의 길한 방향</div><div class="s">오늘의 방위 운세</div><span class="g">바로가기 →</span></div>
+    </a>
 
-  <!-- ===================== 프로젝트 ===================== -->
-  <section class="group">
-    <div class="group-head"><h2>🚀 만든 서비스 · 프로젝트</h2><span class="count">2</span></div>
-    <div class="grid">
+    <a class="item" style="left:368px; top:806px; width:420px; height:180px; --rot:-4deg; --d:.33s"
+       href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
+      <img src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
+      <div class="cap"><div class="t">강릉 가족여행 1박 2일</div><div class="s">아이와 함께한 코스</div><span class="g">바로가기 →</span></div>
+    </a>
 
-      <a class="card" href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
-        <img class="cover" src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">AI 여행 플래너</div>
-          <div class="card-desc">"추억을 계획하세요" · Claude 기반으로 여행 일정을 자동 생성하는 웹앱</div>
-          <div class="card-foot"><span>GitHub Pages · 2026-08-14</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
+    <a class="item" style="left:1382px; top:594px; width:340px; height:210px; --rot:7deg; --d:.4s"
+       href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener" >
+      <img src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
+      <div class="cap"><div class="t">福岡家族旅行 2026</div><div class="s">후쿠오카 가족여행 플래너</div><span class="g">바로가기 →</span></div>
+    </a>
 
-      <a class="card" href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
-        <img class="cover" src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">바이어 Agent 설계도</div>
-          <div class="card-desc">바이어 응대를 자동화하는 AI 에이전트 구조 설계 문서</div>
-          <div class="card-foot"><span>Claude Artifact · 2026-08-24</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
+    <a class="item" style="left:744px; top:1477px; width:300px; height:220px; --rot:-5deg; --d:.47s"
+       href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
+      <img src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
+      <div class="cap"><div class="t">AI 여행 플래너</div><div class="s">Claude 기반 일정 생성 웹앱</div><span class="g">바로가기 →</span></div>
+    </a>
 
-    </div>
-  </section>
+    <a class="item" style="left:613px; top:346px; width:280px; height:220px; --rot:9deg; --d:.54s"
+       href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
+      <img src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
+      <div class="cap"><div class="t">바이어 Agent 설계도</div><div class="s">AI 에이전트 구조 설계</div><span class="g">바로가기 →</span></div>
+    </a>
 
-  <!-- ===================== 창작 & 기타 ===================== -->
-  <section class="group">
-    <div class="group-head"><h2>🎨 창작 · 기타</h2><span class="count">4</span></div>
-    <div class="grid">
+    <footer>© 2026 박종호 (John Park) · Claude Code로 정리한 페이지 모음</footer>
 
-      <a class="card" href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
-        <img class="cover" src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">광화문, 3초</div>
-          <div class="card-desc">JP 히어로 웹툰 1화</div>
-          <div class="card-foot"><span>GitHub Pages</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
-
-      <a class="card" href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
-        <img class="cover" src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">박종호의 브런치 아카이브</div>
-          <div class="card-desc">그동안 쓴 브런치 글을 모아둔 개인 아카이브</div>
-          <div class="card-foot"><span>GitHub Pages · 2026-08-12</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
-
-      <a class="card" href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
-        <img class="cover" src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">귀족학교 생존기 · 웹툰</div>
-          <div class="card-desc">웹툰 1–2화 연재본</div>
-          <div class="card-foot"><span>GitHub Pages · 2026-08-26</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
-
-      <a class="card" href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
-        <img class="cover" src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
-        <div class="card-body">
-          <div class="card-title">오늘의 길한 방향</div>
-          <div class="card-desc">오늘 하루의 방위 운세 안내</div>
-          <div class="card-foot"><span>Claude Artifact · 2026-08-13</span><span class="go">바로가기 →</span></div>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <footer>
-    <span>© 2026 박종호 (John Park)</span>
-    <span>Claude Code로 정리한 페이지 모음</span>
-  </footer>
-
+  </div>
 </div>
+
+<div class="hint">🌀 스크롤해서 캔버스를 둘러보세요 · 이미지에 마우스를 올리면 확대됩니다</div>
+
+<script>
+  const stage = document.getElementById('stage');
+  const canvasW = 1750, canvasH = 1800;
+  function center(){
+    stage.scrollLeft = (canvasW - stage.clientWidth) / 2;
+    stage.scrollTop = (canvasH - stage.clientHeight) / 2 - 40;
+  }
+  center();
+  window.addEventListener('resize', center);
+</script>
+
 </body>
 </html>
