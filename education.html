@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>내가 받은 AI 교육 · MyPage_JP</title>
+<style>
+  :root{
+    --bg:#08080b;
+    --bg-soft:#111015;
+    --card:#151319;
+    --ink:#f4f2ec;
+    --ink-soft:#9c98a8;
+    --line:rgba(255,255,255,0.08);
+    --edu:#f2c94c;
+    --kita:#ff8f4d;
+    --kotra:#4da3ff;
+    --sang:#5ed992;
+    --start:#c792ea;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .wrap{max-width:820px;margin:0 auto;padding:64px 24px 90px;}
+
+  .back{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:13px;font-weight:700;color:var(--ink-soft);
+    text-decoration:none;margin-bottom:34px;
+  }
+  .back:hover{color:var(--ink);}
+
+  header.hero{margin-bottom:52px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:800;letter-spacing:.22em;
+    color:var(--edu);text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h1{font-size:clamp(30px,5vw,42px);margin:0 0 14px;font-weight:900;letter-spacing:-0.02em;}
+  .sub{font-size:14.5px;color:var(--ink-soft);line-height:1.7;max-width:560px;}
+  .stats{display:flex;gap:22px;margin-top:26px;flex-wrap:wrap;}
+  .stat{font-size:13px;color:var(--ink-soft);}
+  .stat b{color:var(--ink);font-size:20px;display:block;font-weight:900;}
+
+  .timeline{position:relative;margin-top:10px;}
+  .timeline::before{
+    content:"";position:absolute;left:63px;top:6px;bottom:6px;width:1px;
+    background:linear-gradient(to bottom, rgba(255,255,255,0.16), rgba(255,255,255,0.04));
+  }
+
+  .entry{position:relative;padding:0 0 40px 100px;}
+  .entry:last-child{padding-bottom:0;}
+  .date{
+    position:absolute;left:0;top:2px;width:56px;text-align:right;
+    font-size:11.5px;font-weight:800;color:var(--ink-soft);line-height:1.5;
+  }
+  .date b{display:block;font-size:16px;color:var(--ink);font-weight:900;}
+  .dot{
+    position:absolute;left:59px;top:6px;width:9px;height:9px;border-radius:50%;
+    background:var(--c,var(--edu));box-shadow:0 0 0 4px var(--bg), 0 0 10px 1px var(--c,var(--edu));
+  }
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:14px;
+    padding:20px 22px;
+  }
+  .tag{
+    display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.04em;
+    color:var(--c,var(--edu));background:color-mix(in srgb, var(--c,var(--edu)) 16%, transparent);
+    padding:3px 9px;border-radius:999px;margin-bottom:10px;
+  }
+  .card h3{margin:0 0 10px;font-size:16.5px;font-weight:800;letter-spacing:-0.01em;line-height:1.4;}
+  .info{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:var(--ink-soft);margin-bottom:4px;}
+  .info span{display:inline-flex;align-items:center;gap:5px;}
+  ul.curr{margin:12px 0 0;padding-left:18px;color:var(--ink-soft);font-size:13px;line-height:1.7;}
+  ul.curr li{margin-bottom:2px;}
+  .link{
+    display:inline-flex;align-items:center;gap:5px;margin-top:14px;
+    font-size:12.5px;font-weight:700;color:var(--c,var(--edu));text-decoration:none;
+  }
+  .link:hover{text-decoration:underline;}
+
+  footer{
+    margin-top:70px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:12px;color:#5a5766;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">← MyPage로 돌아가기</a>
+
+  <header class="hero">
+    <div class="eyebrow">Education Archive</div>
+    <h1>내가 받은 AI 교육</h1>
+    <p class="sub">2026년에 수강했거나 수강 예정인 AI 관련 교육과정을 시간순으로 정리했습니다.</p>
+    <div class="stats">
+      <div class="stat"><b>12</b>세션</div>
+      <div class="stat"><b>4</b>개 프로그램</div>
+      <div class="stat"><b>2026.02 – 10</b>기간</div>
+    </div>
+  </header>
+
+  <div class="timeline">
+
+    <div class="entry">
+      <div class="date">2.27<b>FRI</b></div>
+      <div class="dot" style="--c:var(--kita)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--kita)">KITA</span>
+        <h3>KITA AI TRADE SCHOOL: 수출 실무자를 위한 AI 교육과정</h3>
+        <div class="info">
+          <span>🕘 09:00 – 16:30</span>
+          <span>📍 트레이드타워 51층 중회의실</span>
+        </div>
+        <a class="link" style="--c:var(--kita)" href="https://padlet.com/jangpm/kotra-ai-_ai-h42rpjcygukqhf21" target="_blank" rel="noopener">자료 보기 (Padlet) →</a>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">7.23<b>THU</b></div>
+      <div class="dot" style="--c:var(--kotra)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--kotra)">KOTRA 아카데미</span>
+        <h3>생성형 AI로 구축하는 글로벌 마케팅 과정</h3>
+        <div class="info">
+          <span>🕙 10:00 – 17:00</span>
+          <span>💻 온라인 실시간 (Zoom)</span>
+        </div>
+        <a class="link" style="--c:var(--kotra)" href="https://padlet.com/mdkorea7/padlet-ux2l2yjt024fqbwe" target="_blank" rel="noopener">자료 보기 (Padlet) →</a>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.8<b>TUE</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 1회차</span>
+        <h3>창업 아이템 진단 및 자금 확보</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>성공 창업 기업가 정신 &amp; 투자자의 눈으로 진단하는 내 창업 아이템</li>
+          <li>제로베이스 자금 확보를 위한 정부 지원과 투자 생태계 이해</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.9<b>WED</b></div>
+      <div class="dot" style="--c:var(--sang)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--sang)">AI상생협업교육 · 87기</span>
+        <h3>홍보 콘텐츠제작</h3>
+        <div class="info">
+          <span>🕘 09:00 – 13:00</span>
+          <span>📍 한국생산성본부 서울본부</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.9<b>WED</b></div>
+      <div class="dot" style="--c:var(--sang)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--sang)">AI상생협업교육 · 88기</span>
+        <h3>데이터 분석</h3>
+        <div class="info">
+          <span>🕑 14:00 – 18:00</span>
+          <span>📍 한국생산성본부 서울본부</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.11<b>FRI</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 2회차</span>
+        <h3>AI 기본 &amp; 타깃 마케팅 설계</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 B동 610호</span>
+        </div>
+        <ul class="curr">
+          <li>AI 기본(필수) &amp; 브랜드 전용 GPT 만들기</li>
+          <li>누구에게 팔 것인가, AI로 설계하는 타깃과 구매여정</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.15<b>TUE</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 3회차</span>
+        <h3>AI 시장조사 및 스토어 이미지 제작</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>AI로 끝내는 시장조사와 경쟁사 분석</li>
+          <li>스토어에 바로 쓰는 베너·썸네일·상품 이미지 직접 만들기</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.18<b>FRI</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 4회차</span>
+        <h3>검색 챗봇 답변(SEO·GEO) 및 네이버 검색광고</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>AI 시대의 검색, 챗봇 답변에 내 상품 올리는 법(SEO·GEO)</li>
+          <li>광고비 아끼는 네이버 검색광고, 세팅부터 실집행까지</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.22<b>TUE</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 5회차</span>
+        <h3>채널별 AI 홍보 콘텐츠 실전</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>채널이 다르면 콘텐츠도 다르다. AI 홍보 콘텐츠 실전</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">9.29<b>TUE</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 6회차</span>
+        <h3>AI 바이브 코딩 웹 페이지 제작</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>코딩 몰라도 만드는 내 가게 웹 페이지, AI 바이브 코딩 실전</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">10.2<b>FRI</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 7회차</span>
+        <h3>AI 데이터 분석과 시각화</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>숫자가 말해주는 내 가게, AI 데이터 분석과 시각화</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="date">10.6<b>TUE</b></div>
+      <div class="dot" style="--c:var(--start)"></div>
+      <div class="card">
+        <span class="tag" style="--c:var(--start)">스타트업 AI 스쿨 · 8회차</span>
+        <h3>매출 수익 분석 &amp; 수료식</h3>
+        <div class="info">
+          <span>🕖 19:00 – 22:00</span>
+          <span>📍 수정관 222호</span>
+        </div>
+        <ul class="curr">
+          <li>AI로 매출 수익 분석하고 다음 전략 짜기</li>
+          <li>수료식, 우수 사례 공유와 사후 멘토링 안내</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 John Park</span>
+    <span>Claude Code로 정리한 페이지 모음</span>
+  </footer>
+
+</div>
+</body>
+</html>
