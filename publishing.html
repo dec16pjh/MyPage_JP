@@ -73,12 +73,17 @@
     cursor:default;pointer-events:none;
   }
 
-  .comingsoon{
-    background:transparent;border:1px dashed var(--line);border-radius:16px;
-    padding:26px;text-align:center;color:var(--ink-soft);
+  .book-soon{border-style:dashed;background:rgba(255,255,255,0.015);}
+  .cover-placeholder{
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(155deg, color-mix(in srgb, var(--pub) 22%, var(--card)), color-mix(in srgb, var(--pub) 6%, var(--card)));
+    border:1px dashed color-mix(in srgb, var(--pub) 45%, transparent);
+    box-shadow:none;
   }
-  .comingsoon h2{margin:0 0 6px;font-size:17px;font-weight:800;color:var(--ink);}
-  .comingsoon .desc{font-size:13px;}
+  .cover-placeholder svg{width:34px;height:34px;stroke:var(--pub);opacity:.85;}
+  .badge-soon{
+    color:var(--ink-soft);background:transparent;border:1px dashed var(--line);
+  }
 
   footer{
     margin-top:70px;padding-top:24px;border-top:1px solid var(--line);
@@ -152,9 +157,23 @@
       </div>
     </div>
 
-    <div class="comingsoon">
-      <h2>AI Guide book 1~3</h2>
-      <p class="desc">준비중</p>
+    <div class="book book-soon">
+      <div class="book-head">
+        <div class="book-main">
+          <div class="cover cover-placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 5.5C4 4.67 4.67 4 5.5 4H12V20H5.5C4.67 20 4 19.33 4 18.5V5.5Z"/>
+              <path d="M20 5.5C20 4.67 19.33 4 18.5 4H12V20H18.5C19.33 20 20 19.33 20 18.5V5.5Z"/>
+              <path d="M18.5 2.5L19.2 3.8L20.5 4.5L19.2 5.2L18.5 6.5L17.8 5.2L16.5 4.5L17.8 3.8Z" fill="var(--pub)" stroke="none"/>
+            </svg>
+          </div>
+          <div>
+            <h2>AI Guide book 1~3</h2>
+            <p class="desc">다음으로 준비 중인 AI 활용 가이드북 시리즈.</p>
+          </div>
+        </div>
+        <span class="badge badge-soon">Coming&nbsp;Soon</span>
+      </div>
     </div>
 
   </div>
