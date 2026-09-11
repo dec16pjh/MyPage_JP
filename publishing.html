@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publishing · MyPage_JP</title>
+<style>
+  :root{
+    --bg:#08080b;
+    --card:#151319;
+    --ink:#f4f2ec;
+    --ink-soft:#9c98a8;
+    --line:rgba(255,255,255,0.08);
+    --pub:#4dd0c8;
+  }
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+  .wrap{max-width:880px;margin:0 auto;padding:64px 24px 90px;}
+
+  .back{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:13px;font-weight:700;color:var(--ink-soft);
+    text-decoration:none;margin-bottom:34px;
+  }
+  .back:hover{color:var(--ink);}
+
+  header.hero{margin-bottom:52px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;font-weight:800;letter-spacing:.22em;
+    color:var(--pub);text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h1{font-size:clamp(30px,5vw,42px);margin:0 0 14px;font-weight:900;letter-spacing:-0.02em;}
+  .sub{font-size:14.5px;color:var(--ink-soft);line-height:1.7;max-width:600px;}
+
+  .books{display:flex;flex-direction:column;gap:22px;margin-top:10px;}
+  .book{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:26px 26px 24px;
+  }
+  .book-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+  .book h2{margin:0 0 6px;font-size:19px;font-weight:800;letter-spacing:-0.01em;}
+  .book .desc{font-size:13px;color:var(--ink-soft);line-height:1.6;max-width:520px;}
+  .badge{
+    flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:.03em;
+    color:var(--pub);background:color-mix(in srgb, var(--pub) 16%, transparent);
+    padding:4px 10px;border-radius:999px;white-space:nowrap;
+  }
+
+  .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px;}
+  .lnk{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:12.5px;font-weight:700;color:var(--ink);
+    background:rgba(255,255,255,0.06);border:1px solid var(--line);
+    padding:8px 14px;border-radius:10px;text-decoration:none;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .lnk:hover{background:rgba(255,255,255,0.1);border-color:rgba(255,255,255,0.18);}
+  .lnk.primary{background:color-mix(in srgb, var(--pub) 18%, transparent);border-color:color-mix(in srgb, var(--pub) 40%, transparent);color:var(--pub);}
+  .lnk.pending{
+    color:var(--ink-soft);background:transparent;border-style:dashed;
+    cursor:default;pointer-events:none;
+  }
+
+  .comingsoon{
+    background:transparent;border:1px dashed var(--line);border-radius:16px;
+    padding:26px;text-align:center;color:var(--ink-soft);
+  }
+  .comingsoon h2{margin:0 0 6px;font-size:17px;font-weight:800;color:var(--ink);}
+  .comingsoon .desc{font-size:13px;}
+
+  footer{
+    margin-top:70px;padding-top:24px;border-top:1px solid var(--line);
+    font-size:12px;color:#5a5766;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="index.html">← MyPage로 돌아가기</a>
+
+  <header class="hero">
+    <div class="eyebrow">Publishing</div>
+    <h1>펴낸 글과 책</h1>
+    <p class="sub">그동안 쓰고 엮은 글과 책을 모았습니다. 각 항목의 원본, AI 성격분석 리포트, 교보문고 링크를 확인할 수 있습니다.</p>
+  </header>
+
+  <div class="books">
+
+    <div class="book">
+      <div class="book-head">
+        <div>
+          <h2>틈사이로 (2001)</h2>
+          <p class="desc">철학 에세이와 산문을 엮은 첫 책. 20대 초반의 사유와 여행, 사람에 대한 기록.</p>
+        </div>
+        <span class="badge">2001</span>
+      </div>
+      <div class="links">
+        <a class="lnk primary" href="https://dec16pjh.github.io/brunch-archive/brunchbook/teumsairo2001/" target="_blank" rel="noopener">원본 보기 →</a>
+        <a class="lnk primary" href="assets/publishing/teumsairo-personality-analysis.pdf" target="_blank" rel="noopener">성격분석 보기 →</a>
+        <a class="lnk" href="assets/publishing/teumsairo-personality-analysis.pdf" download>성격분석 다운로드 ↓</a>
+        <a class="lnk" href="https://product.kyobobook.co.kr/detail/S000220997139" target="_blank" rel="noopener">교보문고에서 보기 →</a>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="book-head">
+        <div>
+          <h2>나의 사랑하는 생활</h2>
+          <p class="desc">다시 틈사이로 1, 2 — 이후의 삶과 생각을 이어 쓴 693쪽 분량의 글.</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="lnk primary" href="assets/publishing/naui-sarang-saenghwal-personality-analysis.pdf" target="_blank" rel="noopener">성격분석 보기 →</a>
+        <a class="lnk" href="assets/publishing/naui-sarang-saenghwal-personality-analysis.pdf" download>성격분석 다운로드 ↓</a>
+        <a class="lnk" href="https://product.kyobobook.co.kr/detail/S000221194768" target="_blank" rel="noopener">교보문고에서 보기 →</a>
+      </div>
+    </div>
+
+    <div class="book">
+      <div class="book-head">
+        <div>
+          <h2>매일 아침 힘을 주는 한 마디</h2>
+          <p class="desc">매일 하나씩 남긴 인용과 단상을 모은 연재.</p>
+        </div>
+      </div>
+      <div class="links">
+        <a class="lnk primary" href="https://dec16pjh.github.io/brunch-archive/magazine-archive/dailyquotes/" target="_blank" rel="noopener">원본 보기 →</a>
+        <a class="lnk" href="https://product.kyobobook.co.kr/detail/S000221064269" target="_blank" rel="noopener">교보문고에서 보기 →</a>
+      </div>
+    </div>
+
+    <div class="comingsoon">
+      <h2>AI Guide book 1~3</h2>
+      <p class="desc">준비중</p>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>© 2026 John Park</span>
+    <span>Claude Code로 정리한 페이지 모음</span>
+  </footer>
+
+</div>
+</body>
+</html>
