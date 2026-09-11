@@ -44,9 +44,14 @@
     background:var(--card);border:1px solid var(--line);border-radius:16px;
     padding:26px 26px 24px;
   }
-  .book-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:14px;}
+  .book-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;flex-wrap:wrap;margin-bottom:14px;}
+  .book-main{display:flex;gap:16px;flex:1;min-width:240px;}
+  .cover{
+    flex-shrink:0;width:72px;height:104px;object-fit:cover;border-radius:6px;
+    box-shadow:0 8px 20px -6px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+  }
   .book h2{margin:0 0 6px;font-size:19px;font-weight:800;letter-spacing:-0.01em;}
-  .book .desc{font-size:13px;color:var(--ink-soft);line-height:1.6;max-width:520px;}
+  .book .desc{font-size:13px;color:var(--ink-soft);line-height:1.6;max-width:480px;}
   .badge{
     flex-shrink:0;font-size:11px;font-weight:800;letter-spacing:.03em;
     color:var(--pub);background:color-mix(in srgb, var(--pub) 16%, transparent);
@@ -97,9 +102,12 @@
 
     <div class="book">
       <div class="book-head">
-        <div>
-          <h2>틈사이로 (2001)</h2>
-          <p class="desc">철학 에세이와 산문을 엮은 첫 책. 20대 초반의 사유와 여행, 사람에 대한 기록.</p>
+        <div class="book-main">
+          <img class="cover" src="assets/publishing/covers/teumsairo.webp" alt="틈사이로 표지">
+          <div>
+            <h2>틈사이로</h2>
+            <p class="desc">스물다섯 어느날의 기록 — 철학 에세이와 산문을 엮은 첫 책. 20대 초반의 사유와 여행, 사람에 대한 기록.</p>
+          </div>
         </div>
         <span class="badge">2001</span>
       </div>
@@ -113,9 +121,12 @@
 
     <div class="book">
       <div class="book-head">
-        <div>
-          <h2>나의 사랑하는 생활</h2>
-          <p class="desc">다시 틈사이로 1, 2 — 이후의 삶과 생각을 이어 쓴 693쪽 분량의 글.</p>
+        <div class="book-main">
+          <img class="cover" src="assets/publishing/covers/naui-sarang-saenghwal.png" alt="나의 사랑하는 생활 표지">
+          <div>
+            <h2>나의 사랑하는 생활</h2>
+            <p class="desc">다시 틈사이로 1, 2 — 이후의 삶과 생각을 이어 쓴 693쪽 분량의 글.</p>
+          </div>
         </div>
       </div>
       <div class="links">
@@ -127,9 +138,12 @@
 
     <div class="book">
       <div class="book-head">
-        <div>
-          <h2>매일 아침 힘을 주는 한 마디</h2>
-          <p class="desc">매일 하나씩 남긴 인용과 단상을 모은 연재.</p>
+        <div class="book-main">
+          <img class="cover" src="assets/publishing/covers/dailyquotes.png" alt="매일 아침 힘을 주는 한 마디 표지">
+          <div>
+            <h2>매일 아침 힘을 주는 한 마디</h2>
+            <p class="desc">John's Daily Quotes — 매일 하나씩 남긴 인용과 단상을 모은 연재.</p>
+          </div>
         </div>
       </div>
       <div class="links">
