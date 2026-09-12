@@ -6,290 +6,319 @@
 <title>MyPage_JP · 박종호의 웹 아카이브</title>
 <style>
   :root{
-    --bg:#08080b;
-    --bg-soft:#111015;
-    --ink:#f4f2ec;
-    --ink-soft:#9c98a8;
-    --accent:#ff6a3d;
-    --accent-2:#7b5cf0;
+    --pink:#ed018c;
+    --coral:#ff6f61;
+    --purple:#523395;
+    --yellow:#ffc233;
+    --ink:#2a1a3a;
     --travel:#ff8f4d;
-    --project:#4da3ff;
-    --creative:#5ed992;
-    --edu:#f2c94c;
-    --pub:#4dd0c8;
+    --project:#3aa9ff;
+    --creative:#2fbf71;
+    --edu:#f2b90c;
+    --pub:#1f9e96;
   }
   *{box-sizing:border-box;}
   html,body{
-    margin:0;
-    background:var(--bg);
+    margin:0;min-height:100%;
     color:var(--ink);
     font-family:"Pretendard","Apple SD Gothic Neo","Noto Sans KR",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:
+      radial-gradient(circle at 10% 6%, #ffe066 0%, transparent 22%),
+      radial-gradient(circle at 90% 4%, #ff9de2 0%, transparent 24%),
+      radial-gradient(circle at 85% 24%, #7bdcb5 0%, transparent 24%),
+      radial-gradient(circle at 12% 26%, #8ec9ff 0%, transparent 22%),
+      radial-gradient(circle at 50% 18%, #c9a6ff 0%, transparent 24%),
+      radial-gradient(circle at 15% 46%, #ffb3a7 0%, transparent 22%),
+      radial-gradient(circle at 88% 48%, #ffe066 0%, transparent 22%),
+      radial-gradient(circle at 50% 60%, #8ec9ff 0%, transparent 24%),
+      radial-gradient(circle at 12% 74%, #7bdcb5 0%, transparent 22%),
+      radial-gradient(circle at 88% 78%, #ff9de2 0%, transparent 24%),
+      radial-gradient(circle at 50% 96%, #ffb3a7 0%, transparent 24%),
+      linear-gradient(160deg, #ff6fb5 0%, #ff9d6c 20%, #ffd166 38%, #6ee7b7 55%, #6fb1ff 72%, #c9a6ff 88%, #ff9de2 100%);
+    background-repeat:no-repeat;
+    background-size:100% 100%;
+    background-blend-mode:screen, screen, screen, screen, screen, screen, screen, screen, screen, screen, screen, normal;
   }
-  .wrap{max-width:1180px;margin:0 auto;padding:72px 28px 90px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px 90px;}
+  a{color:inherit;}
 
-  header.hero{text-align:center;margin-bottom:64px;}
-  .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;
-    font-size:13px;font-weight:800;letter-spacing:.22em;
-    color:var(--accent);text-transform:uppercase;
-    margin-bottom:16px;
+  /* ---------- Nav ---------- */
+  nav.top{padding:22px 28px;}
+  nav.top .inner{
+    max-width:1180px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  }
+  .logo{
+    font-weight:900;font-size:20px;letter-spacing:-0.02em;color:#fff;
+    text-shadow:0 2px 8px rgba(0,0,0,0.15);display:inline-flex;align-items:center;gap:7px;text-decoration:none;
+  }
+  .logo .dot{width:9px;height:9px;border-radius:50%;background:#fff;display:inline-block;}
+  .navlinks{display:flex;gap:8px;flex-wrap:wrap;}
+  .navlinks a{
+    font-size:12.5px;font-weight:800;color:#fff;text-decoration:none;
+    padding:8px 16px;border-radius:999px;background:rgba(255,255,255,0.22);
+    backdrop-filter:blur(6px);transition:background .2s ease;
+  }
+  .navlinks a:hover{background:rgba(255,255,255,0.36);}
+  .navlinks a.filled{background:#fff;color:var(--purple);}
+
+  /* ---------- Hero ---------- */
+  header.hero{
+    max-width:1180px;margin:0 auto;padding:40px 28px 70px;
+    display:flex;align-items:center;justify-content:space-between;gap:40px;flex-wrap:wrap;
+  }
+  .hero-text{flex:1;min-width:280px;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:900;
+    background:rgba(255,255,255,0.85);color:var(--purple);
+    padding:7px 16px;border-radius:999px;margin-bottom:20px;
   }
   h1{
-    font-size:clamp(38px,6vw,58px);margin:0 0 16px;font-weight:900;letter-spacing:-0.02em;
-    line-height:1.05;
+    font-size:clamp(36px,6vw,60px);margin:0 0 16px;font-weight:900;letter-spacing:-0.03em;line-height:1.05;
+    color:#fff;text-shadow:0 3px 14px rgba(0,0,0,0.18);
   }
-  h1 .grad{
-    background:linear-gradient(90deg, var(--travel), var(--accent), var(--creative), var(--project), var(--accent-2), var(--travel));
-    background-size:300% 100%;
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-    animation:gradShift 8s ease infinite;
+  h1 .pop{color:#fff566;}
+  .sub{font-size:15.5px;color:#fff;opacity:.95;max-width:480px;line-height:1.7;font-weight:700;text-shadow:0 1px 6px rgba(0,0,0,0.12);}
+  .cta-row{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap;}
+  .btn{
+    font-size:13.5px;font-weight:900;padding:13px 26px;border-radius:999px;
+    text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.18);
   }
-  @keyframes gradShift{
-    0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;}
-  }
-  .sub{font-size:15px;color:var(--ink-soft);max-width:520px;margin:0 auto;line-height:1.6;}
-  .legend{display:flex;justify-content:center;gap:18px;margin-top:22px;flex-wrap:wrap;}
-  .legend span{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:800;}
-  .legend i{width:9px;height:9px;border-radius:50%;display:inline-block;box-shadow:0 0 10px 1px currentColor;}
+  .btn.primary{background:#fff;color:var(--pink);}
+  .btn.ghost{background:rgba(255,255,255,0.25);color:#fff;backdrop-filter:blur(6px);}
 
-  section.group{margin-top:64px;}
-  .group-head{display:flex;align-items:baseline;gap:12px;margin-bottom:26px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.08);}
-  .group-head h2{font-size:22px;margin:0;font-weight:800;display:flex;align-items:center;gap:10px;}
-  .group-head .dot{width:11px;height:11px;border-radius:50%;box-shadow:0 0 12px 2px currentColor;}
-  .group-head .count{font-size:13px;color:var(--ink-soft);font-weight:700;}
+  .hero-photo{
+    width:180px;height:180px;flex-shrink:0;border-radius:50%;overflow:hidden;
+    box-shadow:0 20px 45px rgba(0,0,0,0.25);
+  }
+  .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;}
+
+  /* ---------- Sections ---------- */
+  section.group{max-width:1180px;margin:0 auto;padding:44px 28px 6px;scroll-margin-top:80px;}
+  .group-head{display:flex;align-items:center;gap:12px;margin-bottom:24px;}
+  .group-head h2{
+    font-size:22px;margin:0;font-weight:900;letter-spacing:-0.01em;color:#fff;
+    text-shadow:0 2px 10px rgba(0,0,0,0.15);display:flex;align-items:center;gap:9px;
+  }
+  .group-head .dot{width:11px;height:11px;border-radius:50%;background:#fff;box-shadow:0 0 0 3px var(--c);}
+  .group-head .count{
+    font-size:12px;color:var(--purple);font-weight:900;background:rgba(255,255,255,0.85);
+    padding:3px 11px;border-radius:999px;
+  }
 
   .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:26px;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:20px;
   }
-  a.item{
-    position:relative;
-    display:block;
-    aspect-ratio:16/10;
-    border-radius:16px;
-    overflow:hidden;
-    text-decoration:none;
-    box-shadow:0 14px 30px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.05), 0 0 0 0 var(--cat);
-    transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s ease, z-index 0s;
-    cursor:pointer;
-    z-index:1;
+  .card{
+    position:relative;display:flex;flex-direction:column;
+    border-radius:20px;overflow:hidden;text-decoration:none;
+    box-shadow:0 14px 30px -12px rgba(0,0,0,0.28);
+    transition:transform .25s ease, box-shadow .25s ease;
   }
-  a.item img{display:block;width:100%;height:100%;object-fit:cover;}
-  a.item svg{display:block;width:100%;height:100%;}
-  a.item:hover{
-    transform:scale(1.1);
-    box-shadow:0 26px 50px -12px rgba(0,0,0,0.75), 0 0 0 2px var(--cat), 0 0 60px 2px var(--cat);
-    z-index:20;
+  .card:hover{transform:translateY(-5px);box-shadow:0 20px 40px -12px rgba(0,0,0,0.35);}
+  .card .thumb{width:100%;height:150px;object-fit:cover;display:block;}
+  .card .thumb.brand{
+    height:150px;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 18px;
+    font-weight:900;color:#fff;font-size:19px;letter-spacing:-0.01em;line-height:1.2;
+    background:rgba(255,255,255,0.14);
   }
-  .cap{
-    position:absolute;left:0;right:0;bottom:0;
-    padding:26px 16px 14px;
-    background:linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0));
-    opacity:0;transform:translateY(6px);
-    transition:opacity .3s ease, transform .3s ease;
+  .card .body{padding:16px 18px 20px;background:var(--c);flex:1;}
+  .card h3{margin:0 0 6px;font-size:15.5px;font-weight:900;color:#fff;letter-spacing:-0.01em;}
+  .card p{margin:0;font-size:12px;color:rgba(255,255,255,0.92);line-height:1.55;font-weight:600;}
+  .card .go{
+    display:inline-block;margin-top:12px;font-size:10.5px;font-weight:900;color:var(--purple);
+    background:#fff;padding:4px 11px;border-radius:999px;
   }
-  a.item:hover .cap{opacity:1;transform:translateY(0);}
-  .cap .t{font-size:14px;font-weight:800;color:#fff;letter-spacing:-0.01em;}
-  .cap .s{font-size:11.5px;color:rgba(255,255,255,0.72);margin-top:3px;}
-  .cap .g{font-size:11px;color:var(--cat);font-weight:700;margin-top:7px;display:block;}
-  .meta{
-    position:absolute;top:10px;right:10px;
-    font-size:10px;font-weight:700;color:rgba(255,255,255,0.85);
-    background:rgba(0,0,0,0.45);backdrop-filter:blur(4px);
-    padding:4px 9px;border-radius:999px;
-    opacity:0;transition:opacity .3s ease;
-  }
-  a.item:hover .meta{opacity:1;}
 
   footer{
-    margin-top:80px;padding-top:26px;border-top:1px solid rgba(255,255,255,0.08);
-    font-size:12px;color:#5a5766;
+    max-width:1180px;margin:56px auto 0;padding:26px 28px 0;
+    font-size:12px;color:#fff;opacity:.85;font-weight:700;
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+    border-top:1px solid rgba(255,255,255,0.35);
   }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-  <header class="hero">
-    <div class="eyebrow">MyPage_JP</div>
-    <h1><span class="grad">John's My Page</span></h1>
-    <p class="sub">그동안 만들어 공유한 페이지들을 한곳에 모았습니다. 이미지에 마우스를 올려보세요.</p>
-    <div class="legend">
-      <span style="color:var(--travel)"><i style="background:var(--travel)"></i>Travel</span>
-      <span style="color:var(--project)"><i style="background:var(--project)"></i>Project</span>
-      <span style="color:var(--creative)"><i style="background:var(--creative)"></i>Creative</span>
-      <span style="color:var(--edu)"><i style="background:var(--edu)"></i>Education</span>
-      <span style="color:var(--pub)"><i style="background:var(--pub)"></i>Publishing</span>
+  <nav class="top">
+    <div class="inner">
+      <a class="logo" href="#top"><span class="dot"></span>MyPage_JP</a>
+      <div class="navlinks">
+        <a href="#travel">Travel</a>
+        <a href="#project">Project</a>
+        <a href="#creative">Creative</a>
+        <a href="#education">Education</a>
+        <a href="#publishing">Publishing</a>
+        <a class="filled" href="mailto:info@blingbooster.com">Say Hi ✦</a>
+      </div>
     </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-text">
+      <span class="badge">✦ PERSONAL HUB ✦</span>
+      <h1>HELLO,<br>I'M <span class="pop">JOHN</span> PARK!</h1>
+      <p class="sub">그동안 만들어 공유한 페이지들을 한곳에 모았습니다 — 여행, 프로젝트, 창작, 교육, 출판까지.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="#project">프로젝트 보기 →</a>
+        <a class="btn ghost" href="mailto:info@blingbooster.com">이메일 보내기 ✉</a>
+      </div>
+    </div>
+    <div class="hero-photo"><img src="assets/profile.jpg" alt="John Park 프로필 사진"></div>
   </header>
 
   <!-- ===================== Travel ===================== -->
-  <section class="group">
+  <section class="group" id="travel">
     <div class="group-head">
-      <h2><span class="dot" style="background:var(--travel);color:var(--travel)"></span>Travel</h2>
+      <h2><span class="dot" style="--c:var(--travel)"></span>Travel</h2>
       <span class="count">2</span>
     </div>
     <div class="grid">
 
-      <a class="item" style="--cat:var(--travel)" href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener">
-        <img src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
-        <span class="meta">GitHub Pages</span>
-        <div class="cap"><div class="t">福岡家族旅行 2026</div><div class="s">후쿠오카 가족여행 플래너</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://dec16pjh.github.io/fukuoka-trip-2026/" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/fukuoka.png" alt="福岡家族旅行 2026 미리보기" loading="lazy" style="object-position:20% 50%;">
+        <div class="body" style="--c:var(--travel)">
+          <h3>福岡家族旅行 2026</h3>
+          <p>후쿠오카 가족여행 플래너</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
-      <a class="item" style="--cat:var(--travel)" href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
-        <img src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
-        <span class="meta">GitHub Pages</span>
-        <div class="cap"><div class="t">강릉 가족여행 1박 2일</div><div class="s">아이와 함께한 코스</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://dec16pjh.github.io/gangneung-trip/" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/gangneung.png" alt="강릉 가족여행 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--travel)">
+          <h3>강릉 가족여행 1박 2일</h3>
+          <p>아이와 함께한 코스</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
     </div>
   </section>
 
   <!-- ===================== Project ===================== -->
-  <section class="group">
+  <section class="group" id="project">
     <div class="group-head">
-      <h2><span class="dot" style="background:var(--project);color:var(--project)"></span>Project</h2>
+      <h2><span class="dot" style="--c:var(--project)"></span>Project</h2>
       <span class="count">3</span>
     </div>
     <div class="grid">
 
-      <a class="item" style="--cat:var(--project)" href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
-        <img src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
-        <span class="meta">GitHub Pages</span>
-        <div class="cap"><div class="t">AI 여행 플래너</div><div class="s">Claude 기반 일정 생성 웹앱</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://dec16pjh.github.io/trip-planner/" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/tripplanner.png" alt="AI 여행 플래너 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--project)">
+          <h3>AI 여행 플래너</h3>
+          <p>Claude 기반 일정 생성 웹앱</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
-      <a class="item" style="--cat:var(--project)" href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
-        <img src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
-        <span class="meta">Claude Artifact</span>
-        <div class="cap"><div class="t">바이어 Agent 설계도</div><div class="s">AI 에이전트 구조 설계</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/buyeragent.png" alt="바이어 Agent 설계도 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--project)">
+          <h3>바이어 Agent 설계도</h3>
+          <p>AI 에이전트 구조 설계</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
-      <a class="item" style="--cat:var(--project)" href="https://buyer-hub.freeist.chatgpt.site/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="gbh" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#2f6fd6"/><stop offset="1" stop-color="#4da3ff"/>
-          </linearGradient></defs>
-          <rect width="320" height="220" fill="url(#gbh)"/>
-          <circle cx="160" cy="104" r="62" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
-          <ellipse cx="160" cy="104" rx="62" ry="24" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
-          <ellipse cx="160" cy="104" rx="26" ry="62" fill="none" stroke="#fff" stroke-width="2" opacity=".55"/>
-          <line x1="98" y1="104" x2="222" y2="104" stroke="#fff" stroke-width="2" opacity=".55"/>
-          <g fill="#fff"><circle cx="120" cy="70" r="4.5"/><circle cx="196" cy="80" r="4.5"/><circle cx="132" cy="140" r="4.5"/><circle cx="205" cy="128" r="4.5"/><circle cx="160" cy="45" r="4.5"/></g>
-          <g stroke="#fff" stroke-width="1.4" opacity=".6">
-            <line x1="120" y1="70" x2="160" y2="104"/><line x1="196" y1="80" x2="160" y2="104"/>
-            <line x1="132" y1="140" x2="160" y2="104"/><line x1="205" y1="128" x2="160" y2="104"/>
-            <line x1="160" y1="45" x2="160" y2="104"/>
-          </g>
-          <text x="160" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff" opacity=".9">GLOBAL BUYER CRM</text>
-        </svg>
-        <span class="meta">Live Site</span>
-        <div class="cap"><div class="t">Buyer Desk</div><div class="s">글로벌 바이어 755개사 통합 대시보드</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://buyer-hub.freeist.chatgpt.site/" target="_blank" rel="noopener">
+        <div class="thumb brand" style="background:var(--project)">GLOBAL<br>BUYER CRM</div>
+        <div class="body" style="--c:var(--project)">
+          <h3>Buyer Desk</h3>
+          <p>글로벌 바이어 755개사 통합 대시보드</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
     </div>
   </section>
 
   <!-- ===================== Creative ===================== -->
-  <section class="group">
+  <section class="group" id="creative">
     <div class="group-head">
-      <h2><span class="dot" style="background:var(--creative);color:var(--creative)"></span>Creative</h2>
+      <h2><span class="dot" style="--c:var(--creative)"></span>Creative</h2>
       <span class="count">4</span>
     </div>
     <div class="grid">
 
-      <a class="item" style="--cat:var(--creative)" href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
-        <img src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
-        <span class="meta">GitHub Pages</span>
-        <div class="cap"><div class="t">광화문, 3초</div><div class="s">JP 히어로 웹툰 1화</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/gwanghwamun.png" alt="광화문, 3초 웹툰 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--creative)">
+          <h3>광화문, 3초</h3>
+          <p>JP 히어로 웹툰 1화</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
-      <a class="item" style="--cat:var(--creative)" href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
-        <img src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
-        <span class="meta">GitHub Pages</span>
-        <div class="cap"><div class="t">귀족학교 생존기</div><div class="s">웹툰 1–2화 연재본</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://dec16pjh.github.io/webtoon_syn/" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/webtoonsyn.png" alt="귀족학교 생존기 웹툰 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--creative)">
+          <h3>귀족학교 생존기</h3>
+          <p>웹툰 1–2화 연재본</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
-      <a class="item" style="--cat:var(--creative)" href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
-        <img src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
-        <span class="meta">GitHub Pages</span>
-        <div class="cap"><div class="t">브런치 아카이브</div><div class="s">그동안 쓴 글 모음</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://dec16pjh.github.io/brunch-archive/" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/brunch.png" alt="박종호의 브런치 아카이브 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--creative)">
+          <h3>브런치 아카이브</h3>
+          <p>그동안 쓴 글 모음</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
-      <a class="item" style="--cat:var(--creative)" href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
-        <img src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
-        <span class="meta">Claude Artifact</span>
-        <div class="cap"><div class="t">오늘의 길한 방향</div><div class="s">오늘의 방위 운세</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde" target="_blank" rel="noopener">
+        <img class="thumb" src="assets/ganghan.png" alt="오늘의 길한 방향 미리보기" loading="lazy">
+        <div class="body" style="--c:var(--creative)">
+          <h3>오늘의 길한 방향</h3>
+          <p>오늘의 방위 운세</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
     </div>
   </section>
 
   <!-- ===================== Education ===================== -->
-  <section class="group">
+  <section class="group" id="education">
     <div class="group-head">
-      <h2><span class="dot" style="background:var(--edu);color:var(--edu)"></span>Education</h2>
+      <h2><span class="dot" style="--c:var(--edu)"></span>Education</h2>
       <span class="count">1</span>
     </div>
     <div class="grid">
 
-      <a class="item" style="--cat:var(--edu)" href="education.html" target="_blank" rel="noopener">
-        <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="gedu" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#d99e1c"/><stop offset="1" stop-color="#f2c94c"/>
-          </linearGradient></defs>
-          <rect width="320" height="220" fill="url(#gedu)"/>
-          <g fill="none" stroke="#fff" stroke-width="2.5" opacity=".85">
-            <path d="M60 96 L160 56 L260 96 L160 136 Z"/>
-            <path d="M110 114 V158 Q160 178 210 158 V114"/>
-          </g>
-          <line x1="260" y1="96" x2="260" y2="140" stroke="#fff" stroke-width="2.5" opacity=".85"/>
-          <circle cx="260" cy="146" r="4" fill="#fff" opacity=".85"/>
-          <g fill="#fff" opacity=".9">
-            <path d="M225 55 l4 10 10 4 -10 4 -4 10 -4-10 -10-4 10-4z"/>
-          </g>
-          <text x="160" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff" opacity=".9">AI EDUCATION</text>
-        </svg>
-        <span class="meta">Archive</span>
-        <div class="cap"><div class="t">내가 받은 AI 교육</div><div class="s">수강한 AI 교육과정 일정 모음</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="education.html" target="_blank" rel="noopener">
+        <div class="thumb brand" style="background:var(--edu)">🎓<br>AI EDUCATION</div>
+        <div class="body" style="--c:var(--edu)">
+          <h3>내가 받은 AI 교육</h3>
+          <p>수강한 AI 교육과정 일정 모음</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
     </div>
   </section>
 
   <!-- ===================== Publishing ===================== -->
-  <section class="group">
+  <section class="group" id="publishing">
     <div class="group-head">
-      <h2><span class="dot" style="background:var(--pub);color:var(--pub)"></span>Publishing</h2>
+      <h2><span class="dot" style="--c:var(--pub)"></span>Publishing</h2>
       <span class="count">1</span>
     </div>
     <div class="grid">
 
-      <a class="item" style="--cat:var(--pub)" href="publishing.html" target="_blank" rel="noopener">
-        <svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice">
-          <defs><linearGradient id="gpub" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#1f9e96"/><stop offset="1" stop-color="#4dd0c8"/>
-          </linearGradient></defs>
-          <rect width="320" height="220" fill="url(#gpub)"/>
-          <g fill="none" stroke="#fff" stroke-width="2.5" opacity=".85">
-            <path d="M160 62 C 140 50, 100 48, 78 56 V150 C 100 142, 140 144, 160 156 C 180 144, 220 142, 242 150 V56 C 220 48, 180 50, 160 62 Z"/>
-            <line x1="160" y1="62" x2="160" y2="156"/>
-          </g>
-          <g stroke="#fff" stroke-width="1.4" opacity=".55">
-            <line x1="92" y1="76" x2="140" y2="70"/>
-            <line x1="92" y1="92" x2="140" y2="86"/>
-            <line x1="92" y1="108" x2="132" y2="102"/>
-            <line x1="180" y1="70" x2="228" y2="76"/>
-            <line x1="180" y1="86" x2="228" y2="92"/>
-            <line x1="188" y1="102" x2="228" y2="108"/>
-          </g>
-          <text x="160" y="195" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#fff" opacity=".9">PUBLISHING</text>
-        </svg>
-        <span class="meta">Archive</span>
-        <div class="cap"><div class="t">Publishing</div><div class="s">펴낸 글과 책 모음</div><span class="g">바로가기 →</span></div>
+      <a class="card" href="publishing.html" target="_blank" rel="noopener">
+        <div class="thumb brand" style="background:var(--pub)">📚<br>EBOOK PUBLISHING</div>
+        <div class="body" style="--c:var(--pub)">
+          <h3>Publishing</h3>
+          <p>펴낸 글과 책 모음</p>
+          <span class="go">바로가기 →</span>
+        </div>
       </a>
 
     </div>
@@ -300,6 +329,5 @@
     <span>Claude Code로 정리한 페이지 모음</span>
   </footer>
 
-</div>
 </body>
 </html>
