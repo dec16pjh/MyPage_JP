@@ -85,6 +85,20 @@
     color:var(--ink-soft);background:transparent;border:1px dashed var(--line);
   }
 
+  .series-head{margin-bottom:20px;}
+  .series-grid{display:flex;flex-wrap:wrap;gap:22px;}
+  .series-item{flex:1 1 150px;max-width:200px;display:flex;flex-direction:column;gap:10px;}
+  .series-cover{
+    width:100%;aspect-ratio:216/312;border-radius:9px;display:block;
+    box-shadow:0 10px 26px -10px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08);
+  }
+  .series-item h3{margin:0;font-size:14.5px;font-weight:800;letter-spacing:-0.01em;line-height:1.35;}
+  .series-sub{margin:0;font-size:11.5px;color:var(--ink-soft);line-height:1.55;}
+  .series-item .badge{align-self:flex-start;}
+  .series-pending{opacity:.72;}
+  .series-item .links{margin-top:0;gap:8px;}
+  .series-item .lnk{padding:6px 12px;font-size:11.5px;}
+
   footer{
     margin-top:70px;padding-top:24px;border-top:1px solid var(--line);
     font-size:12px;color:#5a5766;
@@ -156,25 +170,41 @@
     </div>
 
     <div class="book">
-      <div class="book-head">
+      <div class="book-head series-head">
         <div class="book-main">
-          <div class="cover cover-placeholder" style="border-style:solid;">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 5.5C4 4.67 4.67 4 5.5 4H12V20H5.5C4.67 20 4 19.33 4 18.5V5.5Z"/>
-              <path d="M20 5.5C20 4.67 19.33 4 18.5 4H12V20H18.5C19.33 20 20 19.33 20 18.5V5.5Z"/>
-              <path d="M18.5 2.5L19.2 3.8L20.5 4.5L19.2 5.2L18.5 6.5L17.8 5.2L16.5 4.5L17.8 3.8Z" fill="var(--pub)" stroke="none"/>
-            </svg>
-          </div>
           <div>
-            <h2>AI에게 일을 맡기는 법</h2>
-            <p class="desc">비개발자를 위한 AI 에이전트 · 바이브 코딩 · 업무자동화 실전 가이드 — AI Guide book 1~3. 박종호 지음, 2026년 9월 개정판.</p>
+            <h2>AI Guide book 1~3</h2>
+            <p class="desc">비개발자를 위한 AI 활용 실전 가이드북 시리즈. 1권부터 순차적으로 공개합니다.</p>
           </div>
         </div>
-        <span class="badge">2026</span>
+        <span class="badge">Series</span>
       </div>
-      <div class="links">
-        <a class="lnk primary" href="webbook.html?book=ai-guide-book&amp;pages=76&amp;title=AI%EC%97%90%EA%B2%8C%20%EC%9D%BC%EC%9D%84%20%EB%A7%A1%EA%B8%B0%EB%8A%94%20%EB%B2%95&amp;subtitle=%EB%B9%84%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%A5%BC%20%EC%9C%84%ED%95%9C%20AI%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%C2%B7%20%EB%B0%94%EC%9D%B4%EB%B8%8C%20%EC%BD%94%EB%94%A9%20%C2%B7%20%EC%97%85%EB%AC%B4%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%A4%EC%A0%84%20%EA%B0%80%EC%9D%B4%EB%93%9C" target="_blank" rel="noopener">책 보기 →</a>
-        <a class="lnk" href="assets/publishing/ai-guide-book.pdf" target="_blank" rel="noopener">PDF 다운로드 →</a>
+
+      <div class="series-grid">
+
+        <div class="series-item">
+          <img class="series-cover" src="assets/publishing/covers/ai-guide-book-1.svg" alt="AI에게 일을 맡기는 법 표지">
+          <h3>AI에게 일을 맡기는 법</h3>
+          <p class="series-sub">비개발자를 위한 AI 에이전트 · 바이브 코딩 · 업무자동화 실전 가이드</p>
+          <span class="badge">2026</span>
+          <div class="links">
+            <a class="lnk primary" href="webbook.html?book=ai-guide-book&amp;pages=76&amp;title=AI%EC%97%90%EA%B2%8C%20%EC%9D%BC%EC%9D%84%20%EB%A7%A1%EA%B8%B0%EB%8A%94%20%EB%B2%95&amp;subtitle=%EB%B9%84%EA%B0%9C%EB%B0%9C%EC%9E%90%EB%A5%BC%20%EC%9C%84%ED%95%9C%20AI%20%EC%97%90%EC%9D%B4%EC%A0%84%ED%8A%B8%20%C2%B7%20%EB%B0%94%EC%9D%B4%EB%B8%8C%20%EC%BD%94%EB%94%A9%20%C2%B7%20%EC%97%85%EB%AC%B4%EC%9E%90%EB%8F%99%ED%99%94%20%EC%8B%A4%EC%A0%84%20%EA%B0%80%EC%9D%B4%EB%93%9C" target="_blank" rel="noopener">책 보기 →</a>
+            <a class="lnk" href="assets/publishing/ai-guide-book.pdf" target="_blank" rel="noopener">PDF 다운로드 →</a>
+          </div>
+        </div>
+
+        <div class="series-item series-pending">
+          <img class="series-cover" src="assets/publishing/covers/ai-guide-book-2.svg" alt="AI Guide book 2 표지 (준비 중)">
+          <h3>AI Guide book 2</h3>
+          <span class="badge badge-soon">Coming&nbsp;Soon</span>
+        </div>
+
+        <div class="series-item series-pending">
+          <img class="series-cover" src="assets/publishing/covers/ai-guide-book-3.svg" alt="AI Guide book 3 표지 (준비 중)">
+          <h3>AI Guide book 3</h3>
+          <span class="badge badge-soon">Coming&nbsp;Soon</span>
+        </div>
+
       </div>
     </div>
 
