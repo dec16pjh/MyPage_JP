@@ -89,6 +89,48 @@
     font-size:12px;color:#5a5766;
     display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
   }
+
+  .admin-bar{margin-bottom:24px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;}
+  .admin-btn{
+    font-size:12.5px;font-weight:700;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;
+  }
+  .admin-btn:hover{border-color:var(--creative);}
+  .admin-btn.active{color:var(--creative);border-color:var(--creative);}
+  .admin-token-form{display:none;gap:8px;flex-wrap:wrap;align-items:center;}
+  .admin-token-form.open{display:flex;}
+  .admin-token-form input[type=password]{
+    background:var(--bg-soft);border:1px solid var(--line);border-radius:8px;
+    color:var(--ink);padding:8px 12px;font-size:13px;min-width:260px;
+  }
+  .admin-token-form button,.admin-upload button{
+    font-size:12.5px;font-weight:700;color:#08080b;background:var(--creative);
+    border:none;border-radius:8px;padding:8px 14px;cursor:pointer;
+  }
+  .admin-token-form button:hover,.admin-upload button:hover{opacity:.9;}
+  .admin-token-form button:disabled,.admin-upload button:disabled{opacity:.5;cursor:not-allowed;}
+  .admin-who{font-size:12.5px;color:var(--ink-soft);display:none;}
+  .admin-logout{
+    font-size:12px;color:var(--ink-soft);background:none;border:none;
+    text-decoration:underline;cursor:pointer;padding:0;display:none;
+  }
+  .admin-status{font-size:12.5px;color:var(--ink-soft);width:100%;min-height:16px;}
+  .admin-status.error{color:#ff6b6b;}
+  .admin-status.ok{color:var(--creative);}
+  .admin-upload{display:none;gap:10px;align-items:center;flex-wrap:wrap;}
+  body.admin-mode .admin-upload{display:flex;}
+  .admin-upload input[type=file]{font-size:12.5px;color:var(--ink-soft);max-width:260px;}
+  .tile{position:relative;}
+  .tile-delete{
+    position:absolute;top:6px;right:6px;width:26px;height:26px;border-radius:50%;
+    background:rgba(0,0,0,0.65);border:1px solid rgba(255,255,255,0.25);color:#fff;
+    font-size:15px;line-height:1;cursor:pointer;display:none;
+    align-items:center;justify-content:center;z-index:2;
+  }
+  body.admin-mode .tile-delete{display:flex;}
+  .tile-delete:hover{background:#c0392b;border-color:#c0392b;}
+  .tile.busy{opacity:.45;pointer-events:none;}
 </style>
 </head>
 <body>
@@ -105,6 +147,21 @@
     </div>
     <p class="note">일부 고해상도 원본은 용량 제한으로 아직 올리지 못했습니다 — 순차적으로 추가될 예정입니다.</p>
   </header>
+
+  <div class="admin-bar" id="adminBar">
+    <button class="admin-btn" id="adminToggle" type="button">🔒 관리자 모드</button>
+    <div class="admin-token-form" id="tokenForm">
+      <input type="password" id="tokenInput" placeholder="GitHub Personal Access Token (repo 쓰기 권한)" autocomplete="off">
+      <button type="button" id="tokenSubmit">확인</button>
+    </div>
+    <span class="admin-who" id="adminWho"></span>
+    <button class="admin-logout" id="adminLogout" type="button">로그아웃</button>
+    <div class="admin-upload" id="adminUpload">
+      <input type="file" id="fileInput" accept="image/*" multiple>
+      <button type="button" id="uploadBtn">그림 추가</button>
+    </div>
+    <div class="admin-status" id="adminStatus"></div>
+  </div>
 
   <div class="grid" id="grid"></div>
 
@@ -123,24 +180,38 @@
 </div>
 
 <script>
-  const files = [
+  // ---- gallery data ----
+  const FALLBACK_FILES = [
     "IMG_0494.jpg","IMG_0495.jpg","IMG_0979.jpg","IMG_0994.jpg","IMG_0995.jpg",
     "IMG_0998.jpg","IMG_5208.jpg","IMG_5216.jpg","IMG_5221.jpg","IMG_5223.jpg",
     "IMG_5241_2.jpg","IMG_5247_2.jpg","IMG_5262_2.jpg","IMG_5264_2.jpg","IMG_5265_2.jpg",
     "IMG_5269_2.jpg","IMG_5861_2.jpg","IMG_5862_2.jpg","IMG_5866_2.jpg","IMG_5876_2.jpg",
     "IMG_5881_2.jpg","IMG_5883_2.jpg","IMG_5884_2.jpg","IMG_6242_2.jpg"
   ];
+  let files = FALLBACK_FILES.slice();
 
   const grid = document.getElementById('grid');
-  document.getElementById('count').textContent = files.length;
+  const countEl = document.getElementById('count');
 
-  files.forEach((f, i) => {
-    const tile = document.createElement('div');
-    tile.className = 'tile';
-    tile.innerHTML = `<img src="assets/painting/${f}" alt="John's Painting ${i+1}" loading="lazy">`;
-    tile.addEventListener('click', () => openLightbox(i));
-    grid.appendChild(tile);
-  });
+  function renderGrid(){
+    grid.innerHTML = '';
+    countEl.textContent = files.length;
+    files.forEach((f, i) => {
+      const tile = document.createElement('div');
+      tile.className = 'tile';
+      tile.dataset.name = f;
+      tile.innerHTML = `
+        <img src="assets/painting/${f}" alt="John's Painting ${i+1}" loading="lazy">
+        <button class="tile-delete" type="button" title="삭제">&times;</button>
+      `;
+      tile.querySelector('img').addEventListener('click', () => openLightbox(i));
+      tile.querySelector('.tile-delete').addEventListener('click', (e) => {
+        e.stopPropagation();
+        handleDelete(f, tile);
+      });
+      grid.appendChild(tile);
+    });
+  }
 
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
@@ -169,6 +240,249 @@
     if (e.key === 'ArrowLeft') show(-1);
     if (e.key === 'ArrowRight') show(1);
   });
+
+  fetch(`assets/painting/manifest.json?t=${Date.now()}`)
+    .then(r => { if (!r.ok) throw new Error('manifest fetch failed'); return r.json(); })
+    .then(data => {
+      if (Array.isArray(data.files) && data.files.length) files = data.files;
+      renderGrid();
+    })
+    .catch(() => renderGrid());
+
+  // ---- admin mode (GitHub token based, owner-only) ----
+  const GH_OWNER = 'dec16pjh';
+  const GH_REPO = 'MyPage_JP';
+  const GH_BRANCH = 'main';
+  const ASSET_DIR = 'assets/painting';
+  const MANIFEST_PATH = `${ASSET_DIR}/manifest.json`;
+  const TOKEN_KEY = 'mypage_gh_token';
+  const API = 'https://api.github.com';
+  const MAX_DIM = 1800;
+  const MAX_BYTES = 900 * 1024;
+
+  let ghToken = localStorage.getItem(TOKEN_KEY) || null;
+
+  const adminToggle = document.getElementById('adminToggle');
+  const tokenForm = document.getElementById('tokenForm');
+  const tokenInput = document.getElementById('tokenInput');
+  const tokenSubmit = document.getElementById('tokenSubmit');
+  const adminWho = document.getElementById('adminWho');
+  const adminLogout = document.getElementById('adminLogout');
+  const adminUpload = document.getElementById('adminUpload');
+  const adminStatus = document.getElementById('adminStatus');
+  const fileInput = document.getElementById('fileInput');
+  const uploadBtn = document.getElementById('uploadBtn');
+
+  function setStatus(msg, type){
+    adminStatus.textContent = msg || '';
+    adminStatus.className = 'admin-status' + (type ? ' ' + type : '');
+  }
+
+  function setAdminActive(active){
+    document.body.classList.toggle('admin-mode', active);
+    adminToggle.classList.toggle('active', active);
+    adminToggle.textContent = active ? '🔓 관리자 모드 끄기' : '🔒 관리자 모드';
+  }
+
+  function setSignedIn(login){
+    adminWho.textContent = login ? `관리자: ${login}` : '관리자 모드';
+    adminWho.style.display = '';
+    adminLogout.style.display = '';
+    tokenForm.classList.remove('open');
+    setAdminActive(true);
+  }
+
+  function signOut(){
+    ghToken = null;
+    localStorage.removeItem(TOKEN_KEY);
+    adminWho.style.display = 'none';
+    adminLogout.style.display = 'none';
+    setAdminActive(false);
+    setStatus('');
+  }
+
+  function ghHeaders(token){
+    return {
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/vnd.github+json',
+      'X-GitHub-Api-Version': '2022-11-28'
+    };
+  }
+
+  async function verifyToken(token){
+    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}`, { headers: ghHeaders(token) });
+    if (!res.ok) throw new Error('토큰이 유효하지 않거나 저장소에 접근할 수 없습니다.');
+    const data = await res.json();
+    if (!data.permissions || !data.permissions.push) throw new Error('이 저장소에 대한 쓰기 권한이 없는 토큰입니다.');
+    let login = '';
+    try {
+      const ures = await fetch(`${API}/user`, { headers: ghHeaders(token) });
+      if (ures.ok) login = (await ures.json()).login;
+    } catch (e) {}
+    return login;
+  }
+
+  async function getFileSha(path, token){
+    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}?ref=${GH_BRANCH}`, { headers: ghHeaders(token) });
+    if (res.status === 404) return null;
+    if (!res.ok) throw new Error(`파일 정보를 가져오지 못했습니다 (${path})`);
+    return (await res.json()).sha;
+  }
+
+  async function putFile(path, base64Content, message, token){
+    const sha = await getFileSha(path, token);
+    const body = { message, content: base64Content, branch: GH_BRANCH };
+    if (sha) body.sha = sha;
+    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+      method: 'PUT',
+      headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `업로드 실패 (${path})`);
+    }
+    return res.json();
+  }
+
+  async function deleteFile(path, message, token){
+    const sha = await getFileSha(path, token);
+    if (!sha) return;
+    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
+      method: 'DELETE',
+      headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message, sha, branch: GH_BRANCH })
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `삭제 실패 (${path})`);
+    }
+  }
+
+  async function commitManifest(message, token){
+    const json = JSON.stringify({ files }, null, 2);
+    const base64 = btoa(unescape(encodeURIComponent(json)));
+    await putFile(MANIFEST_PATH, base64, message, token);
+  }
+
+  function resizeImage(file){
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onerror = () => reject(new Error('파일을 읽을 수 없습니다.'));
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('이미지를 불러올 수 없습니다.'));
+        img.onload = () => {
+          let { width, height } = img;
+          if (width > MAX_DIM || height > MAX_DIM) {
+            if (width >= height) { height = Math.round(height * MAX_DIM / width); width = MAX_DIM; }
+            else { width = Math.round(width * MAX_DIM / height); height = MAX_DIM; }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width; canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          let quality = 0.85;
+          let dataUrl = canvas.toDataURL('image/jpeg', quality);
+          while (dataUrl.length * 0.75 > MAX_BYTES && quality > 0.4) {
+            quality -= 0.1;
+            dataUrl = canvas.toDataURL('image/jpeg', quality);
+          }
+          resolve(dataUrl);
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function makeFilename(originalName, existing){
+    const base = originalName.replace(/\.[^.]+$/, '').replace(/[^a-zA-Z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'painting';
+    let name = `${base}.jpg`;
+    let i = 1;
+    while (existing.includes(name)) {
+      name = `${base}-${i}.jpg`;
+      i++;
+    }
+    return name;
+  }
+
+  async function handleUpload(){
+    if (!ghToken) { setStatus('먼저 관리자 인증을 해주세요.', 'error'); return; }
+    const selected = Array.from(fileInput.files || []);
+    if (!selected.length) { setStatus('추가할 이미지를 선택해주세요.', 'error'); return; }
+
+    uploadBtn.disabled = true;
+    for (const file of selected) {
+      try {
+        setStatus(`업로드 중: ${file.name}...`);
+        const dataUrl = await resizeImage(file);
+        const base64 = dataUrl.split(',')[1];
+        const filename = makeFilename(file.name, files);
+        await putFile(`${ASSET_DIR}/${filename}`, base64, `Add painting: ${filename}`, ghToken);
+        files.push(filename);
+        await commitManifest(`Update manifest: add ${filename}`, ghToken);
+        renderGrid();
+        setStatus(`추가 완료: ${filename}`, 'ok');
+      } catch (err) {
+        setStatus(`실패 (${file.name}): ${err.message}`, 'error');
+      }
+    }
+    uploadBtn.disabled = false;
+    fileInput.value = '';
+  }
+
+  async function handleDelete(filename, tileEl){
+    if (!ghToken) { setStatus('먼저 관리자 인증을 해주세요.', 'error'); return; }
+    if (!confirm(`"${filename}"을(를) 삭제할까요?`)) return;
+
+    tileEl.classList.add('busy');
+    try {
+      setStatus(`삭제 중: ${filename}...`);
+      await deleteFile(`${ASSET_DIR}/${filename}`, `Delete painting: ${filename}`, ghToken);
+      files = files.filter(f => f !== filename);
+      await commitManifest(`Update manifest: remove ${filename}`, ghToken);
+      renderGrid();
+      setStatus(`삭제 완료: ${filename}`, 'ok');
+    } catch (err) {
+      tileEl.classList.remove('busy');
+      setStatus(`삭제 실패 (${filename}): ${err.message}`, 'error');
+    }
+  }
+
+  adminToggle.addEventListener('click', () => {
+    if (ghToken) {
+      setAdminActive(!document.body.classList.contains('admin-mode'));
+      return;
+    }
+    tokenForm.classList.toggle('open');
+  });
+
+  tokenSubmit.addEventListener('click', async () => {
+    const token = tokenInput.value.trim();
+    if (!token) { setStatus('토큰을 입력해주세요.', 'error'); return; }
+    tokenSubmit.disabled = true;
+    setStatus('토큰 확인 중...');
+    try {
+      const login = await verifyToken(token);
+      ghToken = token;
+      localStorage.setItem(TOKEN_KEY, token);
+      tokenInput.value = '';
+      setSignedIn(login);
+      setStatus('관리자 모드가 활성화되었습니다.', 'ok');
+    } catch (err) {
+      setStatus(err.message, 'error');
+    }
+    tokenSubmit.disabled = false;
+  });
+
+  tokenInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') tokenSubmit.click(); });
+  adminLogout.addEventListener('click', signOut);
+  uploadBtn.addEventListener('click', handleUpload);
+
+  if (ghToken) {
+    verifyToken(ghToken).then(login => setSignedIn(login)).catch(() => signOut());
+  }
 </script>
 
 </body>
