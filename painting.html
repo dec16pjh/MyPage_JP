@@ -310,20 +310,22 @@
   }
 
   async function verifyToken(token){
-    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}`, { headers: ghHeaders(token) });
+    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}`, { headers: ghHeaders(token), cache: 'no-store' });
     if (!res.ok) throw new Error('토큰이 유효하지 않거나 저장소에 접근할 수 없습니다.');
     const data = await res.json();
     if (!data.permissions || !data.permissions.push) throw new Error('이 저장소에 대한 쓰기 권한이 없는 토큰입니다.');
     let login = '';
     try {
-      const ures = await fetch(`${API}/user`, { headers: ghHeaders(token) });
+      const ures = await fetch(`${API}/user`, { headers: ghHeaders(token), cache: 'no-store' });
       if (ures.ok) login = (await ures.json()).login;
     } catch (e) {}
     return login;
   }
 
   async function getFileSha(path, token){
-    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}?ref=${GH_BRANCH}`, { headers: ghHeaders(token) });
+    // no-store: the GitHub contents API allows short browser caching of GETs,
+    // which would otherwise hand back a stale sha for the next write.
+    const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}?ref=${GH_BRANCH}`, { headers: ghHeaders(token), cache: 'no-store' });
     if (res.status === 404) return null;
     if (!res.ok) throw new Error(`파일 정보를 가져오지 못했습니다 (${path})`);
     return (await res.json()).sha;
@@ -335,6 +337,7 @@
     if (sha) body.sha = sha;
     const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
       method: 'PUT',
+      cache: 'no-store',
       headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
     });
@@ -350,6 +353,7 @@
     if (!sha) return;
     const res = await fetch(`${API}/repos/${GH_OWNER}/${GH_REPO}/contents/${path}`, {
       method: 'DELETE',
+      cache: 'no-store',
       headers: { ...ghHeaders(token), 'Content-Type': 'application/json' },
       body: JSON.stringify({ message, sha, branch: GH_BRANCH })
     });
@@ -359,10 +363,22 @@
     }
   }
 
-  async function commitManifest(message, token){
-    const json = JSON.stringify({ files }, null, 2);
+  // Writes the given file list to manifest.json, retrying on a sha conflict
+  // (another write landed between our sha read and this one).
+  async function putManifest(fileList, message, token){
+    const json = JSON.stringify({ files: fileList }, null, 2);
     const base64 = btoa(unescape(encodeURIComponent(json)));
-    await putFile(MANIFEST_PATH, base64, message, token);
+    let lastErr;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      try {
+        return await putFile(MANIFEST_PATH, base64, message, token);
+      } catch (err) {
+        lastErr = err;
+        if (!/does not match/i.test(err.message)) throw err;
+        await new Promise(r => setTimeout(r, 300 * (attempt + 1)));
+      }
+    }
+    throw lastErr;
   }
 
   function resizeImage(file){
@@ -413,20 +429,43 @@
     if (!selected.length) { setStatus('추가할 이미지를 선택해주세요.', 'error'); return; }
 
     uploadBtn.disabled = true;
+    const uploaded = [];
+    const failed = [];
     for (const file of selected) {
       try {
-        setStatus(`업로드 중: ${file.name}...`);
+        setStatus(`업로드 중: ${file.name} (${uploaded.length + failed.length + 1}/${selected.length})...`);
         const dataUrl = await resizeImage(file);
         const base64 = dataUrl.split(',')[1];
-        const filename = makeFilename(file.name, files);
+        const filename = makeFilename(file.name, [...files, ...uploaded]);
         await putFile(`${ASSET_DIR}/${filename}`, base64, `Add painting: ${filename}`, ghToken);
-        files.push(filename);
-        await commitManifest(`Update manifest: add ${filename}`, ghToken);
-        renderGrid();
-        setStatus(`추가 완료: ${filename}`, 'ok');
+        uploaded.push(filename);
       } catch (err) {
-        setStatus(`실패 (${file.name}): ${err.message}`, 'error');
+        failed.push({ name: file.name, message: err.message });
       }
+    }
+
+    // One manifest write for the whole batch, not one per file — this is
+    // both faster and avoids retrying a sha-conflicting write per image.
+    if (uploaded.length) {
+      try {
+        setStatus('목록 업데이트 중...');
+        const newFiles = [...files, ...uploaded];
+        await putManifest(newFiles, `Update manifest: add ${uploaded.length} painting(s)`, ghToken);
+        files = newFiles;
+        renderGrid();
+      } catch (err) {
+        setStatus(`이미지는 업로드됐지만 목록 갱신에 실패했습니다: ${err.message}`, 'error');
+        uploadBtn.disabled = false;
+        fileInput.value = '';
+        return;
+      }
+    }
+
+    if (failed.length) {
+      const names = failed.map(f => f.name).join(', ');
+      setStatus(`${uploaded.length}개 추가 완료, ${failed.length}개 실패 (${names})`, 'error');
+    } else {
+      setStatus(`${uploaded.length}개 그림을 추가했습니다.`, 'ok');
     }
     uploadBtn.disabled = false;
     fileInput.value = '';
@@ -440,8 +479,9 @@
     try {
       setStatus(`삭제 중: ${filename}...`);
       await deleteFile(`${ASSET_DIR}/${filename}`, `Delete painting: ${filename}`, ghToken);
-      files = files.filter(f => f !== filename);
-      await commitManifest(`Update manifest: remove ${filename}`, ghToken);
+      const newFiles = files.filter(f => f !== filename);
+      await putManifest(newFiles, `Update manifest: remove ${filename}`, ghToken);
+      files = newFiles;
       renderGrid();
       setStatus(`삭제 완료: ${filename}`, 'ok');
     } catch (err) {
