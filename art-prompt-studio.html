@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ART PROMPT STUDIO · MyPage_JP</title>
+<meta name="description" content="스타일을 고르고, 주제를 입력하고, AI가 완성하는 전문가급 이미지 생성 프롬프트.">
+<link rel="stylesheet" href="assets/aps/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="inner">
+    <a class="brand" href="#" id="logoLink">
+      <span class="mark">ART PROMPT STUDIO</span>
+      <span class="tag">AI PROMPT LAB</span>
+    </a>
+    <div class="topnav" id="topNav">
+      <button data-view="home">홈</button>
+      <button data-view="gallery">스타일 갤러리</button>
+      <button data-view="finder">AI 화풍 찾기</button>
+      <button data-view="compare">화풍 비교</button>
+      <button data-view="favorites">즐겨찾기</button>
+    </div>
+    <a class="back-link" href="index.html">← MyPage로 돌아가기</a>
+  </div>
+</div>
+
+<div class="steps hidden" id="stepsBar">
+  <div class="step" data-step="1"><span class="num">1</span><span>스타일</span></div>
+  <div class="step-sep"></div>
+  <div class="step" data-step="2"><span class="num">2</span><span>주제</span></div>
+  <div class="step-sep"></div>
+  <div class="step" data-step="3"><span class="num">3</span><span>커스터마이즈</span></div>
+  <div class="step-sep"></div>
+  <div class="step" data-step="4"><span class="num">4</span><span>AI 최적화</span></div>
+  <div class="step-sep"></div>
+  <div class="step" data-step="5"><span class="num">5</span><span>완성</span></div>
+</div>
+
+<main id="main"></main>
+
+<footer class="aps-footer">
+  <div>© 2026 John Park · Art Prompt Studio — AI-generated interpretations inspired by visual characteristics, not the original artists' works.</div>
+</footer>
+
+<div class="modal-overlay hidden" id="styleModal"></div>
+<div class="toast" id="toast"></div>
+<button class="random-fab" id="randomFab">🎲 랜덤 작품 만들기</button>
+
+<script src="assets/aps/data.js"></script>
+<script src="assets/aps/app.js"></script>
+<script src="assets/aps/ui.js"></script>
+</body>
+</html>
