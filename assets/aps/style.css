@@ -157,11 +157,18 @@ img{max-width:100%;display:block;}
   display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:900;
   box-shadow:0 3px 10px rgba(0,0,0,0.25);}
 .swatch{
-  position:relative;height:150px;
+  position:relative;height:150px;overflow:hidden;
   background-image:
     repeating-linear-gradient(115deg, rgba(255,255,255,0.10) 0 2px, transparent 2px 7px),
     conic-gradient(from 200deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c1));
 }
+/* Representative artwork thumbnail (progressive enhancement over the gradient).
+   Absent/failed fetch leaves the gradient exactly as it was — see app.js fetchStyleArtwork. */
+.artwork-img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  opacity:0;transition:opacity .4s ease;background:transparent;
+}
+.artwork-img.loaded{opacity:1;}
 .swatch .fav-btn{
   position:absolute;top:9px;left:9px;width:26px;height:26px;border-radius:50%;
   background:rgba(255,255,255,0.85);border:none;cursor:pointer;font-size:13px;
@@ -210,7 +217,7 @@ img{max-width:100%;display:block;}
   box-shadow:var(--shadow-pop);overflow:hidden;margin-bottom:40px;
 }
 .modal-hero{
-  height:180px;position:relative;
+  height:180px;position:relative;overflow:hidden;
   background-image:
     repeating-linear-gradient(115deg, rgba(255,255,255,0.12) 0 3px, transparent 3px 9px),
     conic-gradient(from 200deg, var(--c1), var(--c2), var(--c3), var(--c4), var(--c1));

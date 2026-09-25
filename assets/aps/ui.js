@@ -81,6 +81,44 @@ function render(){
     case 'finder': $main.innerHTML = viewFinder(); break;
     default: $main.innerHTML = viewHome();
   }
+  setupArtworkObserver();
+}
+
+/* ============================================================
+   REPRESENTATIVE ARTWORK IMAGES — lazy-load into any element that
+   carries data-artwork-id, using an IntersectionObserver so the app
+   never fires 55 network requests at once. Best-effort: on any failure
+   the gradient swatch underneath stays exactly as it was.
+   ============================================================ */
+let artworkObserver = null;
+function setupArtworkObserver(){
+  if(artworkObserver) artworkObserver.disconnect();
+  if(typeof IntersectionObserver === 'undefined'){
+    document.querySelectorAll('[data-artwork-id]').forEach(loadArtworkInto);
+    return;
+  }
+  artworkObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        artworkObserver.unobserve(entry.target);
+        loadArtworkInto(entry.target);
+      }
+    });
+  }, { rootMargin: '200px' });
+  document.querySelectorAll('[data-artwork-id]').forEach(el => artworkObserver.observe(el));
+}
+async function loadArtworkInto(container){
+  const styleId = container.dataset.artworkId;
+  const style = A.byId(styleId);
+  const img = container.querySelector('.artwork-img');
+  if(!style || !img) return;
+  try{
+    const url = await A.fetchStyleArtwork(style);
+    if(!url) return;
+    img.onload = () => img.classList.add('loaded');
+    img.onerror = () => img.remove();
+    img.src = url;
+  }catch(e){ /* keep gradient swatch as-is */ }
 }
 
 /* ============================================================
@@ -92,7 +130,8 @@ function styleCard(style, opts){
   const isFav = S.favorites.includes(style.id);
   return `
   <div class="style-card ${isSelected ? 'selected':''}" data-action="open-style" data-id="${style.id}">
-    <div class="swatch" style="${swVars(style)}">
+    <div class="swatch" style="${swVars(style)}" data-artwork-id="${style.id}">
+      <img class="artwork-img" alt="" loading="lazy">
       <button class="fav-btn ${isFav?'active':''}" data-action="toggle-fav" data-id="${style.id}" title="즐겨찾기">${isFav?'♥':'♡'}</button>
       <span class="type-badge">${style.type==='artist' ? '화가' : '사조'}</span>
     </div>
@@ -184,7 +223,8 @@ function openStyle(id){
   const isFav = S.favorites.includes(id);
   $modal.innerHTML = `
   <div class="modal-card">
-    <div class="modal-hero" style="${swVars(style)}">
+    <div class="modal-hero" style="${swVars(style)}" data-artwork-id="${style.id}">
+      <img class="artwork-img" alt="" loading="lazy">
       <button class="close-btn" data-action="close-modal">✕</button>
     </div>
     <div class="modal-body">
@@ -218,6 +258,7 @@ function openStyle(id){
     </div>
   </div>`;
   $modal.classList.remove('hidden');
+  loadArtworkInto($modal.querySelector('[data-artwork-id]'));
 }
 function closeModal(){ $modal.classList.add('hidden'); $modal.innerHTML=''; modalStyleId=null; }
 
@@ -287,7 +328,7 @@ function renderSceneAndPreview(){
     <div class="grid dense">
       ${ids.map(id => { const st = A.byId(id); return `
         <div class="preview-card ${S.selectedStyleId===id?'selected':''}" data-action="pick-style" data-id="${id}">
-          <div class="swatch" style="${swVars(st)}"></div>
+          <div class="swatch" style="${swVars(st)}" data-artwork-id="${st.id}"><img class="artwork-img" alt="" loading="lazy"></div>
           <div class="pbody">
             <h5>${esc(st.name)}</h5>
             <p>${esc(st.shortKo)}</p>
@@ -298,6 +339,7 @@ function renderSceneAndPreview(){
     <div style="text-align:center;margin-top:18px;">
       <button class="btn ghost" data-action="goto-gallery">더 많은 화풍으로 보기</button>
     </div>`;
+  setupArtworkObserver();
 }
 
 function renderCatSuggest(catId){
@@ -528,7 +570,7 @@ function viewCompare(){
 }
 function compareCard(style){
   return `<div class="compare-card">
-    <div class="swatch" style="${swVars(style)}"></div>
+    <div class="swatch" style="${swVars(style)}" data-artwork-id="${style.id}"><img class="artwork-img" alt="" loading="lazy"></div>
     <div class="cbody">
       <h5>${esc(style.name)}</h5>
       <p>${esc(style.shortKo)}</p>
@@ -588,7 +630,7 @@ function finderResultHTML(){
   return `<div class="finder-result">
     ${finderResults.map(f => `
       <div class="finder-item" data-action="pick-from-finder" data-id="${f.style.id}">
-        <div class="swatch" style="${swVars(f.style)}"></div>
+        <div class="swatch" style="${swVars(f.style)}" data-artwork-id="${f.style.id}"><img class="artwork-img" alt="" loading="lazy"></div>
         <div>
           <h5>${esc(f.style.name)}</h5>
           <p>${esc(f.reason)}</p>
@@ -822,6 +864,7 @@ document.addEventListener('click', function(e){
         finderResults = A.findStyles(finderIdea);
         const b = document.getElementById('finderResultBox');
         if(b) b.innerHTML = finderResultHTML();
+        setupArtworkObserver();
       }, 550);
       break;
     }

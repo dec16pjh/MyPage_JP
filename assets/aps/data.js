@@ -9,6 +9,7 @@ const APS_STYLES = [
 {
   id:'van-gogh', type:'artist', name:'Vincent van Gogh', nameNative:'Vincent van Gogh',
   period:'1853–1890', country:'네덜란드 / Netherlands', movement:'Post-Impressionism', movementKo:'후기 인상주의',
+  wikiQuery:'The Starry Night Van Gogh painting',
   colors:['#1c3f6e','#f2b705','#1e5631','#c9430b'],
   shortKo:'소용돌이치는 붓터치와 강렬한 보색 대비로 감정을 표현한 후기 인상주의의 거장.',
   tags:['강렬한 붓터치','표현적','감정적','밤','별','시골','해바라기','고흐','소용돌이'],
@@ -37,6 +38,7 @@ const APS_STYLES = [
 {
   id:'monet', type:'artist', name:'Claude Monet', nameNative:'Claude Monet',
   period:'1840–1926', country:'프랑스 / France', movement:'Impressionism', movementKo:'인상주의',
+  wikiQuery:'Water Lilies Claude Monet painting',
   colors:['#a9c9e0','#e8d9b5','#7ea18c','#e8b4c8'],
   shortKo:'빛과 대기의 순간적 인상을 부드러운 색점으로 담아낸 인상주의 창시자.',
   tags:['인상주의','빛','수련','정원','부드러운','평온한','모네'],
@@ -65,6 +67,7 @@ const APS_STYLES = [
 {
   id:'renoir', type:'artist', name:'Pierre-Auguste Renoir', nameNative:'Pierre-Auguste Renoir',
   period:'1841–1919', country:'프랑스 / France', movement:'Impressionism', movementKo:'인상주의',
+  wikiQuery:'Bal du moulin de la Galette Renoir',
   colors:['#e8a7b0','#f4d9a0','#7c9c7a','#c68a5c'],
   shortKo:'따뜻한 빛과 발그레한 색조로 인물과 일상의 행복을 그린 인상주의 화가.',
   tags:['따뜻한','행복한','인물','파티','인상주의','르누아르'],
@@ -93,6 +96,7 @@ const APS_STYLES = [
 {
   id:'degas', type:'artist', name:'Edgar Degas', nameNative:'Edgar Degas',
   period:'1834–1917', country:'프랑스 / France', movement:'Impressionism', movementKo:'인상주의',
+  wikiQuery:'The Ballet Class Edgar Degas painting',
   colors:['#8a6bb0','#e8c15a','#4a4a4a','#c98ba0'],
   shortKo:'무용수와 일상의 순간을 독특한 구도와 인공조명으로 포착한 인상주의 화가.',
   tags:['발레','무용수','움직임','드가','인상주의','구도'],
@@ -121,6 +125,7 @@ const APS_STYLES = [
 {
   id:'cezanne', type:'artist', name:'Paul Cézanne', nameNative:'Paul Cézanne',
   period:'1839–1906', country:'프랑스 / France', movement:'Post-Impressionism', movementKo:'후기 인상주의',
+  wikiQuery:'Mont Sainte-Victoire Cezanne painting',
   colors:['#5f8a6b','#c9955a','#4a6a8a','#8a7355'],
   shortKo:'자연을 기하학적 구조로 재구성해 입체주의의 길을 연 후기 인상주의 화가.',
   tags:['기하학적','구조적','정물','풍경','세잔','입체주의 선구자'],
@@ -149,6 +154,7 @@ const APS_STYLES = [
 {
   id:'gauguin', type:'artist', name:'Paul Gauguin', nameNative:'Paul Gauguin',
   period:'1848–1903', country:'프랑스 / France', movement:'Post-Impressionism', movementKo:'후기 인상주의 · 상징주의',
+  wikiQuery:'Where Do We Come From What Are We Where Are We Going Gauguin',
   colors:['#c9430b','#f2c14e','#2e6b5e','#7a3a5c'],
   shortKo:'평면적 형태와 강렬한 원색으로 이국적·상징적 세계를 그린 후기 인상주의 화가.',
   tags:['타히티','원색','평면적','상징적','고갱','이국적'],
@@ -177,6 +183,7 @@ const APS_STYLES = [
 {
   id:'toulouse-lautrec', type:'artist', name:'Henri de Toulouse-Lautrec', nameNative:'Henri de Toulouse-Lautrec',
   period:'1864–1901', country:'프랑스 / France', movement:'Post-Impressionism · Art Nouveau', movementKo:'후기 인상주의 · 아르누보',
+  wikiQuery:'At the Moulin Rouge Toulouse-Lautrec painting',
   colors:['#c9184a','#f2b705','#3a3a3a','#7a5c8a'],
   shortKo:'파리 밤문화를 날카로운 윤곽선과 포스터적 색채로 포착한 화가.',
   tags:['파리','카바레','포스터','물랑루즈','툴루즈로트렉'],
@@ -205,6 +212,7 @@ const APS_STYLES = [
 {
   id:'seurat', type:'artist', name:'Georges Seurat', nameNative:'Georges Seurat',
   period:'1859–1891', country:'프랑스 / France', movement:'Post-Impressionism (Pointillism)', movementKo:'신인상주의(점묘법)',
+  wikiQuery:'A Sunday Afternoon on the Island of La Grande Jatte Seurat',
   colors:['#f2d9a0','#7ea1c9','#8ab07a','#c98ba0'],
   shortKo:'수많은 색점을 과학적으로 배치해 빛과 형태를 만든 점묘법의 창시자.',
   tags:['점묘법','과학적','인상주의','쇠라','점'],
@@ -233,6 +241,7 @@ const APS_STYLES = [
 {
   id:'klimt', type:'artist', name:'Gustav Klimt', nameNative:'Gustav Klimt',
   period:'1862–1918', country:'오스트리아 / Austria', movement:'Art Nouveau (Vienna Secession)', movementKo:'아르누보(빈 분리파)',
+  wikiQuery:'The Kiss Gustav Klimt painting',
   colors:['#c9a227','#8a1c3c','#1c3f6e','#2e2e2e'],
   shortKo:'금박과 화려한 장식 패턴으로 관능적이고 신비로운 인물을 그린 화가.',
   tags:['황금빛','장식적','키스','클림트','관능적','패턴'],
@@ -261,6 +270,7 @@ const APS_STYLES = [
 {
   id:'munch', type:'artist', name:'Edvard Munch', nameNative:'Edvard Munch',
   period:'1863–1944', country:'노르웨이 / Norway', movement:'Symbolism · Proto-Expressionism', movementKo:'상징주의 · 표현주의',
+  wikiQuery:'The Scream Edvard Munch painting',
   colors:['#c9430b','#1c3f6e','#2e2e2e','#d97a3a'],
   shortKo:'뒤틀린 형태와 불안한 색채로 인간의 내면 불안을 표현한 표현주의 선구자.',
   tags:['불안','절규','표현주의','뭉크','심리적','왜곡'],
@@ -289,6 +299,7 @@ const APS_STYLES = [
 {
   id:'matisse', type:'artist', name:'Henri Matisse', nameNative:'Henri Matisse',
   period:'1869–1954', country:'프랑스 / France', movement:'Fauvism', movementKo:'야수주의',
+  wikiQuery:'The Dance Henri Matisse painting',
   colors:['#e8483c','#2e6b8a','#f2c14e','#2e8a5e'],
   shortKo:'자유롭고 강렬한 색채와 단순화된 형태로 기쁨을 표현한 야수주의 창시자.',
   tags:['야수주의','강렬한 색채','단순화','마티스','기쁨','장식적'],
@@ -317,6 +328,7 @@ const APS_STYLES = [
 {
   id:'kandinsky', type:'artist', name:'Wassily Kandinsky', nameNative:'Василий Кандинский',
   period:'1866–1944', country:'러시아 / Russia', movement:'Abstract Art (Expressionism)', movementKo:'추상 미술 · 표현주의',
+  wikiQuery:'Composition VII Kandinsky painting',
   colors:['#c9430b','#2e6b8a','#f2c14e','#2e2e2e'],
   shortKo:'색과 형태를 음악처럼 다뤄 순수 추상을 개척한 화가.',
   tags:['추상','칸딘스키','음악적','기하학','색채 이론'],
@@ -345,6 +357,7 @@ const APS_STYLES = [
 {
   id:'mondrian', type:'artist', name:'Piet Mondrian', nameNative:'Piet Mondrian',
   period:'1872–1944', country:'네덜란드 / Netherlands', movement:'Abstract Art (De Stijl)', movementKo:'추상 미술 · 데 스틸',
+  wikiQuery:'Composition with Red Blue and Yellow Mondrian',
   colors:['#d40920','#1a4fa0','#f2d20e','#111111'],
   shortKo:'수직·수평선과 삼원색만으로 순수한 조형 질서를 추구한 추상화가.',
   tags:['몬드리안','기하학','원색','격자','미니멀','질서'],
@@ -373,6 +386,7 @@ const APS_STYLES = [
 {
   id:'klee', type:'artist', name:'Paul Klee', nameNative:'Paul Klee',
   period:'1879–1940', country:'스위스 / Switzerland', movement:'Abstract Art · Expressionism', movementKo:'추상 미술 · 표현주의',
+  wikiQuery:'Senecio Paul Klee painting',
   colors:['#e8b04e','#4a7a8a','#c9430b','#2e2e2e'],
   shortKo:'동화 같은 상상력과 섬세한 색채 구성으로 시적인 추상을 그린 화가.',
   tags:['클레','동화적','상상력','추상','섬세한','시적'],
@@ -401,6 +415,7 @@ const APS_STYLES = [
 {
   id:'chagall', type:'artist', name:'Marc Chagall', nameNative:'Марк Шагал',
   period:'1887–1985', country:'러시아·프랑스 / Russia-France', movement:'Symbolism · Surrealism', movementKo:'상징주의 · 초현실주의',
+  wikiQuery:'I and the Village Chagall painting',
   colors:['#2e4a8a','#c9430b','#8a1c3c','#2e8a5e'],
   shortKo:'꿈과 기억, 사랑을 떠다니는 인물과 환상적 색채로 그린 초현실적 화가.',
   tags:['샤갈','꿈','환상적','몽환적','사랑','떠다니는'],
@@ -429,6 +444,7 @@ const APS_STYLES = [
 {
   id:'modigliani', type:'artist', name:'Amedeo Modigliani', nameNative:'Amedeo Modigliani',
   period:'1884–1920', country:'이탈리아 / Italy', movement:'Expressionism (Ecole de Paris)', movementKo:'표현주의 · 파리파',
+  wikiQuery:'Amedeo Modigliani portrait painting',
   colors:['#a9754a','#c98ba0','#4a4a4a','#e8c9a0'],
   shortKo:'길게 늘어난 목과 아몬드형 눈으로 우아한 인물 초상을 그린 화가.',
   tags:['모딜리아니','길쭉한','초상화','우아한','아몬드형 눈'],
@@ -457,6 +473,7 @@ const APS_STYLES = [
 {
   id:'mucha', type:'artist', name:'Alphonse Mucha', nameNative:'Alfons Mucha',
   period:'1860–1939', country:'체코 / Czech Republic', movement:'Art Nouveau', movementKo:'아르누보',
+  wikiQuery:'Gismonda poster Alphonse Mucha',
   colors:['#c9a227','#8a5c3c','#2e6b5e','#c98ba0'],
   shortKo:'화려한 곡선 장식과 우아한 여성상으로 아르누보 포스터를 대표한 화가.',
   tags:['아르누보','무하','포스터','장식적','우아한','곡선'],
@@ -485,6 +502,7 @@ const APS_STYLES = [
 {
   id:'sargent', type:'artist', name:'John Singer Sargent', nameNative:'John Singer Sargent',
   period:'1856–1925', country:'미국 / United States', movement:'Realism (Impressionist influence)', movementKo:'사실주의 · 인상주의 영향',
+  wikiQuery:'Madame X John Singer Sargent painting',
   colors:['#2e2e2e','#e8d9c0','#8a1c3c','#4a6a8a'],
   shortKo:'대담한 붓질과 빛나는 옷감 표현으로 격조 높은 초상화를 그린 화가.',
   tags:['사전트','초상화','우아한','대담한 붓질','사교계'],
@@ -513,6 +531,7 @@ const APS_STYLES = [
 {
   id:'turner', type:'artist', name:'J. M. W. Turner', nameNative:'J. M. W. Turner',
   period:'1775–1851', country:'영국 / United Kingdom', movement:'Romanticism', movementKo:'낭만주의',
+  wikiQuery:'The Fighting Temeraire Turner painting',
   colors:['#e8b04e','#c9430b','#7ea1c9','#e8d9c0'],
   shortKo:'빛과 대기, 폭풍의 숭고함을 거의 추상에 가깝게 그린 낭만주의 화가.',
   tags:['터너','낭만주의','빛','폭풍','숭고함','바다'],
@@ -541,6 +560,7 @@ const APS_STYLES = [
 {
   id:'friedrich', type:'artist', name:'Caspar David Friedrich', nameNative:'Caspar David Friedrich',
   period:'1774–1840', country:'독일 / Germany', movement:'Romanticism', movementKo:'낭만주의',
+  wikiQuery:'Wanderer above the Sea of Fog Friedrich',
   colors:['#4a5a6a','#8a9aa0','#c9a227','#2e2e2e'],
   shortKo:'인간을 압도하는 광활한 풍경과 고요한 관조로 숭고함을 그린 낭만주의 화가.',
   tags:['프리드리히','낭만주의','고요한','숭고함','뒷모습','안개'],
@@ -569,6 +589,7 @@ const APS_STYLES = [
 {
   id:'blake', type:'artist', name:'William Blake', nameNative:'William Blake',
   period:'1757–1827', country:'영국 / United Kingdom', movement:'Romanticism · Visionary art', movementKo:'낭만주의 · 환상 미술',
+  wikiQuery:'The Ancient of Days William Blake',
   colors:['#c9430b','#2e4a8a','#f2c14e','#2e2e2e'],
   shortKo:'신화적 상상력과 강렬한 선묘로 환상적 정신세계를 그린 시인화가.',
   tags:['블레이크','신화적','환상적','예언적','선묘','상징'],
@@ -597,6 +618,7 @@ const APS_STYLES = [
 {
   id:'rembrandt', type:'artist', name:'Rembrandt', nameNative:'Rembrandt van Rijn',
   period:'1606–1669', country:'네덜란드 / Netherlands', movement:'Baroque (Dutch Golden Age)', movementKo:'바로크(네덜란드 황금시대)',
+  wikiQuery:'The Night Watch Rembrandt painting',
   colors:['#2e1c0e','#c9a227','#4a3520','#8a6a3c'],
   shortKo:'짙은 어둠 속에서 빛으로 인물의 내면을 드러낸 바로크 명암법의 거장.',
   tags:['렘브란트','명암법','키아로스쿠로','초상화','바로크','빛'],
@@ -625,6 +647,7 @@ const APS_STYLES = [
 {
   id:'vermeer', type:'artist', name:'Johannes Vermeer', nameNative:'Johannes Vermeer',
   period:'1632–1675', country:'네덜란드 / Netherlands', movement:'Baroque (Dutch Golden Age)', movementKo:'바로크(네덜란드 황금시대)',
+  wikiQuery:'Girl with a Pearl Earring Vermeer',
   colors:['#1c3f6e','#c9a227','#e8d9c0','#4a5a3c'],
   shortKo:'창문에서 들어오는 부드러운 빛으로 고요한 실내를 그린 바로크 화가.',
   tags:['베르메르','빛','고요한','실내','진주 귀걸이','바로크'],
@@ -653,6 +676,7 @@ const APS_STYLES = [
 {
   id:'caravaggio', type:'artist', name:'Caravaggio', nameNative:'Michelangelo Merisi da Caravaggio',
   period:'1571–1610', country:'이탈리아 / Italy', movement:'Baroque', movementKo:'바로크',
+  wikiQuery:'The Calling of Saint Matthew Caravaggio',
   colors:['#1a1a1a','#c9430b','#8a1c1c','#c9a227'],
   shortKo:'극단적 명암 대비와 사실적 인물로 극적 순간을 포착한 바로크 화가.',
   tags:['카라바조','명암법','극적','사실적','테네브리즘'],
@@ -681,6 +705,7 @@ const APS_STYLES = [
 {
   id:'botticelli', type:'artist', name:'Sandro Botticelli', nameNative:'Sandro Botticelli',
   period:'1445–1510', country:'이탈리아 / Italy', movement:'Renaissance (Early)', movementKo:'초기 르네상스',
+  wikiQuery:'The Birth of Venus Botticelli painting',
   colors:['#e8d9c0','#c9a227','#7ea1c9','#8a5c3c'],
   shortKo:'우아한 곡선과 신화적 서정성으로 이상화된 아름다움을 그린 르네상스 화가.',
   tags:['보티첼리','비너스의 탄생','우아한','신화적','르네상스'],
@@ -709,6 +734,7 @@ const APS_STYLES = [
 {
   id:'davinci', type:'artist', name:'Leonardo da Vinci', nameNative:'Leonardo da Vinci',
   period:'1452–1519', country:'이탈리아 / Italy', movement:'Renaissance (High)', movementKo:'전성기 르네상스',
+  wikiQuery:'Mona Lisa Leonardo da Vinci',
   colors:['#3a2c1c','#8a6a4a','#c9a227','#2e2e2e'],
   shortKo:'스푸마토 기법으로 형태의 경계를 부드럽게 녹여낸 르네상스 거장.',
   tags:['다빈치','모나리자','스푸마토','르네상스','과학적','섬세한'],
@@ -737,6 +763,7 @@ const APS_STYLES = [
 {
   id:'michelangelo', type:'artist', name:'Michelangelo', nameNative:'Michelangelo Buonarroti',
   period:'1475–1564', country:'이탈리아 / Italy', movement:'Renaissance (High)', movementKo:'전성기 르네상스',
+  wikiQuery:'Sistine Chapel ceiling Michelangelo',
   colors:['#c9a227','#8a6a4a','#4a5a6a','#e8d9c0'],
   shortKo:'조각적 인체와 웅장한 근육 표현으로 신적 힘을 그린 르네상스 거장.',
   tags:['미켈란젤로','시스티나','조각적','근육질','웅장한','르네상스'],
@@ -765,6 +792,7 @@ const APS_STYLES = [
 {
   id:'raphael', type:'artist', name:'Raphael', nameNative:'Raffaello Sanzio',
   period:'1483–1520', country:'이탈리아 / Italy', movement:'Renaissance (High)', movementKo:'전성기 르네상스',
+  wikiQuery:'The School of Athens Raphael painting',
   colors:['#c9430b','#1c3f6e','#c9a227','#e8d9c0'],
   shortKo:'완벽한 균형과 조화로운 구도로 고전적 이상미를 완성한 르네상스 화가.',
   tags:['라파엘로','조화로운','균형잡힌','고전적','르네상스','성모'],
@@ -793,6 +821,7 @@ const APS_STYLES = [
 {
   id:'goya', type:'artist', name:'Francisco Goya', nameNative:'Francisco Goya',
   period:'1746–1828', country:'스페인 / Spain', movement:'Romanticism (proto-Expressionism)', movementKo:'낭만주의 · 표현주의 선구',
+  wikiQuery:'The Third of May 1808 Goya painting',
   colors:['#1a1a1a','#8a1c1c','#c9a227','#4a4a4a'],
   shortKo:'어둡고 강렬한 필치로 인간의 광기와 전쟁의 참상을 그린 화가.',
   tags:['고야','어두운','전쟁','광기','낭만주의','비판적'],
@@ -821,6 +850,7 @@ const APS_STYLES = [
 {
   id:'velazquez', type:'artist', name:'Diego Velázquez', nameNative:'Diego Velázquez',
   period:'1599–1660', country:'스페인 / Spain', movement:'Baroque (Spanish Golden Age)', movementKo:'바로크(스페인 황금시대)',
+  wikiQuery:'Las Meninas Velazquez painting',
   colors:['#2e2e2e','#c9a227','#8a1c3c','#4a5a6a'],
   shortKo:'느슨하고 자유로운 붓질로 궁정 인물의 위엄과 사실성을 그린 바로크 화가.',
   tags:['벨라스케스','시녀들','궁정','사실적','바로크','위엄'],
@@ -850,6 +880,7 @@ const APS_STYLES = [
 {
   id:'hokusai', type:'artist', name:'Katsushika Hokusai', nameNative:'葛飾北斎',
   period:'1760–1849', country:'일본 / Japan', movement:'Ukiyo-e', movementKo:'우키요에',
+  wikiQuery:'The Great Wave off Kanagawa Hokusai',
   colors:['#1c3f6e','#e8d9c0','#c9430b','#2e2e2e'],
   shortKo:'거대한 파도와 후지산을 역동적 선과 평면적 색으로 그린 우키요에 거장.',
   tags:['호쿠사이','가나가와 파도','우키요에','목판화','후지산','일본'],
@@ -878,6 +909,7 @@ const APS_STYLES = [
 {
   id:'hiroshige', type:'artist', name:'Utagawa Hiroshige', nameNative:'歌川広重',
   period:'1797–1858', country:'일본 / Japan', movement:'Ukiyo-e', movementKo:'우키요에',
+  wikiQuery:'Sudden Shower over Shin-Ohashi Hiroshige',
   colors:['#1c3f6e','#e8b04e','#2e6b5e','#c9430b'],
   shortKo:'서정적 풍경과 계절감을 섬세한 그라데이션으로 그린 우키요에 화가.',
   tags:['히로시게','풍경','우키요에','목판화','계절','서정적'],
@@ -906,6 +938,7 @@ const APS_STYLES = [
 {
   id:'kim-hongdo', type:'artist', name:'Kim Hong-do', nameNative:'김홍도(金弘道)',
   period:'1745–1806?', country:'한국 / Korea', movement:'Korean Genre Painting (Joseon)', movementKo:'조선 후기 풍속화',
+  wikiQuery:'Kim Hong-do Ssireum wrestling painting',
   colors:['#e8d9c0','#8a5c3c','#4a5a3c','#2e2e2e'],
   shortKo:'서민의 생활상을 익살스럽고 생동감 있는 필치로 그린 조선 풍속화의 대가.',
   tags:['김홍도','풍속화','조선','서민','생동감','해학'],
@@ -934,6 +967,7 @@ const APS_STYLES = [
 {
   id:'shin-yunbok', type:'artist', name:'Shin Yun-bok', nameNative:'신윤복(申潤福)',
   period:'1758–?', country:'한국 / Korea', movement:'Korean Genre Painting (Joseon)', movementKo:'조선 후기 풍속화',
+  wikiQuery:'Shin Yun-bok Dano Festival painting',
   colors:['#c9430b','#e8d9c0','#4a5a3c','#2e2e2e'],
   shortKo:'양반과 여성의 은밀한 정취를 화려한 색채와 섬세한 선으로 그린 풍속화가.',
   tags:['신윤복','풍속화','조선','여성','섬세한','색채'],
@@ -962,6 +996,7 @@ const APS_STYLES = [
 {
   id:'jeong-seon', type:'artist', name:'Jeong Seon', nameNative:'정선(鄭敾)',
   period:'1676–1759', country:'한국 / Korea', movement:'Korean True-View Landscape (Jingyeong)', movementKo:'조선 진경산수화',
+  wikiQuery:'Jeong Seon Geumgangjeondo Mount Geumgang painting',
   colors:['#2e2e2e','#4a5a3c','#8a9aa0','#e8d9c0'],
   shortKo:'조선의 실제 산천을 독창적 필법으로 그린 진경산수화의 창시자.',
   tags:['정선','진경산수화','금강산','수묵화','조선','산수'],
@@ -990,6 +1025,7 @@ const APS_STYLES = [
 {
   id:'repin', type:'artist', name:'Ilya Repin', nameNative:'Илья Репин',
   period:'1844–1930', country:'러시아 / Russia', movement:'Realism (Peredvizhniki)', movementKo:'사실주의(이동파)',
+  wikiQuery:'Barge Haulers on the Volga Repin',
   colors:['#4a3a2a','#8a6a4a','#c9430b','#2e2e2e'],
   shortKo:'러시아 민중의 삶과 역사를 강렬한 사실주의로 그린 이동파의 대표 화가.',
   tags:['레핀','사실주의','러시아','민중','역사화','강렬한'],
@@ -1018,6 +1054,7 @@ const APS_STYLES = [
 {
   id:'hopper', type:'artist', name:'Edward Hopper', nameNative:'Edward Hopper',
   period:'1882–1967', country:'미국 / United States', movement:'American Realism', movementKo:'미국 사실주의',
+  wikiQuery:'Nighthawks Edward Hopper painting',
   colors:['#e8b04e','#4a5a6a','#c9430b','#2e2e2e'],
   shortKo:'도시의 고독과 정적을 극적인 빛과 그림자로 그린 미국 사실주의 화가.',
   tags:['호퍼','고독','도시','정적','빛','미국','밤'],
@@ -1046,6 +1083,7 @@ const APS_STYLES = [
 {
   id:'okeeffe', type:'artist', name:'Georgia O\'Keeffe', nameNative:'Georgia O\'Keeffe',
   period:'1887–1986', country:'미국 / United States', movement:'American Modernism', movementKo:'미국 모더니즘',
+  wikiQuery:'Black Iris Georgia OKeeffe painting',
   colors:['#c9430b','#e8b04e','#2e6b8a','#e8d9c0'],
   shortKo:'꽃과 사막 풍경을 관능적으로 확대해 추상에 가깝게 그린 모더니즘 화가.',
   tags:['오키프','꽃','사막','확대','모더니즘','관능적'],
@@ -1074,6 +1112,7 @@ const APS_STYLES = [
 {
   id:'rockwell', type:'artist', name:'Norman Rockwell', nameNative:'Norman Rockwell',
   period:'1894–1978', country:'미국 / United States', movement:'American Illustration', movementKo:'미국 삽화 사실주의',
+  wikiQuery:'Freedom of Speech Norman Rockwell painting',
   colors:['#c9430b','#2e6b8a','#e8d9c0','#4a4a4a'],
   shortKo:'따뜻한 유머와 정교한 디테일로 미국 일상을 그린 국민 삽화가.',
   tags:['록웰','일러스트','따뜻한','일상','유머','미국'],
@@ -1105,6 +1144,7 @@ const APS_STYLES = [
 {
   id:'impressionism', type:'movement', name:'Impressionism', nameNative:'Impressionnisme',
   period:'1860s–1880s', country:'프랑스 / France', movement:'Impressionism', movementKo:'인상주의',
+  wikiQuery:'Impression Sunrise Monet painting',
   colors:['#a9c9e0','#e8d9b5','#7ea18c','#e8b4c8'],
   shortKo:'빛과 순간의 인상을 빠른 붓터치로 포착한 19세기 프랑스 미술 운동.',
   tags:['인상주의','빛','순간','야외','부드러운','프랑스'],
@@ -1133,6 +1173,7 @@ const APS_STYLES = [
 {
   id:'post-impressionism', type:'movement', name:'Post-Impressionism', nameNative:'Post-Impressionnisme',
   period:'1880s–1900s', country:'프랑스 / France', movement:'Post-Impressionism', movementKo:'후기 인상주의',
+  wikiQuery:'The Card Players Cezanne painting',
   colors:['#c9430b','#f2c14e','#2e6b5e','#4a3a8a'],
   shortKo:'인상주의를 넘어 색과 형태로 감정과 구조를 탐구한 미술 운동.',
   tags:['후기인상주의','감정적','구조적','색채','고흐','세잔'],
@@ -1161,6 +1202,7 @@ const APS_STYLES = [
 {
   id:'expressionism', type:'movement', name:'Expressionism', nameNative:'Expressionismus',
   period:'1905–1930s', country:'독일 / Germany', movement:'Expressionism', movementKo:'표현주의',
+  wikiQuery:'The Scream Edvard Munch painting',
   colors:['#c9430b','#1c3f6e','#2e2e2e','#8a1c3c'],
   shortKo:'현실을 왜곡해 인간의 내면 감정을 강렬하게 표현한 20세기 미술 운동.',
   tags:['표현주의','감정적','왜곡','강렬한','독일','뭉크'],
@@ -1189,6 +1231,7 @@ const APS_STYLES = [
 {
   id:'art-nouveau', type:'movement', name:'Art Nouveau', nameNative:'Art Nouveau',
   period:'1890–1910', country:'프랑스·오스트리아 / France-Austria', movement:'Art Nouveau', movementKo:'아르누보',
+  wikiQuery:'Gismonda poster Alphonse Mucha',
   colors:['#c9a227','#8a5c3c','#2e6b5e','#c98ba0'],
   shortKo:'자연에서 영감받은 유려한 곡선과 장식성을 강조한 미술 운동.',
   tags:['아르누보','장식적','곡선','자연','우아한','무하'],
@@ -1217,6 +1260,7 @@ const APS_STYLES = [
 {
   id:'ukiyo-e', type:'movement', name:'Ukiyo-e', nameNative:'浮世絵',
   period:'17th–19th century', country:'일본 / Japan', movement:'Ukiyo-e', movementKo:'우키요에',
+  wikiQuery:'The Great Wave off Kanagawa Hokusai',
   colors:['#1c3f6e','#e8d9c0','#c9430b','#2e2e2e'],
   shortKo:'목판화로 대중적 풍경과 일상을 평면적 색과 선으로 그린 일본 판화 예술.',
   tags:['우키요에','목판화','일본','평면적','전통','호쿠사이'],
@@ -1245,6 +1289,7 @@ const APS_STYLES = [
 {
   id:'renaissance', type:'movement', name:'Renaissance', nameNative:'Rinascimento',
   period:'14th–17th century', country:'이탈리아 / Italy', movement:'Renaissance', movementKo:'르네상스',
+  wikiQuery:'Mona Lisa Leonardo da Vinci',
   colors:['#c9a227','#8a6a4a','#1c3f6e','#e8d9c0'],
   shortKo:'고전 고대를 재발견하며 균형과 사실성을 추구한 유럽 미술의 황금기.',
   tags:['르네상스','고전적','균형','사실적','이탈리아','다빈치'],
@@ -1273,6 +1318,7 @@ const APS_STYLES = [
 {
   id:'baroque', type:'movement', name:'Baroque', nameNative:'Barocco',
   period:'1600–1750', country:'이탈리아·유럽 / Italy-Europe', movement:'Baroque', movementKo:'바로크',
+  wikiQuery:'The Night Watch Rembrandt painting',
   colors:['#1a1a1a','#c9a227','#8a1c1c','#4a3a2a'],
   shortKo:'극적인 명암과 역동적 구도로 감정의 강도를 극대화한 미술 양식.',
   tags:['바로크','극적','명암법','역동적','화려한'],
@@ -1301,6 +1347,7 @@ const APS_STYLES = [
 {
   id:'romanticism', type:'movement', name:'Romanticism', nameNative:'Romantisme',
   period:'1780–1850', country:'유럽 / Europe', movement:'Romanticism', movementKo:'낭만주의',
+  wikiQuery:'Liberty Leading the People Delacroix painting',
   colors:['#4a5a6a','#c9430b','#e8b04e','#8a9aa0'],
   shortKo:'이성보다 감정과 자연의 숭고함을 강조한 19세기 미술 운동.',
   tags:['낭만주의','숭고함','감정','자연','극적'],
@@ -1329,6 +1376,7 @@ const APS_STYLES = [
 {
   id:'symbolism', type:'movement', name:'Symbolism', nameNative:'Symbolisme',
   period:'1880s–1900s', country:'프랑스·유럽 / France-Europe', movement:'Symbolism', movementKo:'상징주의',
+  wikiQuery:'The Isle of the Dead Bocklin painting',
   colors:['#2e4a8a','#8a1c3c','#c9430b','#2e2e2e'],
   shortKo:'꿈, 신화, 내면을 상징적 이미지로 표현한 19세기 말 미술 운동.',
   tags:['상징주의','꿈','신화','내면','신비로운','뭉크'],
@@ -1357,6 +1405,7 @@ const APS_STYLES = [
 {
   id:'fauvism', type:'movement', name:'Fauvism', nameNative:'Fauvisme',
   period:'1905–1910', country:'프랑스 / France', movement:'Fauvism', movementKo:'야수주의',
+  wikiQuery:'The Dance Henri Matisse painting',
   colors:['#e8483c','#2e6b8a','#f2c14e','#2e8a5e'],
   shortKo:'자연색을 무시한 강렬하고 자유로운 색채 사용이 특징인 미술 운동.',
   tags:['야수주의','강렬한 색채','자유로운','마티스','대담한'],
@@ -1385,6 +1434,7 @@ const APS_STYLES = [
 {
   id:'cubism', type:'movement', name:'Cubism', nameNative:'Cubisme',
   period:'1907–1920s', country:'프랑스 / France', movement:'Cubism', movementKo:'입체주의',
+  wikiQuery:'Les Demoiselles dAvignon Picasso painting',
   colors:['#8a7355','#4a5a6a','#c9a227','#2e2e2e'],
   shortKo:'하나의 대상을 여러 시점에서 동시에 분해해 재구성한 혁신적 미술 운동.',
   tags:['입체주의','기하학적','다시점','분해','피카소','세잔'],
@@ -1413,6 +1463,7 @@ const APS_STYLES = [
 {
   id:'surrealism', type:'movement', name:'Surrealism', nameNative:'Surréalisme',
   period:'1920s–1950s', country:'프랑스 / France', movement:'Surrealism', movementKo:'초현실주의',
+  wikiQuery:'The Persistence of Memory Dali painting',
   colors:['#2e4a8a','#c9430b','#8a1c3c','#e8d9c0'],
   shortKo:'꿈과 무의식의 세계를 사실적 기법으로 그린 비현실적 미술 운동.',
   tags:['초현실주의','꿈','무의식','환상적','비현실적','샤갈'],
@@ -1441,6 +1492,7 @@ const APS_STYLES = [
 {
   id:'abstract-art', type:'movement', name:'Abstract Art', nameNative:'Abstract Art',
   period:'1910s–present', country:'국제 / International', movement:'Abstract Art', movementKo:'추상 미술',
+  wikiQuery:'Composition VII Kandinsky painting',
   colors:['#c9430b','#2e6b8a','#f2c14e','#2e2e2e'],
   shortKo:'구체적 형상 없이 색, 선, 형태 자체로 감정과 개념을 표현하는 미술.',
   tags:['추상','칸딘스키','몬드리안','색채','형태','비구상'],
@@ -1469,6 +1521,7 @@ const APS_STYLES = [
 {
   id:'minimalism', type:'movement', name:'Minimalism', nameNative:'Minimalism',
   period:'1960s–present', country:'미국 / United States', movement:'Minimalism', movementKo:'미니멀리즘',
+  wikiQuery:'Black Square Malevich painting',
   colors:['#e8e4d9','#2e2e2e','#8a9aa0','#c9a227'],
   shortKo:'불필요한 요소를 제거하고 형태와 색의 본질만 남긴 절제된 미술.',
   tags:['미니멀리즘','절제된','단순한','여백','현대적'],
@@ -1497,6 +1550,7 @@ const APS_STYLES = [
 {
   id:'korean-minhwa', type:'movement', name:'Korean Minhwa', nameNative:'민화(民畵)',
   period:'조선 후기 / Late Joseon', country:'한국 / Korea', movement:'Korean Folk Painting', movementKo:'한국 민화',
+  wikiQuery:'Minhwa Korean folk painting tiger magpie',
   colors:['#c9430b','#1c3f6e','#e8d9c0','#2e6b5e'],
   shortKo:'서민의 소망과 해학을 담아 자유롭고 장식적으로 그린 한국 민속 회화.',
   tags:['민화','한국','호랑이','까치','장식적','해학','전통'],
@@ -1525,6 +1579,7 @@ const APS_STYLES = [
 {
   id:'korean-ink', type:'movement', name:'Korean Ink Painting', nameNative:'수묵화(水墨畵)',
   period:'고려~조선 / Goryeo–Joseon', country:'한국 / Korea', movement:'Korean Ink Wash Painting', movementKo:'한국 수묵화',
+  wikiQuery:'Sumukhwa Korean ink wash landscape painting',
   colors:['#2e2e2e','#5a5a5a','#8a9aa0','#e8e4d9'],
   shortKo:'먹의 농담만으로 자연의 정신과 여백의 미를 표현한 한국 전통 회화.',
   tags:['수묵화','먹','여백','한국','전통','산수'],

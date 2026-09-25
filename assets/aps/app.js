@@ -519,12 +519,60 @@ function compatibilityReason(style, scene, ideaText){
   return `${style.shortKo} 입력하신 장면의 ${parts.join(' · ')} 결과 톤과 시각적으로 잘 맞습니다.`;
 }
 
+/* ============================================================
+   REPRESENTATIVE ARTWORK IMAGES (client-side, best-effort)
+   Looks up a public-domain/openly-licensed thumbnail of one representative
+   work per style via the Wikipedia API (CORS-enabled, no key required).
+   Every failure mode (offline, no match, blocked, rate-limited) resolves to
+   null so the caller can keep showing the gradient swatch — an image here
+   is a progressive enhancement, never a requirement.
+   ============================================================ */
+
+const ARTWORK_CACHE_KEY = 'aps_artwork_cache_v1';
+let artworkCache = loadJSON(ARTWORK_CACHE_KEY, {});
+const artworkInFlight = {};
+
+async function fetchStyleArtwork(style){
+  if(!style) return null;
+  if(Object.prototype.hasOwnProperty.call(artworkCache, style.id)) return artworkCache[style.id];
+  if(artworkInFlight[style.id]) return artworkInFlight[style.id];
+
+  const query = style.wikiQuery || `${style.name} painting`;
+  const p = (async () => {
+    try{
+      const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*&srlimit=1`;
+      const sRes = await fetch(searchUrl, { mode:'cors' });
+      if(!sRes.ok) throw new Error('search failed');
+      const sData = await sRes.json();
+      const title = sData && sData.query && sData.query.search && sData.query.search[0] && sData.query.search[0].title;
+      if(!title) throw new Error('no search result');
+
+      const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title.replace(/ /g,'_'))}`;
+      const rRes = await fetch(summaryUrl, { mode:'cors' });
+      if(!rRes.ok) throw new Error('summary failed');
+      const rData = await rRes.json();
+      const src = (rData.thumbnail && rData.thumbnail.source) || (rData.originalimage && rData.originalimage.source) || null;
+      artworkCache[style.id] = src;
+      saveJSON(ARTWORK_CACHE_KEY, artworkCache);
+      return src;
+    }catch(e){
+      artworkCache[style.id] = null;
+      saveJSON(ARTWORK_CACHE_KEY, artworkCache);
+      return null;
+    }finally{
+      delete artworkInFlight[style.id];
+    }
+  })();
+  artworkInFlight[style.id] = p;
+  return p;
+}
+
 /* expose for the UI layer */
 window.APS = {
   STYLES, byId, COMPOSITION, COLOR, LIGHTING, MOOD, MEDIUM, DETAIL, ASPECT, PURPOSE, PLATFORMS, CATEGORIES,
   state, rememberSubject, rememberPrompt, toggleFavorite,
   detectLang, expandSubject, recommendOptions, buildPromptEN, buildPromptKO, platformNote,
-  searchStyles, findStyles, label, labelKo
+  searchStyles, findStyles, label, labelKo, fetchStyleArtwork
 };
 
 })();
