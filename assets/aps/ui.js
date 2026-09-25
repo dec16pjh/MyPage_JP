@@ -286,7 +286,8 @@ function worksSectionHTML(style){
       <div class="works-grid">
         ${style.works.map((w, i) => `
           <div class="work-card" data-action="open-work" data-artwork-key="work::${style.id}::${i}"
-               data-artwork-query="${esc(A.workSearchQuery(style, w))}" data-label="${esc(w)}" data-style-name="${esc(style.name)}">
+               data-artwork-query="${esc(A.workSearchQuery(style, w))}" data-label="${esc(w)}"
+               data-style-name="${esc(style.name)}" data-style-id="${style.id}" data-index="${i}">
             <div class="work-thumb"><img class="artwork-img" alt="" loading="lazy"></div>
             <div class="work-label">${esc(w)}</div>
           </div>
@@ -297,26 +298,45 @@ function worksSectionHTML(style){
 function closeModal(){ $modal.classList.add('hidden'); $modal.innerHTML=''; modalStyleId=null; }
 
 /* ============================================================
-   ARTWORK LIGHTBOX — large view of a single representative work,
-   with a link to the exact Wikipedia page the thumbnail was resolved
-   from (a real API-returned URL, never guessed).
+   ARTWORK LIGHTBOX — large, web-album style view of one style's
+   representative works: prev/next steps through style.works, wrapping
+   around at the ends. Each work links to the exact Wikipedia page its
+   thumbnail was resolved from (a real API-returned URL, never guessed).
    ============================================================ */
 let lightboxToken = 0;
-async function openArtworkLightbox(el){
-  const key = el.dataset.artworkKey;
-  const query = el.dataset.artworkQuery;
-  const label = el.dataset.label || '';
-  const styleName = el.dataset.styleName || '';
-  if(!key || !query) return;
+let lightboxStyleId = null;
+let lightboxIndex = 0;
+
+function openArtworkLightbox(el){
+  const styleId = el.dataset.styleId;
+  const index = +el.dataset.index;
+  if(!styleId || Number.isNaN(index)) return;
+  showLightbox(styleId, index);
+}
+
+async function showLightbox(styleId, index){
+  const style = A.byId(styleId);
+  if(!style || !style.works || !style.works.length) return;
+  const len = style.works.length;
+  const i = ((index % len) + len) % len; // wrap both directions
+  lightboxStyleId = styleId;
+  lightboxIndex = i;
+
+  const label = style.works[i];
+  const key = `work::${styleId}::${i}`;
+  const query = A.workSearchQuery(style, label);
+  const showNav = len > 1;
 
   const myToken = ++lightboxToken;
   $lightbox.innerHTML = `
     <div class="lightbox-card">
       <button class="lightbox-close" data-action="close-lightbox">✕</button>
+      ${showNav ? `<button class="lightbox-nav prev" data-action="lightbox-prev">&#10094;</button>` : ''}
+      ${showNav ? `<button class="lightbox-nav next" data-action="lightbox-next">&#10095;</button>` : ''}
       <div class="lightbox-img-wrap"><div class="spinner"></div></div>
       <div class="lightbox-caption">
         <div class="lightbox-title">${esc(label)}</div>
-        <div class="lightbox-sub">${esc(styleName)}</div>
+        <div class="lightbox-sub">${esc(style.name)}${showNav ? ` · ${i+1} / ${len}` : ''}</div>
       </div>
     </div>`;
   $lightbox.classList.remove('hidden');
@@ -334,7 +354,15 @@ async function openArtworkLightbox(el){
   const linkUrl = (detail && detail.pageUrl) || `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(query)}`;
   caption.insertAdjacentHTML('beforeend', `<a class="btn sm" href="${esc(linkUrl)}" target="_blank" rel="noopener">더 알아보기 →</a>`);
 }
-function closeLightbox(){ lightboxToken++; $lightbox.classList.add('hidden'); $lightbox.innerHTML=''; }
+
+function lightboxStep(delta){
+  if(lightboxStyleId == null) return;
+  showLightbox(lightboxStyleId, lightboxIndex + delta);
+}
+function closeLightbox(){
+  lightboxToken++; lightboxStyleId = null;
+  $lightbox.classList.add('hidden'); $lightbox.innerHTML='';
+}
 
 function buildStyleParagraph(style){
   const d = style.dna;
@@ -820,6 +848,8 @@ document.addEventListener('click', function(e){
     case 'close-modal': closeModal(); break;
     case 'open-work': openArtworkLightbox(t); break;
     case 'close-lightbox': closeLightbox(); break;
+    case 'lightbox-prev': lightboxStep(-1); break;
+    case 'lightbox-next': lightboxStep(1); break;
     case 'pick-style': pickStyle(id); if(currentView==='gallery' || currentView==='home'){ closeModal(); go('subject'); } else { render(); } break;
     case 'pick-style-from-compare': pickStyle(id); go(S.subject ? 'customize' : 'subject'); break;
     case 'pick-from-finder': pickStyle(id); S.subject = S.subject || finderIdea; A.rememberSubject(S.subject); go('subject'); setTimeout(renderSceneAndPreview,30); break;
@@ -971,9 +1001,13 @@ $topNav.addEventListener('click', function(e){
 $modal.addEventListener('click', function(e){ if(e.target === $modal) closeModal(); });
 $lightbox.addEventListener('click', function(e){ if(e.target === $lightbox) closeLightbox(); });
 document.addEventListener('keydown', function(e){
-  if(e.key !== 'Escape') return;
-  if(!$lightbox.classList.contains('hidden')){ closeLightbox(); return; }
-  closeModal();
+  if($lightbox.classList.contains('hidden')){
+    if(e.key === 'Escape') closeModal();
+    return;
+  }
+  if(e.key === 'Escape') closeLightbox();
+  else if(e.key === 'ArrowLeft') lightboxStep(-1);
+  else if(e.key === 'ArrowRight') lightboxStep(1);
 });
 
 /* ---------------- init ---------------- */
