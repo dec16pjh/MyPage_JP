@@ -90,11 +90,12 @@ function render(){
    never fires 55 network requests at once. Best-effort: on any failure
    the gradient swatch underneath stays exactly as it was.
    ============================================================ */
+const ARTWORK_SELECTOR = '[data-artwork-id], [data-artwork-query]';
 let artworkObserver = null;
 function setupArtworkObserver(){
   if(artworkObserver) artworkObserver.disconnect();
   if(typeof IntersectionObserver === 'undefined'){
-    document.querySelectorAll('[data-artwork-id]').forEach(loadArtworkInto);
+    document.querySelectorAll(ARTWORK_SELECTOR).forEach(loadArtworkInto);
     return;
   }
   artworkObserver = new IntersectionObserver((entries) => {
@@ -105,15 +106,19 @@ function setupArtworkObserver(){
       }
     });
   }, { rootMargin: '200px' });
-  document.querySelectorAll('[data-artwork-id]').forEach(el => artworkObserver.observe(el));
+  document.querySelectorAll(ARTWORK_SELECTOR).forEach(el => artworkObserver.observe(el));
 }
 async function loadArtworkInto(container){
-  const styleId = container.dataset.artworkId;
-  const style = A.byId(styleId);
+  if(!container) return;
   const img = container.querySelector('.artwork-img');
-  if(!style || !img) return;
+  if(!img) return;
   try{
-    const url = await A.fetchStyleArtwork(style);
+    let url;
+    if(container.dataset.artworkQuery){
+      url = await A.fetchArtworkByQuery(container.dataset.artworkKey, container.dataset.artworkQuery);
+    } else {
+      url = await A.fetchStyleArtwork(A.byId(container.dataset.artworkId));
+    }
     if(!url) return;
     img.onload = () => img.classList.add('loaded');
     img.onerror = () => img.remove();
@@ -235,6 +240,12 @@ function openStyle(id){
         <span>${esc(style.movementKo)}</span>
       </div>
       <p class="k-desc">${esc(style.shortKo)}</p>
+      ${style.bio ? `<p class="k-bio">${esc(style.bio)}</p>` : ''}
+
+      <div class="link-row">
+        ${style.officialUrl ? `<a class="btn ghost sm" href="${esc(style.officialUrl)}" target="_blank" rel="noopener">🔗 공식 웹사이트</a>` : ''}
+        <a class="btn ghost sm" href="${esc(A.wikipediaUrl(style))}" target="_blank" rel="noopener">📖 Wikipedia에서 더 보기</a>
+      </div>
 
       <div class="dna-note">
         <b>🧬 AI를 위한 시각적 스타일 설명</b><br>
@@ -248,7 +259,7 @@ function openStyle(id){
         `).join('')}
       </dl>
 
-      ${style.works && style.works.length ? `<div class="works-list"><b>대표작 · </b>${style.works.map(esc).join(' / ')}</div>` : ''}
+      ${worksSectionHTML(style)}
 
       <div class="modal-actions">
         <button class="btn primary" data-action="pick-style" data-id="${style.id}">이 스타일 선택</button>
@@ -258,7 +269,27 @@ function openStyle(id){
     </div>
   </div>`;
   $modal.classList.remove('hidden');
-  loadArtworkInto($modal.querySelector('[data-artwork-id]'));
+  setupArtworkObserver();
+}
+
+function worksSectionHTML(style){
+  if(!style.works || !style.works.length) return '';
+  if(style.works.length < 4){
+    // movement cards: a single generic line, no per-work images
+    return `<div class="works-list"><b>대표작 · </b>${style.works.map(esc).join(' / ')}</div>`;
+  }
+  return `
+    <div class="works-section">
+      <h4>대표작 (${style.works.length})</h4>
+      <div class="works-grid">
+        ${style.works.map((w, i) => `
+          <div class="work-card" data-artwork-key="work::${style.id}::${i}" data-artwork-query="${esc(A.workSearchQuery(style, w))}">
+            <div class="work-thumb"><img class="artwork-img" alt="" loading="lazy"></div>
+            <div class="work-label">${esc(w)}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>`;
 }
 function closeModal(){ $modal.classList.add('hidden'); $modal.innerHTML=''; modalStyleId=null; }
 

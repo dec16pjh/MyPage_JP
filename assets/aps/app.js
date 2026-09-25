@@ -532,12 +532,14 @@ const ARTWORK_CACHE_KEY = 'aps_artwork_cache_v1';
 let artworkCache = loadJSON(ARTWORK_CACHE_KEY, {});
 const artworkInFlight = {};
 
-async function fetchStyleArtwork(style){
-  if(!style) return null;
-  if(Object.prototype.hasOwnProperty.call(artworkCache, style.id)) return artworkCache[style.id];
-  if(artworkInFlight[style.id]) return artworkInFlight[style.id];
+/* Generic keyed lookup: cacheKey identifies where the result is stored/reused
+   (a style id, or "work::<styleId>::<index>" for one specific painting).
+   query is the free-text search string sent to Wikipedia's search API. */
+async function fetchArtworkByQuery(cacheKey, query){
+  if(!cacheKey || !query) return null;
+  if(Object.prototype.hasOwnProperty.call(artworkCache, cacheKey)) return artworkCache[cacheKey];
+  if(artworkInFlight[cacheKey]) return artworkInFlight[cacheKey];
 
-  const query = style.wikiQuery || `${style.name} painting`;
   const p = (async () => {
     try{
       const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(query)}&format=json&origin=*&srlimit=1`;
@@ -552,19 +554,36 @@ async function fetchStyleArtwork(style){
       if(!rRes.ok) throw new Error('summary failed');
       const rData = await rRes.json();
       const src = (rData.thumbnail && rData.thumbnail.source) || (rData.originalimage && rData.originalimage.source) || null;
-      artworkCache[style.id] = src;
+      artworkCache[cacheKey] = src;
       saveJSON(ARTWORK_CACHE_KEY, artworkCache);
       return src;
     }catch(e){
-      artworkCache[style.id] = null;
+      artworkCache[cacheKey] = null;
       saveJSON(ARTWORK_CACHE_KEY, artworkCache);
       return null;
     }finally{
-      delete artworkInFlight[style.id];
+      delete artworkInFlight[cacheKey];
     }
   })();
-  artworkInFlight[style.id] = p;
+  artworkInFlight[cacheKey] = p;
   return p;
+}
+
+function fetchStyleArtwork(style){
+  if(!style) return Promise.resolve(null);
+  return fetchArtworkByQuery(style.id, style.wikiQuery || `${style.name} painting`);
+}
+
+/* extracts "English Title" out of a "한국어 제목 (English Title)" work string,
+   falling back to the whole string when there's no trailing parenthetical */
+function workSearchQuery(style, workLabel){
+  const m = /\(([^)]+)\)\s*$/.exec(workLabel);
+  const title = m ? m[1] : workLabel;
+  return `${title} ${style.name}`;
+}
+
+function wikipediaUrl(style){
+  return `https://en.wikipedia.org/wiki/${encodeURIComponent(style.name.replace(/ /g,'_'))}`;
 }
 
 /* expose for the UI layer */
@@ -572,7 +591,8 @@ window.APS = {
   STYLES, byId, COMPOSITION, COLOR, LIGHTING, MOOD, MEDIUM, DETAIL, ASPECT, PURPOSE, PLATFORMS, CATEGORIES,
   state, rememberSubject, rememberPrompt, toggleFavorite,
   detectLang, expandSubject, recommendOptions, buildPromptEN, buildPromptKO, platformNote,
-  searchStyles, findStyles, label, labelKo, fetchStyleArtwork
+  searchStyles, findStyles, label, labelKo,
+  fetchStyleArtwork, fetchArtworkByQuery, workSearchQuery, wikipediaUrl
 };
 
 })();
