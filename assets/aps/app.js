@@ -528,14 +528,19 @@ function compatibilityReason(style, scene, ideaText){
    is a progressive enhancement, never a requirement.
    ============================================================ */
 
-const ARTWORK_CACHE_KEY = 'aps_artwork_cache_v1';
+const ARTWORK_CACHE_KEY = 'aps_artwork_cache_v2';
 let artworkCache = loadJSON(ARTWORK_CACHE_KEY, {});
 const artworkInFlight = {};
 
 /* Generic keyed lookup: cacheKey identifies where the result is stored/reused
    (a style id, or "work::<styleId>::<index>" for one specific painting).
-   query is the free-text search string sent to Wikipedia's search API. */
-async function fetchArtworkByQuery(cacheKey, query){
+   query is the free-text search string sent to Wikipedia's search API.
+   Resolves to a {thumb, full, pageUrl, title} detail object, or null on any
+   failure — search miss, offline, blocked network, rate limit. pageUrl always
+   points at the API-returned Wikipedia article for that exact match (never a
+   guessed URL), which is the safest "learn more" / official-source link we
+   can offer without verifying hundreds of individual museum pages by hand. */
+async function fetchArtworkDetail(cacheKey, query){
   if(!cacheKey || !query) return null;
   if(Object.prototype.hasOwnProperty.call(artworkCache, cacheKey)) return artworkCache[cacheKey];
   if(artworkInFlight[cacheKey]) return artworkInFlight[cacheKey];
@@ -553,10 +558,19 @@ async function fetchArtworkByQuery(cacheKey, query){
       const rRes = await fetch(summaryUrl, { mode:'cors' });
       if(!rRes.ok) throw new Error('summary failed');
       const rData = await rRes.json();
-      const src = (rData.thumbnail && rData.thumbnail.source) || (rData.originalimage && rData.originalimage.source) || null;
-      artworkCache[cacheKey] = src;
+      const thumb = (rData.thumbnail && rData.thumbnail.source) || null;
+      const full = (rData.originalimage && rData.originalimage.source) || thumb;
+      if(!thumb && !full) throw new Error('no image');
+      const detail = {
+        thumb: thumb || full,
+        full: full || thumb,
+        pageUrl: (rData.content_urls && rData.content_urls.desktop && rData.content_urls.desktop.page)
+          || `https://en.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g,'_'))}`,
+        title: rData.title || title
+      };
+      artworkCache[cacheKey] = detail;
       saveJSON(ARTWORK_CACHE_KEY, artworkCache);
-      return src;
+      return detail;
     }catch(e){
       artworkCache[cacheKey] = null;
       saveJSON(ARTWORK_CACHE_KEY, artworkCache);
@@ -569,17 +583,24 @@ async function fetchArtworkByQuery(cacheKey, query){
   return p;
 }
 
+async function fetchArtworkByQuery(cacheKey, query){
+  const detail = await fetchArtworkDetail(cacheKey, query);
+  return detail ? detail.thumb : null;
+}
+
 function fetchStyleArtwork(style){
   if(!style) return Promise.resolve(null);
   return fetchArtworkByQuery(style.id, style.wikiQuery || `${style.name} painting`);
 }
 
 /* extracts "English Title" out of a "한국어 제목 (English Title)" work string,
-   falling back to the whole string when there's no trailing parenthetical */
+   falling back to the whole string when there's no trailing parenthetical.
+   Appending "painting" steers the search away from unrelated same-named
+   pages (letters, biography sections, etc.) toward the artwork itself. */
 function workSearchQuery(style, workLabel){
   const m = /\(([^)]+)\)\s*$/.exec(workLabel);
   const title = m ? m[1] : workLabel;
-  return `${title} ${style.name}`;
+  return `${title} ${style.name} painting`;
 }
 
 function wikipediaUrl(style){
@@ -592,7 +613,7 @@ window.APS = {
   state, rememberSubject, rememberPrompt, toggleFavorite,
   detectLang, expandSubject, recommendOptions, buildPromptEN, buildPromptKO, platformNote,
   searchStyles, findStyles, label, labelKo,
-  fetchStyleArtwork, fetchArtworkByQuery, workSearchQuery, wikipediaUrl
+  fetchStyleArtwork, fetchArtworkByQuery, fetchArtworkDetail, workSearchQuery, wikipediaUrl
 };
 
 })();

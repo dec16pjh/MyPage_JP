@@ -7,6 +7,7 @@ const S = A.state;
 
 const $main = document.getElementById('main');
 const $modal = document.getElementById('styleModal');
+const $lightbox = document.getElementById('artworkLightbox');
 const $toast = document.getElementById('toast');
 const $stepsBar = document.getElementById('stepsBar');
 const $topNav = document.getElementById('topNav');
@@ -69,6 +70,7 @@ function go(view){
 
 function render(){
   closeModal();
+  closeLightbox();
   switch(currentView){
     case 'home': $main.innerHTML = viewHome(); break;
     case 'gallery': $main.innerHTML = viewGallery(); break;
@@ -283,7 +285,8 @@ function worksSectionHTML(style){
       <h4>대표작 (${style.works.length})</h4>
       <div class="works-grid">
         ${style.works.map((w, i) => `
-          <div class="work-card" data-artwork-key="work::${style.id}::${i}" data-artwork-query="${esc(A.workSearchQuery(style, w))}">
+          <div class="work-card" data-action="open-work" data-artwork-key="work::${style.id}::${i}"
+               data-artwork-query="${esc(A.workSearchQuery(style, w))}" data-label="${esc(w)}" data-style-name="${esc(style.name)}">
             <div class="work-thumb"><img class="artwork-img" alt="" loading="lazy"></div>
             <div class="work-label">${esc(w)}</div>
           </div>
@@ -292,6 +295,46 @@ function worksSectionHTML(style){
     </div>`;
 }
 function closeModal(){ $modal.classList.add('hidden'); $modal.innerHTML=''; modalStyleId=null; }
+
+/* ============================================================
+   ARTWORK LIGHTBOX — large view of a single representative work,
+   with a link to the exact Wikipedia page the thumbnail was resolved
+   from (a real API-returned URL, never guessed).
+   ============================================================ */
+let lightboxToken = 0;
+async function openArtworkLightbox(el){
+  const key = el.dataset.artworkKey;
+  const query = el.dataset.artworkQuery;
+  const label = el.dataset.label || '';
+  const styleName = el.dataset.styleName || '';
+  if(!key || !query) return;
+
+  const myToken = ++lightboxToken;
+  $lightbox.innerHTML = `
+    <div class="lightbox-card">
+      <button class="lightbox-close" data-action="close-lightbox">✕</button>
+      <div class="lightbox-img-wrap"><div class="spinner"></div></div>
+      <div class="lightbox-caption">
+        <div class="lightbox-title">${esc(label)}</div>
+        <div class="lightbox-sub">${esc(styleName)}</div>
+      </div>
+    </div>`;
+  $lightbox.classList.remove('hidden');
+
+  const detail = await A.fetchArtworkDetail(key, query);
+  if(lightboxToken !== myToken) return; // closed or replaced while fetching
+
+  const wrap = $lightbox.querySelector('.lightbox-img-wrap');
+  const caption = $lightbox.querySelector('.lightbox-caption');
+  if(detail && detail.full){
+    wrap.innerHTML = `<img src="${esc(detail.full)}" alt="${esc(label)}">`;
+  } else {
+    wrap.innerHTML = `<div class="lightbox-empty">이미지를 불러오지 못했습니다.<br>아래 링크에서 작품을 확인해보세요.</div>`;
+  }
+  const linkUrl = (detail && detail.pageUrl) || `https://en.wikipedia.org/w/index.php?search=${encodeURIComponent(query)}`;
+  caption.insertAdjacentHTML('beforeend', `<a class="btn sm" href="${esc(linkUrl)}" target="_blank" rel="noopener">더 알아보기 →</a>`);
+}
+function closeLightbox(){ lightboxToken++; $lightbox.classList.add('hidden'); $lightbox.innerHTML=''; }
 
 function buildStyleParagraph(style){
   const d = style.dna;
@@ -775,6 +818,8 @@ document.addEventListener('click', function(e){
 
     case 'open-style': openStyle(id); break;
     case 'close-modal': closeModal(); break;
+    case 'open-work': openArtworkLightbox(t); break;
+    case 'close-lightbox': closeLightbox(); break;
     case 'pick-style': pickStyle(id); if(currentView==='gallery' || currentView==='home'){ closeModal(); go('subject'); } else { render(); } break;
     case 'pick-style-from-compare': pickStyle(id); go(S.subject ? 'customize' : 'subject'); break;
     case 'pick-from-finder': pickStyle(id); S.subject = S.subject || finderIdea; A.rememberSubject(S.subject); go('subject'); setTimeout(renderSceneAndPreview,30); break;
@@ -924,7 +969,12 @@ $topNav.addEventListener('click', function(e){
   if(b) go(b.dataset.view);
 });
 $modal.addEventListener('click', function(e){ if(e.target === $modal) closeModal(); });
-document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeModal(); });
+$lightbox.addEventListener('click', function(e){ if(e.target === $lightbox) closeLightbox(); });
+document.addEventListener('keydown', function(e){
+  if(e.key !== 'Escape') return;
+  if(!$lightbox.classList.contains('hidden')){ closeLightbox(); return; }
+  closeModal();
+});
 
 /* ---------------- init ---------------- */
 go('home');
