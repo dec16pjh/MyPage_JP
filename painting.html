@@ -23,10 +23,11 @@
   }
   .wrap{max-width:1180px;margin:0 auto;padding:64px 24px 90px;}
 
+  .back-row{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:34px;}
   .back{
     display:inline-flex;align-items:center;gap:6px;
     font-size:13px;font-weight:700;color:var(--ink-soft);
-    text-decoration:none;margin-bottom:34px;
+    text-decoration:none;
   }
   .back:hover{color:var(--ink);}
 
@@ -136,7 +137,10 @@
 <body>
 <div class="wrap">
 
-  <a class="back" href="index.html">← MyPage로 돌아가기</a>
+  <div class="back-row">
+    <a class="back" href="index.html">← MyPage로 돌아가기(GitHub)</a>
+    <a class="back" href="https://johnpark.lovable.app/" target="_blank" rel="noopener">← Web Site로 돌아가기</a>
+  </div>
 
   <header class="hero">
     <div class="eyebrow">Creative · Painting Archive</div>

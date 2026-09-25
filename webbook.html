@@ -25,6 +25,7 @@
     padding:16px 24px;background:rgba(8,8,11,0.88);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
+  .back-group{display:flex;align-items:center;flex-wrap:wrap;gap:14px;flex-shrink:0;}
   .back{
     display:inline-flex;align-items:center;gap:6px;
     font-size:13px;font-weight:700;color:var(--ink-soft);text-decoration:none;flex-shrink:0;
@@ -66,7 +67,10 @@
 <body>
 
   <div class="topbar">
-    <a class="back" id="backLink" href="publishing.html">← Publishing</a>
+    <div class="back-group">
+      <a class="back" id="backLink" href="publishing.html">← Publishing</a>
+      <a class="back" href="https://johnpark.lovable.app/" target="_blank" rel="noopener">← Web Site로 돌아가기</a>
+    </div>
     <div class="titles">
       <div class="t" id="bookTitle">웹북</div>
       <div class="s" id="bookSubtitle"></div>
