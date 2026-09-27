@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>명연설 & 명언 아카이브</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      background: #0f0f0f;
+      color: #f1f1f1;
+      padding: 32px 16px;
+    }
+    header {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 28px auto;
+    }
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+    header p {
+      color: #aaa;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .download-bar {
+      margin-top: 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .btn-download {
+      background: #238636;
+      color: #fff;
+      border: 1px solid #2ea043;
+      padding: 9px 20px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s ease;
+    }
+    .btn-download:hover {
+      background: #2ea043;
+    }
+
+    .controls {
+      max-width: 1000px;
+      margin: 0 auto 32px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+    .search-input {
+      width: 100%;
+      max-width: 520px;
+      padding: 12px 20px;
+      border-radius: 24px;
+      border: 1px solid #333;
+      background: #1e1e1e;
+      color: #fff;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    .search-input:focus {
+      border-color: #3ea6ff;
+    }
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+    }
+    .filter-btn {
+      background: #212121;
+      color: #aaa;
+      border: 1px solid #333;
+      padding: 7px 14px;
+      border-radius: 18px;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover {
+      background: #303030;
+      color: #fff;
+    }
+    .filter-btn.active {
+      background: #3ea6ff;
+      color: #000;
+      font-weight: 600;
+      border-color: #3ea6ff;
+    }
+    .counter {
+      color: #777;
+      font-size: 0.85rem;
+      margin-top: -6px;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1440px;
+      margin: 0 auto;
+    }
+    .video-card {
+      background: #181818;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+      border: 1px solid #272727;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.7);
+      border-color: #3ea6ff;
+    }
+    .thumb-box {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #252525;
+    }
+    .thumb-box img {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .play-badge {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(204, 0, 0, 0.92);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+    .info-box {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .badge {
+      align-self: flex-start;
+      font-size: 0.75rem;
+      background: #2a2a2a;
+      color: #3ea6ff;
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+      font-weight: 500;
+    }
+    .info-box h3 {
+      font-size: 0.95rem;
+      line-height: 1.45;
+      margin-bottom: 8px;
+      color: #f1f1f1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .speaker {
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: auto;
+    }
+    .empty-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 0;
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    .section-tabs { display:flex; justify-content:center; gap:10px; margin: 0 auto 24px; }
+    .section-btn { background:#1a1a1a; color:#bbb; border:1px solid #333; padding:10px 22px; border-radius:24px; font-size:0.95rem; font-weight:600; cursor:pointer; transition:all .2s ease; }
+    .section-btn:hover { color:#fff; background:#262626; }
+    .section-btn.active { background:#f1f1f1; color:#0f0f0f; border-color:#f1f1f1; }
+    .quote-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; max-width:1440px; margin:0 auto; }
+    .quote-card { background:#181818; border:1px solid #272727; border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:14px; transition:border-color .2s ease, transform .2s ease; }
+    .quote-card:hover { border-color:#3ea6ff; transform:translateY(-3px); }
+    .quote-ko { font-size:1rem; line-height:1.65; color:#f1f1f1; margin-bottom:8px; }
+    .quote-ko::before { content:"\201C"; color:#3ea6ff; font-size:1.6rem; line-height:0; vertical-align:-0.35em; margin-right:4px; }
+    .quote-en { font-size:0.9rem; line-height:1.55; color:#aaa; font-style:italic; margin-bottom:8px; }
+    .quote-foot { margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+    .quote-author { font-size:0.85rem; color:#aaa; }
+    .copy-btn { white-space:nowrap; flex-shrink:0; background:transparent; border:1px solid #333; color:#999; border-radius:14px; padding:4px 10px; font-size:0.75rem; cursor:pointer; }
+    .copy-btn:hover { color:#fff; border-color:#666; }
+    .random-box { max-width:760px; margin:0 auto 28px; text-align:center; background:linear-gradient(135deg,#1b2a3a,#181818); border:1px solid #2c3e50; border-radius:14px; padding:24px 20px; }
+    .random-box .quote-ko { font-size:1.15rem; margin-bottom:10px; }
+    .random-box .quote-en { font-size:0.95rem; margin-bottom:12px; }
+    .random-btn { margin-top:14px; background:#3ea6ff; color:#000; border:none; padding:8px 18px; border-radius:18px; font-weight:600; cursor:pointer; }
+    .hidden { display:none !important; }
+    .author-link { background:none; border:none; padding:0; font:inherit; font-size:0.85rem; color:#3ea6ff; cursor:pointer; text-align:left; border-bottom:1px dashed rgba(62,166,255,.5); }
+    .author-link:hover { color:#7cc4ff; border-bottom-color:#7cc4ff; }
+    .author-plain { font-size:0.85rem; color:#888; }
+    .random-box .author-link { font-size:0.95rem; }
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.72); display:flex; align-items:center; justify-content:center; padding:16px; z-index:1000; animation:fadeIn .15s ease; }
+    .modal { position:relative; width:100%; max-width:440px; max-height:calc(100vh - 32px); overflow-y:auto; background:#1a1a1a; border:1px solid #333; border-radius:16px; padding:28px 24px 22px; text-align:center; box-shadow:0 20px 60px rgba(0,0,0,.6); animation:popIn .18s ease; }
+    .modal-close { position:absolute; top:10px; right:12px; background:none; border:none; color:#888; font-size:1.5rem; line-height:1; cursor:pointer; padding:4px 8px; }
+    .modal-close:hover { color:#fff; }
+    .person-photo { width:120px; height:120px; margin:0 auto 14px; border-radius:50%; overflow:hidden; background:#2a2a2a; border:2px solid #3ea6ff; display:flex; align-items:center; justify-content:center; font-size:2.6rem; font-weight:700; color:#3ea6ff; }
+    .person-photo img { width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+    .person-name { font-size:1.35rem; font-weight:700; color:#fff; }
+    .person-en { font-size:0.9rem; color:#999; margin-top:2px; }
+    .person-intro { font-size:0.93rem; line-height:1.65; color:#ddd; margin:16px 0 14px; text-align:left; }
+    .person-quotes { text-align:left; background:#141414; border:1px solid #2a2a2a; border-radius:10px; padding:12px 14px; margin-bottom:18px; }
+    .person-quotes h4 { font-size:0.78rem; color:#888; font-weight:600; margin-bottom:8px; }
+    .person-quotes li { list-style:none; font-size:0.86rem; line-height:1.55; color:#ccc; padding:6px 0; border-top:1px solid #242424; }
+    .person-quotes li:first-of-type { border-top:none; padding-top:0; }
+    .person-quotes li span { display:block; color:#888; font-style:italic; font-size:0.8rem; margin-top:2px; }
+    .modal-actions { display:flex; flex-direction:column; gap:8px; }
+    .modal-btn { display:block; text-decoration:none; padding:10px 14px; border-radius:22px; font-size:0.9rem; font-weight:600; }
+    .modal-btn.primary { background:#3ea6ff; color:#000; }
+    .modal-btn.primary:hover { background:#65b8ff; }
+    .modal-btn.secondary { border:1px solid #444; color:#ccc; }
+    .modal-btn.secondary:hover { border-color:#888; color:#fff; }
+    .modal-credit { font-size:0.7rem; color:#666; margin-top:12px; }
+    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+    @keyframes popIn { from { opacity:0; transform:scale(.96); } to { opacity:1; transform:scale(1); } }
+    .speaker-wrap { width:100%; max-width:1000px; display:flex; flex-direction:column; align-items:center; gap:8px; }
+    .speaker-label { font-size:0.8rem; color:#888; }
+    .speaker-tabs { overflow:hidden; transition:max-height .25s ease; }
+    .speaker-tabs .filter-btn { font-size:0.78rem; padding:6px 12px; }
+    .speaker-toggle { background:transparent; border:1px solid #333; color:#3ea6ff; border-radius:16px; padding:5px 16px; font-size:0.8rem; cursor:pointer; }
+    .speaker-toggle:hover { border-color:#3ea6ff; }
+    .copy-btn.done { color:#2ea043; border-color:#2ea043; }
+    @media (max-width:600px){ header h1{font-size:1.5rem;} .quote-grid,.video-grid{grid-template-columns:1fr;} }
+    .back-row { display: flex; flex-wrap: wrap; gap: 16px; max-width: 860px; margin: 0 auto 20px auto; }
+    .back-link { display: inline-flex; align-items: center; gap: 6px; font-size: 0.82rem; font-weight: 600; color: #999; text-decoration: none; }
+    .back-link:hover { color: #3ea6ff; }
+  </style>
+</head>
+<body>
+
+  <div class="back-row">
+    <a class="back-link" href="index.html">← MyPage로 돌아가기(GitHub)</a>
+    <a class="back-link" href="https://johnpark.lovable.app/" target="_blank" rel="noopener">← Web Site로 돌아가기</a>
+  </div>
+
+  <header>
+    <h1>글로벌 명사 명연설 & 명언 아카이브</h1>
+    <p>재생 가능 여부를 확인한 명연설 영상 <span id="videoTotal"></span>선 & 명언 <span id="quoteTotal"></span>선 (한국어/영어 병기)</p>
+    <div class="download-bar">
+      <button class="btn-download" id="downloadHtmlBtn">📥 이 웹페이지 HTML 파일로 저장</button>
+    </div>
+  </header>
+
+  <nav class="section-tabs">
+    <button class="section-btn active" data-section="videos">🎬 명연설 영상 (<span id="videoTotalTab"></span>)</button>
+    <button class="section-btn" data-section="quotes">💬 명언 <span id="quoteTotalTab"></span>선</button>
+  </nav>
+
+  <section id="videoSection">
+    <div class="controls">
+      <input type="text" id="searchInput" class="search-input" placeholder="연사 또는 키워드 검색...">
+      <div class="filter-tabs" id="filterTabs"></div>
+      <div class="speaker-wrap">
+        <div class="speaker-label">🎤 명사별 보기</div>
+        <div class="filter-tabs speaker-tabs collapsed" id="speakerTabs"></div>
+        <button class="speaker-toggle" id="speakerToggle" type="button">더보기 ▼</button>
+      </div>
+      <div class="counter" id="counterText"></div>
+    </div>
+    <main class="video-grid" id="videoGrid"></main>
+  </section>
+
+  <section id="quoteSection" class="hidden">
+    <div class="random-box">
+      <div class="quote-ko" id="randomText"></div>
+      <div class="quote-en" id="randomEnText"></div>
+      <div class="quote-author" id="randomAuthor"></div>
+      <button class="random-btn" id="randomBtn">🎲 오늘의 명언 다시 뽑기</button>
+    </div>
+    <div class="controls">
+      <input type="text" id="quoteSearch" class="search-input" placeholder="명언 또는 인물 검색...">
+      <div class="filter-tabs" id="quoteTabs"></div>
+      <div class="counter" id="quoteCounter"></div>
+    </div>
+    <main class="quote-grid" id="quoteGrid"></main>
+  </section>
+
+  <div class="modal-overlay hidden" id="personModal" role="dialog" aria-modal="true" aria-labelledby="personName">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="닫기">×</button>
+      <div class="person-photo" id="personPhoto"></div>
+      <div class="person-name" id="personName"></div>
+      <div class="person-en" id="personEn"></div>
+      <p class="person-intro" id="personIntro"></p>
+      <div class="person-quotes" id="personQuotes"></div>
+      <div class="modal-actions" id="personLinks"></div>
+      <div class="modal-credit" id="personCredit"></div>
+    </div>
+  </div>
+
+  <script>
+    // ────── 비디오 데이터 (재생 확인 완료) ──────
+    const videoCategories = {
+      all: "전체보기",
+      biz: "IT & 기업가",
+      arts: "예술 & 문화",
+      sports: "스포츠 & 한계도전",
+      mind: "인생 & 마인드셋",
+      leader: "리더십 & 사회"
+    };
+
+    const rawVideos = [
+      { category: "biz", speaker: "마윈 (Jack Ma)", id: "d4rbs7YTwcU", title: "젊은이들에게 전하는 조언: 인생 로드맵과 끈기의 가치" },
+      { category: "biz", speaker: "마윈 (Jack Ma)", id: "QKkj0f3i7Qc", title: "캐나다 기조연설: 글로벌 전자상거래와 작은 기업의 생존법" },
+      { category: "biz", speaker: "마윈 (Jack Ma)", id: "t7TWw9ghmp0", title: "실패를 극복하는 법" },
+      { category: "biz", speaker: "마윈 (Jack Ma)", id: "b11aqILMTcY", title: "똑똑함보다 끈기의 가치" },
+      { category: "biz", speaker: "스티브 잡스 (Steve Jobs)", id: "t2EmE-ESGA0", title: "스탠퍼드 졸업 축사" },
+      { category: "biz", speaker: "일론 머스크 (Elon Musk)", id: "4xv3GGw6DQM", title: "USC 졸업 축사" },
+      { category: "biz", speaker: "일론 머스크 (Elon Musk)", id: "JCRyvGPIC7E", title: "스타트업 창업에 대한 조언" },
+      { category: "biz", speaker: "일론 머스크 (Elon Musk)", id: "dvb-QjQB3Wg", title: "제1원리 사고법" },
+      { category: "biz", speaker: "제프 베조스 (Jeff Bezos)", id: "vBmavNoChZc", title: "프린스턴 축사" },
+      { category: "biz", speaker: "제프 베조스 (Jeff Bezos)", id: "jwG_qR6XmDQ", title: "후회 최소화 프레임워크" },
+      { category: "biz", speaker: "마크 저커버그", id: "BmYv8XGl-YU", title: "하버드 축사" },
+      { category: "biz", speaker: "빌 게이츠", id: "zPx5N6Lh3sw", title: "하버드 축사" },
+      { category: "biz", speaker: "찰리 멍거", id: "jY1eNlL6NKs", title: "USC 로스쿨 축사" },
+      { category: "biz", speaker: "팀 쿡", id: "2C2VJwGBRRw", title: "스탠퍼드 축사" },
+      { category: "biz", speaker: "젠슨 황", id: "_sftvrqIfIU", title: "국립대만대 축사" },
+      { category: "biz", speaker: "셰릴 샌드버그", id: "iqm-XEqpayc", title: "UC 버클리 축사" },
+      { category: "biz", speaker: "레이 달리오", id: "B9XGUpQZY38", title: "성공의 원칙" },
+      { category: "biz", speaker: "워런 버핏", id: "7Z6x-Ov1smU", title: "플로리다대 강연" },
+      { category: "biz", speaker: "사티아 나델라", id: "rtgN27z0oi0", title: "스탠퍼드 GSB 대담" },
+      { category: "biz", speaker: "리처드 브랜슨", id: "fpI2wheL85Q", title: "런던비즈니스스쿨 대담" },
+      { category: "biz", speaker: "인드라 누이", id: "RlmZn0svFVc", title: "펩시코 리더십" },
+      { category: "biz", speaker: "사라 블레이클리", id: "9JrAojUqMvQ", title: "스팽스 창업" },
+      { category: "biz", speaker: "하워드 슐츠", id: "ocgZkWC_k9M", title: "ASU 축사" },
+      { category: "biz", speaker: "대니얼 핑크", id: "rrkrvAUbU9Y", title: "내적 동기부여" },
+      { category: "biz", speaker: "팀 페리스", id: "5J6jAC6XxAI", title: "두려움 규정하기" },
+      { category: "arts", speaker: "덴젤 워싱턴", id: "vpW2sGlCtaE", title: "Fall Forward" },
+      { category: "arts", speaker: "짐 캐리 (Jim Carrey)", id: "V80-gPkpH6M", title: "원하는 일에 도전" },
+      { category: "arts", speaker: "J.K. 롤링 (J.K. Rowling)", id: "UibfDUPJAEU", title: "하버드 졸업 축사" },
+      { category: "arts", speaker: "매튜 맥커너히", id: "yjr3cuSUs2A", title: "인생의 13가지 진리" },
+      { category: "arts", speaker: "윌 스미스 (Will Smith)", id: "5rthdad5JTI", title: "재능과 기술" },
+      { category: "arts", speaker: "오프라 윈프리", id: "GMWFieBGR7c", title: "하버드 축사" },
+      { category: "arts", speaker: "코난 오브라이언", id: "KmDYXaaT9sA", title: "다트머스 축사" },
+      { category: "arts", speaker: "채드윅 보스만", id: "RIHZypMyQ2s", title: "하워드대 축사" },
+      { category: "arts", speaker: "스티븐 스필버그", id: "TYtoDunfu00", title: "하버드 축사" },
+      { category: "arts", speaker: "엘런 드제너러스", id: "0e8ToRVOtRo", title: "툴레인대 축사" },
+      { category: "arts", speaker: "나탈리 포트만", id: "jDaZu_KEMCY", title: "하버드 축사" },
+      { category: "arts", speaker: "숀다 라임스", id: "EuHQ6TH60_I", title: "다트머스 축사" },
+      { category: "arts", speaker: "실베스터 스탤론", id: "D_Vg4uyYwEk", title: "록키 발보아" },
+      { category: "arts", speaker: "톰 행크스", id: "baIlinqoExQ", title: "예일대 축사" },
+      { category: "arts", speaker: "로버트 드니로", id: "PxpybAnlr84", title: "뉴욕대 티시 축사" },
+      { category: "arts", speaker: "메릴 스트립", id: "5-a8QXUAe2g", title: "바너드대 축사" },
+      { category: "arts", speaker: "닐 게이먼", id: "plWexCID-kA", title: "Make Good Art" },
+      { category: "arts", speaker: "린마누엘 미란다", id: "ewHcsFlolz4", title: "펜실베이니아대 축사" },
+      { category: "arts", speaker: "테일러 스위프트", id: "OBG50aoUwlI", title: "뉴욕대 축사" },
+      { category: "arts", speaker: "스티븐 콜베어", id: "m6tiaooiIo0", title: "노스웨스턴대 축사" },
+      { category: "sports", speaker: "아놀드 슈워제너거", id: "EyhOmBPtGNM", title: "6가지 성공 규칙" },
+      { category: "sports", speaker: "마이클 조던", id: "XLzBMGXfK4c", title: "농구 명예의 전당 헌액" },
+      { category: "sports", speaker: "로저 페더러", id: "pqWUuYTcG-o", title: "다트머스 축사" },
+      { category: "sports", speaker: "코비 브라이언트", id: "xd-9D3GzUpo", title: "맘바 멘탈리티" },
+      { category: "sports", speaker: "애비 웜백", id: "wJe40l2waxs", title: "바너드대 축사" },
+      { category: "sports", speaker: "짐 발바노", id: "HuoVM9nm42E", title: "1993 ESPY 연설" },
+      { category: "sports", speaker: "닉 부이치치", id: "nknzSWDcUgA", title: "용기의 메시지" },
+      { category: "sports", speaker: "세리나 윌리엄스", id: "-ZXLogx3I70", title: "TIME100 갈라 연설" },
+      { category: "sports", speaker: "스튜어트 스콧", id: "kOWM_VuxxQ0", title: "2014 ESPY 지미 V 상" },
+      { category: "sports", speaker: "엘리우드 킵초게", id: "X4061Jifh3c", title: "No Human Is Limited" },
+      { category: "sports", speaker: "시몬 바일스", id: "kK4CgmYO0RY", title: "멘탈 헬스의 용기" },
+      { category: "mind", speaker: "에이미 커디", id: "Ks-_Mh1QhMc", title: "신체 언어의 힘" },
+      { category: "mind", speaker: "앤절라 더크워스", id: "H14bBuluwB8", title: "그릿" },
+      { category: "mind", speaker: "브레네 브라운", id: "iCvmsMzlF7o", title: "취약성의 용기" },
+      { category: "mind", speaker: "로버트 월딩거", id: "8KkKuTCFvzI", title: "좋은 삶의 비밀" },
+      { category: "mind", speaker: "켈리 맥고니걸", id: "RcGyVTAoXEU", title: "스트레스의 재구성" },
+      { category: "mind", speaker: "팀 어반", id: "arj7oStGLkU", title: "미루기의 심리" },
+      { category: "mind", speaker: "랜디 포시", id: "ji5_MqicxSo", title: "마지막 강의" },
+      { category: "mind", speaker: "멘탈훈련소", id: "qngXahvw2ug", title: "동기부여 모음" },
+      { category: "mind", speaker: "멜 로빈스", id: "Lp7E973zozc", title: "5초의 법칙" },
+      { category: "mind", speaker: "캐럴 드웩", id: "_X0mgOOSpLU", title: "성장 마인드셋" },
+      { category: "mind", speaker: "숀 아처", id: "fLJsdqxnZb0", title: "행복과 성공" },
+      { category: "mind", speaker: "레스 브라운", id: "gXuSMjrx_e8", title: "불가능은 없다" },
+      { category: "mind", speaker: "에릭 토머스", id: "zrK-gpkqg1s", title: "구루 이야기" },
+      { category: "mind", speaker: "스티브 하비", id: "8uPDyzeA1_w", title: "Jump" },
+      { category: "mind", speaker: "빅터 프랭클", id: "sd-1CjhbYPQ", title: "1972 강연" },
+      { category: "mind", speaker: "수전 케인", id: "c0KYU2j0TM4", title: "내향성의 힘" },
+      { category: "mind", speaker: "엘리자베스 길버트", id: "86x-u-tz0MA", title: "창의성" },
+      { category: "leader", speaker: "맥레이븐 제독", id: "TBuIGBCF9jc", title: "이불 개기" },
+      { category: "leader", speaker: "사이먼 시넥", id: "qp0HIF3SfI4", title: "골든 서클" },
+      { category: "leader", speaker: "켄 로빈슨", id: "iG9CE55wbtY", title: "창의력과 교육" },
+      { category: "leader", speaker: "말랄라 유사프자이", id: "c2DHzlkUI6s", title: "노벨평화상 강연" },
+      // ── 동기부여 연설 추가 30선 ──
+      { category: "mind", speaker: "토니 로빈스 (Tony Robbins)", id: "BwFOwyoH-3g", title: "우리가 행동하는 이유 (TED)" },
+      { category: "mind", speaker: "짐 론 (Jim Rohn)", id: "YF75cLE-6hI", title: "더 나은 미래의 열쇠는 바로 당신" },
+      { category: "mind", speaker: "지그 지글러 (Zig Ziglar)", id: "_bkVZ1kD8Xo", title: "태도가 모든 차이를 만든다" },
+      { category: "sports", speaker: "데이비드 고긴스 (David Goggins)", id: "mJMwKQSovjo", title: "VFW 아메리카니즘 상 수상 연설" },
+      { category: "leader", speaker: "조코 윌링크 (Jocko Willink)", id: "IdTMDpizis8", title: "GOOD — 역경을 대하는 태도" },
+      { category: "sports", speaker: "잉키 존슨 (Inky Johnson)", id: "zeWg73GzVbc", title: "당신만을 위한 일이 아니다" },
+      { category: "mind", speaker: "브라이언 트레이시 (Brian Tracy)", id: "Zntb27yyuTA", title: "성공을 끌어당기는 사람이 되라" },
+      { category: "leader", speaker: "존 맥스웰 (John C. Maxwell)", id: "S0mbgU239ao", title: "소통 능력을 키우는 법" },
+      { category: "mind", speaker: "웨인 다이어 (Wayne Dyer)", id: "8gY7wlBetBs", title: "생각을 바꾸면 삶이 바뀐다" },
+      { category: "mind", speaker: "로빈 샤르마 (Robin Sharma)", id: "-xC_DbgpPAc", title: "일찍 일어나는 법" },
+      { category: "biz", speaker: "게리 바이너척 (Gary Vaynerchuk)", id: "nShlloNgM2E", title: "밀레니얼 세대에게 전하는 조언" },
+      { category: "mind", speaker: "제이 셰티 (Jay Shetty)", id: "HBJJkVLe_48", title: "프린스턴대 졸업식 연설" },
+      { category: "mind", speaker: "리사 니콜스 (Lisa Nichols)", id: "3xf0DzyI4FA", title: "몰라볼 만큼 달라지기 (TEDx)" },
+      { category: "biz", speaker: "에드 마일렛 (Ed Mylett)", id: "IH9ESn6o28M", title: "동기부여 연설 베스트" },
+      { category: "sports", speaker: "루 홀츠 (Lou Holtz)", id: "0wMmcoPTmAs", title: "감동의 동기부여 연설" },
+      { category: "sports", speaker: "레이 루이스 (Ray Lewis)", id: "5-ycCQ03q1c", title: "레거시에 남긴 연설" },
+      { category: "mind", speaker: "키드 프레지던트 (Kid President)", id: "l-gQLqv9f4o", title: "당신에게 보내는 응원 연설" },
+      { category: "biz", speaker: "크리스 가드너 (Chris Gardner)", id: "vtYpJzQkx1Y", title: "UC 버클리 기조연설" },
+      { category: "mind", speaker: "맷 커츠 (Matt Cutts)", id: "UNP03fDSj1U", title: "30일 동안 새로운 것에 도전하기 (TED)" },
+      { category: "mind", speaker: "닐 파스리차 (Neil Pasricha)", id: "uPE0G00XFV0", title: "멋진 삶을 위한 3가지 A (TED)" },
+      { category: "mind", speaker: "에이미 모린 (Amy Morin)", id: "TFbv757kup4", title: "정신적으로 강해지는 비밀 (TEDx)" },
+      { category: "mind", speaker: "잭 캔필드 (Jack Canfield)", id: "oLM5tZTXPMc", title: "성공의 원칙" },
+      { category: "mind", speaker: "사드구루 (Sadhguru)", id: "UfkA5i5HXJY", title: "책임이란 반응하는 능력이다" },
+      { category: "mind", speaker: "짐 퀵 (Jim Kwik)", id: "KSqTLHWnL-s", title: "두뇌 능력을 키우는 법" },
+      { category: "mind", speaker: "김미경", id: "G4c4lYlSe5s", title: "꿈길에서 절대 빠지면 안 되는 세 가지 샛길 (세바시)" },
+      { category: "mind", speaker: "김창옥", id: "BBrNJ2DwIrs", title: "후회로 가득한 삶을 살고 싶지 않다면" },
+      { category: "mind", speaker: "이어령", id: "Q2BHEQpZAMs", title: "젊은이에게 남기는 인생 조언" },
+      { category: "leader", speaker: "이국종", id: "A_zuHvBlvkA", title: "세상은 만만하지 않습니다 (세바시)" },
+      { category: "leader", speaker: "최재천", id: "Y-eOebKkScA", title: "자연은 순수를 혐오한다 (세바시)" },
+      { category: "arts", speaker: "박진영", id: "AT0yGxNMkLU", title: "성공과 존중은 다른 것" }
+    ];
+
+    // 스피커 카테고리 자동 생성
+    const speakers = [...new Set(rawVideos.map(v => v.speaker))].sort((a, b) => a.localeCompare(b, "ko"));
+    const speakerCategories = { all: "전체보기" };
+    speakers.forEach(sp => {
+      speakerCategories[sp] = sp;
+    });
+
+    // ────── 명언 데이터 (300개 / 한영 병기 / 인물 팝업) ──────
+    const quoteCategories = {
+      all: "전체보기",
+      challenge: "도전 & 실패",
+      grit: "끈기 & 노력",
+      dream: "꿈 & 목표",
+      work: "일 & 리더십",
+      life: "인생 & 행복",
+      growth: "성장 & 배움"
+    };
+
+    const quoteData = {
+      challenge: [
+        { ko: "우리가 두려워해야 할 유일한 것은 두려움 그 자체다.", en: "The only thing we have to fear is fear itself.", author: "프랭클린 D. 루스벨트" },
+        { ko: "비판하는 사람이 중요한 것이 아니다. 영광은 실제로 경기장에 선 사람의 것이다.", en: "It is not the critic who counts; the credit belongs to the man actually in the arena.", author: "시어도어 루스벨트" },
+        { ko: "최선을 다했지만 실패했다면, 적어도 대담하게 도전하다 실패한 것이다.", en: "Far better it is to dare mighty things, to win glorious triumphs even checkered by failure.", author: "시어도어 루스벨트" },
+        { ko: "다시 시도하라. 다시 실패하라. 더 잘 실패하라.", en: "Try again. Fail again. Fail better.", author: "사뮈엘 베케트" },
+        { ko: "넘어지는 것은 실패가 아니다. 넘어진 자리에 머무는 것이 실패다.", en: "Falling is not failure. Staying down is.", author: "격언" },
+        { ko: "일곱 번 넘어지면 여덟 번 일어나라.", en: "Fall seven times, stand up eight.", author: "일본 속담" },
+        { ko: "당신이 동의하지 않는 한, 누구도 당신에게 열등감을 느끼게 할 수 없다.", en: "No one can make you feel inferior without your consent.", author: "엘리너 루스벨트" },
+        { ko: "배를 만들고 싶다면 사람들에게 목재를 모으라고 하지 말고, 넓은 바다를 동경하게 하라.", en: "If you want to build a ship, don't drum up people to collect wood; instead, teach them to long for the endless immensity of the sea.", author: "생텍쥐페리" },
+        { ko: "성공은 열정을 잃지 않고 실패에서 실패로 걸어가는 능력이다.", en: "Success consists of going from failure to failure without loss of enthusiasm.", author: "윈스턴 처칠" },
+        { ko: "나는 살면서 실패하고, 또 실패했다. 그것이 내가 성공한 이유다.", en: "I've failed over and over and over again in my life. And that is why I succeed.", author: "마이클 조던" },
+        { ko: "어떤 실수도 하지 않은 사람은 새로운 것을 시도해 본 적이 없는 사람이다.", en: "A person who never made a mistake never tried anything new.", author: "알베르트 아인슈타인" },
+        { ko: "실패는 다시 시작할 기회다.", en: "Failure is simply the opportunity to begin again, this time more intelligently.", author: "헨리 포드" },
+        { ko: "실패는 선택지다.", en: "Failure is an option here. If things are not failing, you are not innovating enough.", author: "일론 머스크" },
+        { ko: "바닥은 내 인생의 견고한 기초가 되었다.", en: "Rock bottom became the solid foundation on which I rebuilt my life.", author: "J.K. 롤링" },
+        { ko: "어떤 일에도 실패하지 않으려면 이미 실패한 것이다.", en: "It is impossible to live without failing at something.", author: "J.K. 롤링" },
+        { ko: "넘어질 거라면 앞으로 넘어져라.", en: "Fall forward.", author: "덴젤 워싱턴" },
+        { ko: "원하지 않는 일을 하다가도 실패할 수 있다. 그렇다면 사랑하는 일에 도전하는 편이 낫다.", en: "You can fail at what you don't want, so you might as well take a chance on doing what you love.", author: "짐 캐리" },
+        { ko: "인생은 얼마나 세게 치느냐가 아니라, 얼마나 세게 맞고도 계속 나아가느냐다. (영화 《록키 발보아》)", en: "It ain't about how hard you hit. It's about how hard you can get hit and keep moving forward.", author: "실베스터 스탤론" },
+        { ko: "오늘은 힘들고, 내일은 더 힘들겠지만, 모레는 아름다울 것이다.", en: "Today is hard, tomorrow will be worse, but the day after tomorrow will be sunshine.", author: "마윈" },
+        { ko: "실패란 없다. 인생이 방향을 바꾸는 것일 뿐이다.", en: "There is no such thing as failure. Failure is just life trying to move us in another direction.", author: "오프라 윈프리" },
+        { ko: "20년 뒤 당신은 하지 않은 일을 더 후회할 것이다.", en: "Twenty years from now you will be more disappointed by the things that you didn't do.", author: "H. 잭슨 브라운 주니어" },
+        { ko: "두려움을 느끼는 일을 매일 하나씩 하라.", en: "Do one thing every day that scares you.", author: "엘리너 루스벨트" },
+        { ko: "용기란 두려움이 없는 것이 아니라 두려움을 이겨내는 것이다.", en: "I learned that courage was not the absence of fear, but the triumph over it.", author: "넬슨 만델라" },
+        { ko: "시도하지 않은 슛은 100% 빗나간다.", en: "You miss 100% of the shots you don't take.", author: "웨인 그레츠키" },
+        { ko: "나는 실패를 받아들일 수 있지만 시도하지 않는 것은 받아들일 수 없다.", en: "I can accept failure, but I can't accept not trying.", author: "마이클 조던" },
+        { ko: "위대한 일을 하려면 실패할 각오가 있어야 한다.", en: "Only those who dare to fail greatly can ever achieve greatly.", author: "로버트 F. 케네디" },
+        { ko: "배는 항구에서 안전하지만 그것이 배의 목적은 아니다.", en: "A ship in harbor is safe, but that is not what ships are built for.", author: "존 A. 셰드" },
+        { ko: "80세가 되었을 때, 시도했던 것을 후회하지는 않으리라는 걸 알았다.", en: "I knew that when I was 80 I was not going to regret having tried this.", author: "제프 베조스" },
+        { ko: "혁신하려면 오해받을 각오가 있어야 한다.", en: "I believe you have to be willing to be misunderstood if you're going to innovate.", author: "제프 베조스" },
+        { ko: "실패는 성공의 반대가 아니라 성공의 일부다.", en: "Failure is not the opposite of success, it's part of success.", author: "아리아나 허핑턴" },
+        { ko: "인생에서 가장 큰 위험은 아무 위험도 감수하지 않는 것이다.", en: "The biggest risk is not taking any risk.", author: "마크 저커버그" },
+        { ko: "빠르게 움직이고 틀을 깨라.", en: "Move fast and break things.", author: "마크 저커버그" },
+        { ko: "실수하고 있다면, 밖에 나가 무언가를 하고 있다는 뜻이다.", en: "If you're making mistakes, it means you're out there doing something.", author: "닐 게이먼" },
+        { ko: "두려움이 없다면 무엇을 하겠는가?", en: "What would you do if you weren't afraid?", author: "셰릴 샌드버그" },
+        { ko: "가장 큰 영광은 한 번도 넘어지지 않는 것이 아니라, 넘어질 때마다 일어서는 데 있다.", en: "Our greatest glory is not in never falling, but in rising every time we fall.", author: "올리버 골드스미스" },
+        { ko: "거절은 아프지만, 대개는 당신과 아무 상관이 없다.", en: "Rejection might sting, but my feeling is that often, it has nothing to do with you.", author: "로버트 드니로" },
+        { ko: "실수는 삶의 일부다. 창피함을 두려워하지 마라.", en: "Mistakes are part of life. You're going to make mistakes and that's okay.", author: "테일러 스위프트" },
+        { ko: "평균적으로 세 포인트 중 하나를 잃다 보면, 샷 하나하나에 연연하지 않는 법을 배우게 된다.", en: "When you lose every third point, on average, you learn not to dwell on every shot.", author: "로저 페더러" },
+        { ko: "실패를 연료로 삼아라.", en: "Make failure your fuel.", author: "애비 웜백" },
+        { ko: "인생은 안전지대가 끝나는 곳에서 시작된다.", en: "Life begins at the end of your comfort zone.", author: "닐 도널드 월시" },
+        { ko: "걷는 법은 규칙을 따라서가 아니라, 직접 해보고 넘어지면서 배운다.", en: "You don't learn to walk by following rules. You learn by doing, and by falling over.", author: "리처드 브랜슨" },
+        { ko: "실패는 사건이지 사람이 아니다.", en: "Failure is an event, not a person.", author: "지그 지글러" },
+        { ko: "포기하지 마라. 절대 포기하지 마라.", en: "Don't give up, don't ever give up.", author: "짐 발바노" },
+        { ko: "충분히 어두워져야 별을 볼 수 있다.", en: "When it is dark enough, you can see the stars.", author: "랄프 월도 에머슨" },
+        { ko: "첫걸음을 내딛는 데 전체 계단을 볼 필요는 없다.", en: "You don't have to see the whole staircase, just take the first step.", author: "마틴 루서 킹 주니어" },
+        { ko: "늘 갈망하고, 우직하게 나아가라.", en: "Stay hungry, stay foolish.", author: "스티브 잡스" },
+        { ko: "무슨 일이든 해내기 전까지는 늘 불가능해 보인다.", en: "It always seems impossible until it's done.", author: "넬슨 만델라" },
+        { ko: "인생은 과감한 모험이거나, 아무것도 아니다.", en: "Life is either a daring adventure or nothing.", author: "헬렌 켈러" },
+        { ko: "수많은 패배를 겪을 수는 있지만, 결코 패배해서는 안 된다.", en: "You may encounter many defeats, but you must not be defeated.", author: "마야 안젤루" },
+        { ko: "죽고자 하면 살고, 살고자 하면 죽는다. (必死則生 必生則死)", en: "Those who seek death shall live; those who seek life shall die.", author: "이순신" }
+      ],
+      grit: [
+        { ko: "보이지 않는 곳의 땀이 보이는 곳에서 빛난다.", en: "Sweat in the gym, shine in the ring.", author: "격언" },
+        { ko: "연습 없이 되는 것은 없다.", en: "Nothing is given, everything is earned.", author: "격언" },
+        { ko: "피할 수 없다면 즐겨라.", en: "If you can't avoid it, enjoy it.", author: "로버트 엘리엇" },
+        { ko: "천재란 인내에 대한 더 큰 소질일 뿐이다.", en: "Genius is only a greater aptitude for patience.", author: "뷔퐁" },
+        { ko: "구하라, 그러면 얻을 것이다.", en: "Ask and it will be given to you.", author: "마태복음 7:7" },
+        { ko: "시작이 반이다.", en: "Well begun is half done.", author: "아리스토텔레스" },
+        { ko: "우물을 파도 한 우물을 파라.", en: "Dig one well deep rather than many shallow.", author: "한국 속담" },
+        { ko: "고생 끝에 낙이 온다.", en: "After hardship comes happiness.", author: "격언" },
+        { ko: "재능은 타고나는 것이지만, 기술은 수없이 많은 시간 동안 갈고닦아야만 얻어진다.", en: "Talent you have naturally. Skill is only developed by hours and hours and hours of beating on your craft.", author: "윌 스미스" },
+        { ko: "매일 벽돌 한 장을 완벽하게 놓아라.", en: "Focus on laying each brick perfectly.", author: "윌 스미스" },
+        { ko: "그릿은 열정과 끈기의 결합이다.", en: "Grit is passion and perseverance.", author: "앤절라 더크워스" },
+        { ko: "노력은 두 번 계산된다.", en: "Effort counts twice.", author: "앤절라 더크워스" },
+        { ko: "천재는 1%의 영감과 99%의 노력이다.", en: "Genius is 1% inspiration and 99% perspiration.", author: "토머스 에디슨" },
+        { ko: "나는 1만 가지 방법을 찾았을 뿐 실패하지 않았다.", en: "I've just found 10,000 ways that won't work.", author: "토머스 에디슨" },
+        { ko: "포기하는 자는 이기지 못하고 이기는 자는 포기하지 않는다.", en: "Quitters never win and winners never quit.", author: "빈스 롬바디" },
+        { ko: "맘바 멘탈리티는 매일 어제보다 나아지는 것이다.", en: "The Mamba Mentality is all about hard work and commitment to excellence.", author: "코비 브라이언트" },
+        { ko: "압박과 도전 같은 부정적인 것들은 모두 내가 도약할 기회다.", en: "Everything negative – pressure, challenges – is all an opportunity for me to rise.", author: "코비 브라이언트" },
+        { ko: "고통은 일시적이지만 포기는 영원하다.", en: "Pain is temporary but quitting lasts forever.", author: "랜스 암스트롱" },
+        { ko: "챔피언은 체육관이 아니라 내면의 갈망에서 만들어진다.", en: "Champions are made from something they have deep inside—a desire, a dream.", author: "무하마드 알리" },
+        { ko: "훈련의 매 순간이 싫었지만 포기하지 않았다.", en: "I hated every minute of training, but I said, 'Don't quit.'", author: "무하마드 알리" },
+        { ko: "숨 쉬고 싶은 만큼 간절하게 성공을 원할 때 성공한다.", en: "When you want to succeed as bad as you want to breathe, then you'll be successful.", author: "에릭 토머스" },
+        { ko: "달을 향해 쏴라. 별들 사이에 착륙할 것이다.", en: "Shoot for the moon. Even if you miss, you'll land among the stars.", author: "레스 브라운" },
+        { ko: "물방울이 바위를 뚫는 것은 힘이 아니라 꾸준함이다.", en: "Dripping water hollows out stone, not through force but through persistence.", author: "오비디우스" },
+        { ko: "천천히 가는 것을 두려워하지 말고 멈추는 것을 두려워하라.", en: "Don't fear going slowly; fear standing still.", author: "중국 속담" },
+        { ko: "위대한 일은 작은 일들의 모임이다.", en: "Great things are done by a series of small things brought together.", author: "빈센트 반 고흐" },
+        { ko: "성공은 매일 반복한 노력들의 합이다.", en: "Success is the sum of small efforts, repeated day in and day out.", author: "로버트 콜리어" },
+        { ko: "완벽한 연습이 완벽을 만든다.", en: "Perfect practice makes perfect.", author: "빈스 롬바디" },
+        { ko: "어려움 속에 기회가 있다.", en: "In the middle of difficulty lies opportunity.", author: "알베르트 아인슈타인" },
+        { ko: "내가 특별히 똑똑한 것이 아니라, 문제를 더 오래 붙들고 있을 뿐이다.", en: "It's not that I'm so smart, it's just that I stay with problems longer.", author: "알베르트 아인슈타인" },
+        { ko: "끝날 때까지는 끝난 게 아니다.", en: "It ain't over till it's over.", author: "요기 베라" },
+        { ko: "지옥을 지나고 있다면 계속 걸어가라.", en: "If you're going through hell, keep going.", author: "윈스턴 처칠" },
+        { ko: "인간에게 한계란 없다.", en: "No human is limited.", author: "엘리우드 킵초게" },
+        { ko: "오직 자기 절제하는 자만이 자유롭다.", en: "Only the disciplined ones in life are free.", author: "엘리우드 킵초게" },
+        { ko: "차이는 세부에서 나온다.", en: "The details make the difference.", author: "빈스 롬바디" },
+        { ko: "스스로를 의심하면 이미 졌다.", en: "If you doubt yourself, you've already lost.", author: "격언" },
+        { ko: "1천 번 넘어져도 1천1번 일어서면 된다.", en: "Fall 1000 times, stand 1001 times.", author: "격언" },
+        { ko: "최고의 보상은 배우는 것이다.", en: "Learning is the greatest reward.", author: "격언" },
+        { ko: "성공은 작은 노력들이 모인 결과다.", en: "Success is accumulated small efforts.", author: "격언" },
+        { ko: "끈기가 바꾸는 것이다.", en: "Persistence changes everything.", author: "격언" },
+        { ko: "계속하는 것이 이기는 것이다.", en: "Keep going is winning.", author: "격언" },
+        { ko: "세상 그 무엇도 끈기를 대신할 수 없다.", en: "Nothing in the world can take the place of persistence.", author: "캘빈 쿨리지" },
+        { ko: "챔피언은 승리가 아니라, 넘어졌을 때 어떻게 다시 일어서는지로 정의된다.", en: "A champion is defined not by their wins but by how they can recover when they fall.", author: "세리나 윌리엄스" },
+        { ko: "인생은 누구에게도 쉽지 않다. 그래도 어떤가? 우리에게는 끈기와, 무엇보다 자신에 대한 믿음이 있어야 한다.", en: "Life is not easy for any of us. But what of that? We must have perseverance and above all confidence in ourselves.", author: "마리 퀴리" },
+        { ko: "열정과 끈기는 모든 것을 이긴다.", en: "Energy and persistence conquer all things.", author: "벤저민 프랭클린" },
+        { ko: "무슨 생각을 하긴요. 그냥 하는 거죠.", en: "What do I think about? I just do it.", author: "김연아" },
+        { ko: "재능은 식탁 위 소금보다 흔하다. 재능 있는 사람과 성공한 사람을 가르는 것은 엄청난 노력이다.", en: "Talent is cheaper than table salt. What separates the talented individual from the successful one is a lot of hard work.", author: "스티븐 킹" },
+        { ko: "연습은 잘하게 된 다음에 하는 것이 아니라, 잘하게 만들어 주는 것이다.", en: "Practice isn't the thing you do once you're good. It's the thing you do that makes you good.", author: "말콤 글래드웰" },
+        { ko: "주머니에 손을 넣은 채로는 성공의 사다리를 오를 수 없다.", en: "You can't climb the ladder of success with your hands in your pockets.", author: "아놀드 슈워제너거" },
+        { ko: "너무 편안하고 안락하게 살다가, 자신의 진짜 잠재력을 깨닫지 못한 채 죽을 위험이 있다.", en: "You are in danger of living a life so comfortable and soft that you will die without ever realizing your true potential.", author: "데이비드 고긴스" },
+        { ko: "고통 + 성찰 = 진보", en: "Pain + Reflection = Progress", author: "레이 달리오" }
+      ],
+      dream: [
+        { ko: "꿈을 꾸지 않는다면 왜 잠을 자는가?", en: "If you don't dream, why sleep?", author: "격언" },
+        { ko: "꿈을 만드는 자가 되어라.", en: "Be a dream maker.", author: "격언" },
+        { ko: "가장 큰 위험은 아무것도 시도하지 않는 것이다.", en: "The greatest risk is not taking any risk.", author: "격언" },
+        { ko: "당신의 꿈은 당신의 것이다.", en: "Your dreams are yours.", author: "격언" },
+        { ko: "꿈에는 시간 제한이 없다.", en: "There's no expiration date on dreams.", author: "격언" },
+        { ko: "별을 향해 쏴라.", en: "Shoot for the stars.", author: "노먼 빈센트 필" },
+        { ko: "모든 성공적인 사람은 꿈으로 시작했다.", en: "Every successful person started by dreaming.", author: "격언" },
+        { ko: "꿈을 이루는 것은 시간과 노력일 뿐이다.", en: "It just takes time and effort.", author: "격언" },
+        { ko: "당신의 미래는 당신의 꿈에 의해 결정된다.", en: "Your future is determined by your dreams.", author: "잭 캔필드" },
+        { ko: "꿈의 크기가 곧 당신의 크기다.", en: "The size of your dreams determines your size.", author: "격언" },
+        { ko: "오직 당신만이 꿈을 현실로 만들 수 있다.", en: "Only you can turn your dreams into reality.", author: "격언" },
+        { ko: "큰 꿈을 꾸되 작은 발걸음으로 나아가라.", en: "Dream big, take small steps.", author: "격언" },
+        { ko: "꿈이 없으면 방향도 없다.", en: "A life without dreams is like a ship without a rudder.", author: "격언" },
+        { ko: "당신의 꿈이 클수록 정신이 커진다.", en: "The bigger your dreams, the bigger your mind becomes.", author: "격언" },
+        { ko: "오늘의 꿈이 내일의 현실이다.", en: "Today's dreams are tomorrow's reality.", author: "격언" },
+        { ko: "꿈을 꾸는 용기가 있는가?", en: "Do you have the courage to dream?", author: "격언" },
+        { ko: "꿈은 목표가 되고 목표는 성공이 된다.", en: "Dreams become goals. Goals become success.", author: "격언" },
+        { ko: "꿈 없이 사는 것처럼 슬픈 것은 없다.", en: "There's nothing sadder than living without a dream.", author: "격언" },
+        { ko: "꿈을 이루려면 먼저 꿈을 믿어야 한다.", en: "To achieve your dreams, you must first believe in them.", author: "격언" },
+        { ko: "미래는 자신의 꿈을 믿는 자의 것이다.", en: "The future belongs to those who believe in the beauty of their dreams.", author: "엘리너 루스벨트" },
+        { ko: "모든 위대한 성취는 꿈으로 시작된다.", en: "All great achievements begin with a dream.", author: "오그 만디노" },
+        { ko: "상상할 수 있으면 이룰 수 있다.", en: "If you can imagine it, you can achieve it.", author: "W. 클레멘트 스톤" },
+        { ko: "꿈은 자유롭고 용기만 있으면 된다.", en: "Dreams are free. All it takes is the courage to follow them.", author: "격언" },
+        { ko: "지금이 시작하기에 가장 좋은 때다.", en: "Now is the best time to start.", author: "격언" },
+        { ko: "작은 꿈은 이루기 쉽고 큰 꿈은 가치있다.", en: "Small dreams are easy to achieve. Big dreams are worth pursuing.", author: "격언" },
+        { ko: "꿈을 상상해야 이룬다.", en: "To achieve your dreams, you must first imagine them.", author: "격언" },
+        { ko: "당신의 꿈이 당신의 길을 밝혀줄 것이다.", en: "Your dream will light your path.", author: "격언" },
+        { ko: "큰 꿈을 가진 자만이 큰 성취를 이룬다.", en: "Only those with big dreams achieve great things.", author: "격언" },
+        { ko: "당신의 꿈을 따르는 것이 최고의 성공이다.", en: "Following your dreams is the greatest success.", author: "격언" },
+        { ko: "꿈이 있다면 절대 포기하지 마라.", en: "If you have a dream, never give up.", author: "격언" },
+        { ko: "오늘 꿈꾼 것이 내일의 현실이 된다.", en: "What you dream today will be your reality tomorrow.", author: "격언" },
+        { ko: "당신의 꿈은 당신의 운명이다.", en: "Your dreams are your destiny.", author: "격언" },
+        { ko: "꿈을 이루는 데 너무 늦은 것은 없다.", en: "It's never too late to pursue your dreams.", author: "격언" },
+        { ko: "큰 꿈을 꾸면 큰 일도 이룬다.", en: "Dream big, achieve big.", author: "격언" },
+        { ko: "불가능한 것을 꿈꿔라.", en: "Dream of what's impossible.", author: "격언" },
+        { ko: "꿈이 실현될 때까지 절대 멈추지 마라.", en: "Never stop until your dreams become reality.", author: "격언" },
+        { ko: "꿈을 쫓으면 성공도 따라온다.", en: "Chase your dreams, and success will follow.", author: "격언" },
+        { ko: "꿈을 사는 것이 삶이다.", en: "Live your dreams.", author: "격언" },
+        { ko: "당신의 꿈이 당신을 만든다.", en: "Your dreams make you who you are.", author: "격언" },
+        { ko: "생각할 수 있는 것은 모두 가능하다.", en: "Everything you can think of is possible.", author: "월트 디즈니" },
+        { ko: "나에게는 꿈이 있습니다. 나의 네 아이가 피부색이 아니라 인격으로 평가받는 나라에서 살게 되리라는 꿈입니다.", en: "I have a dream that my four little children will one day live in a nation where they will not be judged by the color of their skin but by the content of their character.", author: "마틴 루서 킹 주니어" },
+        { ko: "꿈을 꼭 붙잡아라. 꿈이 죽으면 삶은 날개 꺾인 새처럼 날 수 없으니.", en: "Hold fast to dreams, for if dreams die, life is a broken-winged bird that cannot fly.", author: "랭스턴 휴스" },
+        { ko: "꿈을 향해 자신 있게 나아가며 상상한 삶을 살려고 애쓴다면, 뜻밖의 성공을 만나게 될 것이다.", en: "If one advances confidently in the direction of his dreams, and endeavors to live the life which he has imagined, he will meet with a success unexpected in common hours.", author: "헨리 데이비드 소로" },
+        { ko: "무언가를 간절히 원하면, 온 우주가 그 소망이 이루어지도록 도와준다.", en: "When you want something, all the universe conspires in helping you to achieve it.", author: "파울로 코엘료" },
+        { ko: "미래를 예측하는 가장 좋은 방법은 미래를 발명하는 것이다.", en: "The best way to predict the future is to invent it.", author: "앨런 케이" },
+        { ko: "나는 우리나라가 세계에서 가장 아름다운 나라가 되기를 원한다. 가장 부강한 나라가 되기를 원하는 것은 아니다.", en: "I want our nation to be the most beautiful nation in the world, not the richest or the most powerful.", author: "김구" },
+        { ko: "충분히 중요한 일이라면, 확률이 불리하더라도 해야 한다.", en: "When something is important enough, you do it even if the odds are not in your favor.", author: "일론 머스크" },
+        { ko: "당신이 할 수 있는 가장 큰 모험은 꿈꾸던 삶을 사는 것이다.", en: "The biggest adventure you can take is to live the life of your dreams.", author: "오프라 윈프리" },
+        { ko: "한 명의 아이, 한 명의 교사, 한 권의 책, 한 자루의 펜이 세상을 바꿀 수 있다.", en: "One child, one teacher, one book, one pen can change the world.", author: "말랄라 유사프자이" },
+        { ko: "우리는 달에 가기로 했습니다. 그것이 쉬워서가 아니라 어렵기 때문입니다.", en: "We choose to go to the Moon... not because they are easy, but because they are hard.", author: "존 F. 케네디" }
+      ],
+      work: [
+        { ko: "좋은 일을 하는 유일한 방법은 사랑하는 것이다.", en: "The only way to do great work is to love what you do.", author: "스티브 잡스" },
+        { ko: "무언가를 잘하려면 집중해야 한다.", en: "Excellence is about focus.", author: "격언" },
+        { ko: "리더십은 봉사에서 시작된다.", en: "Leadership is about taking care of those in your charge.", author: "사이먼 시넥" },
+        { ko: "당신의 능력은 배우려는 욕망으로 결정된다.", en: "Your capability is determined by how much you want to learn.", author: "격언" },
+        { ko: "팀이 없으면 성공도 없다.", en: "No team, no dream.", author: "격언" },
+        { ko: "리더는 방향을 설정하고 팀은 길을 간다.", en: "A leader sets direction. A team walks the path.", author: "격언" },
+        { ko: "책임감이 없으면 리더십도 없다.", en: "Without responsibility, there is no leadership.", author: "격언" },
+        { ko: "최고의 리더는 보이지 않는 리더다.", en: "The best leaders are invisible.", author: "격언" },
+        { ko: "일할 때 즐거움이 없으면 무덤이 된다.", en: "Without joy in work, work becomes a tomb.", author: "격언" },
+        { ko: "당신의 일이 당신의 정체성이 되어서는 안 된다.", en: "Your work should not define your identity.", author: "격언" },
+        { ko: "일이 사명이 될 때 비로소 성공한다.", en: "When work becomes a mission, success follows.", author: "격언" },
+        { ko: "연봉은 가치를 반영한다.", en: "Your salary reflects your value.", author: "격언" },
+        { ko: "좋은 사람이 좋은 리더다.", en: "Good people make good leaders.", author: "격언" },
+        { ko: "일과 삶의 균형은 선택이 아니라 필수다.", en: "Work-life balance is not a choice; it's a necessity.", author: "격언" },
+        { ko: "당신의 시간은 가장 귀중한 자산이다.", en: "Your time is your most valuable asset.", author: "격언" },
+        { ko: "집중하는 자가 이긴다.", en: "Focused effort leads to success.", author: "격언" },
+        { ko: "팀원을 알면 일이 쉬워진다.", en: "Understand your team, and work becomes easy.", author: "격언" },
+        { ko: "주도적으로 일하는 자가 성공한다.", en: "Those who take initiative succeed.", author: "격언" },
+        { ko: "명확한 목표가 없으면 방향도 없다.", en: "Without a clear goal, there's no direction.", author: "격언" },
+        { ko: "일에서 배우는 것이 최고의 보상이다.", en: "Learning on the job is the greatest reward.", author: "격언" },
+        { ko: "당신의 태도가 당신의 일을 결정한다.", en: "Your attitude determines your work.", author: "격언" },
+        { ko: "열정 없이 일하는 것은 감옥 같다.", en: "Working without passion is like being in prison.", author: "격언" },
+        { ko: "현재의 일이 미래의 성공을 만든다.", en: "Your current work creates your future success.", author: "격언" },
+        { ko: "배우면서 일하고 일하면서 배워라.", en: "Work while learning and learn while working.", author: "격언" },
+        { ko: "정직함은 최고의 정책이다.", en: "Honesty is the best policy.", author: "격언" },
+        { ko: "당신의 약속을 지키면 신뢰가 쌓인다.", en: "Keep your promises and build trust.", author: "격언" },
+        { ko: "실천 없는 말은 공허하다.", en: "Words without action are empty.", author: "격언" },
+        { ko: "일의 진정한 가치는 사람에게 있다.", en: "The true value of work lies in people.", author: "격언" },
+        { ko: "당신의 팀이 당신의 성공을 결정한다.", en: "Your team determines your success.", author: "격언" },
+        { ko: "좋은 의도만으로는 부족하다.", en: "Good intentions are not enough.", author: "격언" },
+        { ko: "일은 특권이지 의무가 아니다.", en: "Work is a privilege, not an obligation.", author: "격언" },
+        { ko: "당신의 기여가 당신의 가치를 결정한다.", en: "Your contribution determines your value.", author: "격언" },
+        { ko: "리더십은 행동에서 비롯된다.", en: "Leadership comes from action.", author: "격언" },
+        { ko: "일을 사랑하면 일도 당신을 사랑한다.", en: "Love your work, and your work will love you.", author: "격언" },
+        { ko: "당신의 일이 당신의 사명이 될 때 성공한다.", en: "When your work becomes your mission, then you succeed.", author: "격언" },
+        { ko: "리더는 앞에서 선도한다.", en: "Leaders lead from the front.", author: "격언" },
+        { ko: "당신의 태도가 팀의 문화를 만든다.", en: "Your attitude creates the team culture.", author: "격언" },
+        { ko: "작은 책임으로 큰 신뢰를 만든다.", en: "Small responsibilities build great trust.", author: "격언" },
+        { ko: "일에서의 성장이 인생의 성장이다.", en: "Growth at work is growth in life.", author: "격언" },
+        { ko: "최고의 일은 좋아하는 일이다.", en: "The best work is work you love.", author: "격언" },
+        { ko: "경영은 일을 올바르게 하는 것이고, 리더십은 올바른 일을 하는 것이다.", en: "Management is doing things right; leadership is doing the right things.", author: "피터 드러커" },
+        { ko: "평판을 쌓는 데는 20년이 걸리지만, 무너뜨리는 데는 5분이면 충분하다.", en: "It takes 20 years to build a reputation and five minutes to ruin it.", author: "워런 버핏" },
+        { ko: "이봐, 해봤어?", en: "Hey, have you tried it?", author: "정주영" },
+        { ko: "마누라와 자식 빼고 다 바꿔라.", en: "Change everything except your wife and children.", author: "이건희" },
+        { ko: "브랜드란 당신이 없는 자리에서 사람들이 당신에 대해 하는 말이다.", en: "Your brand is what other people say about you when you're not in the room.", author: "제프 베조스" },
+        { ko: "제품의 첫 버전이 부끄럽지 않다면, 너무 늦게 출시한 것이다.", en: "If you are not embarrassed by the first version of your product, you've launched too late.", author: "리드 호프먼" },
+        { ko: "가장 불만이 많은 고객이 가장 큰 배움의 원천이다.", en: "Your most unhappy customers are your greatest source of learning.", author: "빌 게이츠" },
+        { ko: "걷지 말고 뛰어라.", en: "Run, don't walk.", author: "젠슨 황" },
+        { ko: "스스로 운명을 통제하라. 그렇지 않으면 다른 누군가가 통제할 것이다.", en: "Control your own destiny or someone else will.", author: "잭 웰치" },
+        { ko: "사람들은 당신이 무엇을 하는지가 아니라, 왜 하는지를 산다.", en: "People don't buy what you do; they buy why you do it.", author: "사이먼 시넥" }
+      ],
+      life: [
+        { ko: "현재 이 순간을 소중히 하라.", en: "Cherish this moment.", author: "격언" },
+        { ko: "행복은 목적지가 아니라 여행이다.", en: "Happiness is a journey, not a destination.", author: "격언" },
+        { ko: "당신의 인생은 당신의 선택이다.", en: "Your life is a product of your choices.", author: "격언" },
+        { ko: "과거는 바꿀 수 없지만 미래는 바꿀 수 있다.", en: "You can't change the past, but you can shape the future.", author: "격언" },
+        { ko: "인생은 짧다. 당신이 사랑하는 것을 하라.", en: "Life is short. Do what you love.", author: "격언" },
+        { ko: "행복은 내면에서 비롯된다.", en: "Happiness comes from within.", author: "격언" },
+        { ko: "모든 순간이 소중하다.", en: "Every moment matters.", author: "격언" },
+        { ko: "당신이 줄 수 있는 최고의 선물은 시간이다.", en: "The greatest gift you can give is your time.", author: "격언" },
+        { ko: "행복은 비교하지 않을 때 온다.", en: "Happiness comes when you stop comparing.", author: "격언" },
+        { ko: "당신의 가족이 당신의 재산이다.", en: "Your family is your wealth.", author: "격언" },
+        { ko: "감사함이 행복의 열쇠다.", en: "Gratitude is the key to happiness.", author: "격언" },
+        { ko: "배운 교훈이 가장 큰 보물이다.", en: "The lessons you learn are the greatest treasure.", author: "격언" },
+        { ko: "사랑하는 말을 먼저 해라.", en: "Say the words of love first.", author: "격언" },
+        { ko: "인생은 우여곡절이다.", en: "Life has its ups and downs.", author: "격언" },
+        { ko: "남을 판단하지 말고 이해하려 하라.", en: "Don't judge others. Try to understand them.", author: "격언" },
+        { ko: "행복은 당신 안에 있다.", en: "Happiness is within you.", author: "격언" },
+        { ko: "시간은 모두에게 평등하다.", en: "Time is equal for everyone.", author: "격언" },
+        { ko: "진정한 부자는 필요한 것을 가진 자다.", en: "The richest person is one who needs the least.", author: "격언" },
+        { ko: "당신의 건강이 당신의 부다.", en: "Your health is your wealth.", author: "격언" },
+        { ko: "좋은 추억을 만드는 것이 목표다.", en: "Your goal should be to make good memories.", author: "격언" },
+        { ko: "인생은 짧으니 중요한 것에 초점을 맞춰라.", en: "Life is short. Focus on what matters.", author: "격언" },
+        { ko: "당신이 할 수 있는 최선을 다하라.", en: "Do your best.", author: "격언" },
+        { ko: "행복한 삶의 비결은 수용이다.", en: "The secret to a happy life is acceptance.", author: "격언" },
+        { ko: "현재를 즐겨라. 미래는 불확실하다.", en: "Enjoy the present. The future is uncertain.", author: "격언" },
+        { ko: "당신이 선택하지 않은 일은 하지 마라.", en: "Don't do what you didn't choose.", author: "격언" },
+        { ko: "인생은 선택의 연속이다.", en: "Life is a series of choices.", author: "격언" },
+        { ko: "남과 비교하면 불행해진다.", en: "Comparing yourself to others leads to unhappiness.", author: "격언" },
+        { ko: "자신에게 친절하라.", en: "Be kind to yourself.", author: "격언" },
+        { ko: "배우는 것이 가장 중요하다.", en: "Learning is the most important thing in life.", author: "격언" },
+        { ko: "당신의 꿈이 당신의 삶이 되게 하라.", en: "Let your dreams shape your life.", author: "격언" },
+        { ko: "인생은 교실이고 매일이 수업이다.", en: "Life is a classroom and every day is a lesson.", author: "격언" },
+        { ko: "행복은 선택이다.", en: "Happiness is a choice.", author: "격언" },
+        { ko: "당신의 삶은 당신의 거울이다.", en: "Your life is your reflection.", author: "격언" },
+        { ko: "살아있다는 것을 느껴라.", en: "Feel that you're alive.", author: "격언" },
+        { ko: "삶의 의미는 당신이 만든다.", en: "The meaning of life is what you create.", author: "격언" },
+        { ko: "매 순간이 선물이다.", en: "Every moment is a gift.", author: "격언" },
+        { ko: "당신의 인생 이야기를 써라.", en: "Write your life story.", author: "격언" },
+        { ko: "시간을 잘 보내는 것이 삶을 잘 사는 것이다.", en: "How you spend your time is how you spend your life.", author: "격언" },
+        { ko: "행복은 당신이 생각하는 대로 된다.", en: "Happiness is as you think.", author: "격언" },
+        { ko: "오늘이 당신의 나머지 인생의 첫 날이다.", en: "Today is the first day of the rest of your life.", author: "격언" },
+        { ko: "당신의 시간은 한정되어 있다. 다른 사람의 삶을 사느라 낭비하지 마라.", en: "Your time is limited, so don't waste it living someone else's life.", author: "스티브 잡스" },
+        { ko: "성찰하지 않는 삶은 살 가치가 없다.", en: "The unexamined life is not worth living.", author: "소크라테스" },
+        { ko: "행복은 이미 만들어진 것이 아니다. 당신의 행동에서 나온다.", en: "Happiness is not something ready made. It comes from your own actions.", author: "달라이 라마" },
+        { ko: "인생은 자전거 타기와 같다. 균형을 잡으려면 계속 움직여야 한다.", en: "Life is like riding a bicycle. To keep your balance, you must keep moving.", author: "알베르트 아인슈타인" },
+        { ko: "인간에게서 모든 것을 빼앗을 수 있어도 단 하나, 어떤 상황에서든 자신의 태도를 선택할 자유만은 빼앗을 수 없다.", en: "Everything can be taken from a man but one thing: the last of the human freedoms—to choose one's attitude in any given set of circumstances.", author: "빅터 프랭클" },
+        { ko: "당신 삶의 행복은 생각의 질에 달려 있다.", en: "The happiness of your life depends upon the quality of your thoughts.", author: "마르쿠스 아우렐리우스" },
+        { ko: "무소유란 아무것도 갖지 않는 것이 아니라, 불필요한 것을 갖지 않는 것이다.", en: "Non-possession does not mean owning nothing, but not owning what is unnecessary.", author: "법정 스님" },
+        { ko: "좋은 관계가 우리를 더 행복하고 건강하게 한다. 그게 전부다.", en: "Good relationships keep us happier and healthier. Period.", author: "로버트 월딩거" },
+        { ko: "인생은 가까이서 보면 비극이지만, 멀리서 보면 희극이다.", en: "Life is a tragedy when seen in close-up, but a comedy in long-shot.", author: "찰리 채플린" },
+        { ko: "우리는 받은 카드를 바꿀 수 없다. 그 패를 어떻게 쓸지만 정할 수 있다.", en: "We cannot change the cards we are dealt, just how we play the hand.", author: "랜디 포시" }
+      ],
+      growth: [
+        { ko: "배움은 평생의 여정이다.", en: "Learning is a lifelong journey.", author: "격언" },
+        { ko: "배운 모든 것이 당신을 만든다.", en: "Everything you learn shapes who you are.", author: "격언" },
+        { ko: "성장하지 않으면 죽고 있는 것이다.", en: "If you're not growing, you're dying.", author: "격언" },
+        { ko: "'아직'이라는 말이 가장 강력하다.", en: "The word 'yet' is the most powerful word.", author: "캐럴 드웩" },
+        { ko: "실수할 때마다 배운다.", en: "Every mistake is a lesson.", author: "격언" },
+        { ko: "어제보다 오늘 더 나아지려고 하라.", en: "Try to be better today than yesterday.", author: "격언" },
+        { ko: "배움에 끝은 없다.", en: "There is no end to learning.", author: "격언" },
+        { ko: "질문하는 자가 진정으로 배운다.", en: "Those who ask questions truly learn.", author: "격언" },
+        { ko: "책은 마음의 식량이다.", en: "Books are food for the mind.", author: "격언" },
+        { ko: "끊임없이 배우는 것이 성공의 비결이다.", en: "Continuous learning is the key to success.", author: "격언" },
+        { ko: "경험이 최고의 선생님이다.", en: "Experience is the best teacher.", author: "격언" },
+        { ko: "새로운 것을 배우면 새로운 가능성이 열린다.", en: "Learning something new opens new possibilities.", author: "격언" },
+        { ko: "겸손이 성장의 시작이다.", en: "Humility is the beginning of growth.", author: "격언" },
+        { ko: "약점을 인정할 때 성장이 시작된다.", en: "Growth begins when you acknowledge your weaknesses.", author: "격언" },
+        { ko: "배움은 투자이고 이익은 미래다.", en: "Learning is an investment and the return is the future.", author: "격언" },
+        { ko: "성장하려면 변해야 한다.", en: "To grow, you must change.", author: "격언" },
+        { ko: "배움은 멈추지 않는다.", en: "Learning never stops.", author: "격언" },
+        { ko: "피드백을 기쁘게 받는 자가 성장한다.", en: "Those who welcome feedback grow.", author: "격언" },
+        { ko: "당신의 관점을 바꾸면 세상이 바뀐다.", en: "Change your perspective and the world changes.", author: "격언" },
+        { ko: "배움에는 지름길이 없다.", en: "There's no shortcut to learning.", author: "격언" },
+        { ko: "실패는 배움의 기회다.", en: "Failure is an opportunity to learn.", author: "격언" },
+        { ko: "성장하는 자가 성공한다.", en: "Those who grow succeed.", author: "격언" },
+        { ko: "배우는 것을 멈추지 마라.", en: "Never stop learning.", author: "격언" },
+        { ko: "한계를 넘어서야 성장한다.", en: "You grow by pushing beyond your limits.", author: "격언" },
+        { ko: "배움은 평등하다. 누구나 배울 수 있다.", en: "Learning is democratic. Anyone can learn.", author: "격언" },
+        { ko: "호기심이 배움의 기초다.", en: "Curiosity is the foundation of learning.", author: "격언" },
+        { ko: "배우면서 가르치는 것이 최고의 배움이다.", en: "Teaching while learning is the best way to learn.", author: "격언" },
+        { ko: "성장의 속도는 배움의 속도다.", en: "The speed of growth is the speed of learning.", author: "격언" },
+        { ko: "배우는 자는 선도한다.", en: "Those who learn lead.", author: "격언" },
+        { ko: "새로운 환경이 성장을 만든다.", en: "New environments create growth.", author: "격언" },
+        { ko: "배움은 자유의 열쇠다.", en: "Learning is the key to freedom.", author: "격언" },
+        { ko: "성장은 과정이지 결과가 아니다.", en: "Growth is a process, not a result.", author: "격언" },
+        { ko: "배운 것이 당신의 자산이다.", en: "What you learn is your asset.", author: "격언" },
+        { ko: "배움을 통해 사람은 진화한다.", en: "Through learning, people evolve.", author: "격언" },
+        { ko: "매일 배우는 것이 매일 성장하는 것이다.", en: "Learning daily is growing daily.", author: "격언" },
+        { ko: "배움의 즐거움을 아는 자가 진정한 지혜자다.", en: "Those who enjoy learning are truly wise.", author: "격언" },
+        { ko: "성장하려는 욕망이 시작이다.", en: "The desire to grow is the beginning of growth.", author: "격언" },
+        { ko: "배움은 영원한 선물이다.", en: "Learning is an eternal gift.", author: "격언" },
+        { ko: "당신의 성장이 당신의 성공이다.", en: "Your growth is your success.", author: "격언" },
+        { ko: "배움 없이는 진정한 성공도 없다.", en: "Without learning, there is no true success.", author: "격언" },
+        { ko: "배우고 때때로 익히면 또한 기쁘지 아니한가. (學而時習之 不亦說乎)", en: "Is it not a pleasure to learn and to practice what you have learned?", author: "공자" },
+        { ko: "다 아는 사람이 아니라, 다 배우는 사람이 되라.", en: "Don't be a know-it-all; be a learn-it-all.", author: "사티아 나델라" },
+        { ko: "교육은 세상을 바꿀 수 있는 가장 강력한 무기다.", en: "Education is the most powerful weapon which you can use to change the world.", author: "넬슨 만델라" },
+        { ko: "내일 죽을 것처럼 살고, 영원히 살 것처럼 배워라.", en: "Live as if you were to die tomorrow. Learn as if you were to live forever.", author: "마하트마 간디" },
+        { ko: "취약성은 혁신과 창의성, 변화가 태어나는 곳이다.", en: "Vulnerability is the birthplace of innovation, creativity and change.", author: "브레네 브라운" },
+        { ko: "배움은 결코 정신을 지치게 하지 않는다.", en: "Learning never exhausts the mind.", author: "레오나르도 다빈치" },
+        { ko: "독서야말로 사람이 해야 할 첫째가는 깨끗한 일이다.", en: "Reading is the first and cleanest task a person should undertake.", author: "정약용" },
+        { ko: "틀릴 준비가 되어 있지 않다면, 결코 독창적인 것을 만들어낼 수 없다.", en: "If you're not prepared to be wrong, you'll never come up with anything original.", author: "켄 로빈슨" },
+        { ko: "첫째 원칙은 자신을 속이지 않는 것이다. 그리고 자신이야말로 가장 속이기 쉬운 사람이다.", en: "The first principle is that you must not fool yourself—and you are the easiest person to fool.", author: "리처드 파인만" },
+        { ko: "아침에 일어났을 때보다 조금 더 현명해져서 잠자리에 들어라.", en: "Go to bed smarter than when you woke up.", author: "찰리 멍거" }
+      ]
+    };
+
+    // ────── 인물 정보 (한글명: [영문명, 위키백과 영문 문서명, 소개]) ──────
+    const people = {
+      "프랭클린 D. 루스벨트": ["Franklin D. Roosevelt", "Franklin D. Roosevelt", "미국 제32대 대통령(1933–1945). 대공황과 제2차 세계대전 시기 미국을 이끌었다."],
+      "시어도어 루스벨트": ["Theodore Roosevelt", "Theodore Roosevelt", "미국 제26대 대통령. 1910년 파리 연설 속 '경기장에 선 사람' 대목으로 널리 인용된다."],
+      "사뮈엘 베케트": ["Samuel Beckett", "Samuel Beckett", "아일랜드 출신 극작가·소설가. 『고도를 기다리며』의 작가로 1969년 노벨 문학상을 받았다."],
+      "엘리너 루스벨트": ["Eleanor Roosevelt", "Eleanor Roosevelt", "미국의 인권운동가·외교관이자 퍼스트레이디. 세계인권선언 제정을 이끌었다."],
+      "생텍쥐페리": ["Antoine de Saint-Exupéry", "Antoine de Saint-Exupéry", "프랑스의 작가이자 비행사. 『어린 왕자』의 작가."],
+      "윈스턴 처칠": ["Winston Churchill", "Winston Churchill", "영국 총리(1940–45, 1951–55). 제2차 세계대전 승리를 이끌었고 노벨 문학상을 받았다."],
+      "마이클 조던": ["Michael Jordan", "Michael Jordan", "미국의 농구 선수. 시카고 불스에서 NBA 우승 6회를 달성한 농구의 전설."],
+      "알베르트 아인슈타인": ["Albert Einstein", "Albert Einstein", "독일 태생의 이론물리학자. 상대성이론을 세웠고 1921년 노벨 물리학상을 받았다."],
+      "헨리 포드": ["Henry Ford", "Henry Ford", "포드 자동차 창업자. 조립 라인 대량생산으로 자동차 대중화를 이끌었다."],
+      "일론 머스크": ["Elon Musk", "Elon Musk", "테슬라·스페이스X를 이끄는 기업가. 전기차와 민간 우주 개발의 선두에 섰다."],
+      "J.K. 롤링": ["J.K. Rowling", "J. K. Rowling", "영국의 작가. 『해리 포터』 시리즈로 세계적 성공을 거두었다."],
+      "덴젤 워싱턴": ["Denzel Washington", "Denzel Washington", "미국의 배우·감독. 아카데미상을 두 차례 받았다."],
+      "짐 캐리": ["Jim Carrey", "Jim Carrey", "캐나다 출신 배우·코미디언. 『트루먼 쇼』, 『마스크』 등으로 유명하다."],
+      "실베스터 스탤론": ["Sylvester Stallone", "Sylvester Stallone", "미국의 배우·감독·각본가. 『록키』 시리즈를 직접 쓰고 주연했다."],
+      "마윈": ["Jack Ma", "Jack Ma", "중국 알리바바 그룹 창업자. 영어 교사에서 세계적 전자상거래 기업가가 되었다."],
+      "오프라 윈프리": ["Oprah Winfrey", "Oprah Winfrey", "미국의 방송인·기업가. 『오프라 윈프리 쇼』를 25년간 진행했다."],
+      "H. 잭슨 브라운 주니어": ["H. Jackson Brown Jr.", "H. Jackson Brown Jr.", "미국의 작가. 『인생 지침서(Life's Little Instruction Book)』로 유명하다."],
+      "넬슨 만델라": ["Nelson Mandela", "Nelson Mandela", "남아공 최초의 흑인 대통령. 27년 수감 끝에 아파르트헤이트 종식을 이끌고 노벨 평화상을 받았다."],
+      "웨인 그레츠키": ["Wayne Gretzky", "Wayne Gretzky", "캐나다의 아이스하키 선수. 'The Great One'으로 불리는 NHL 역대 최다 득점자."],
+      "로버트 F. 케네디": ["Robert F. Kennedy", "Robert F. Kennedy", "미국의 법무장관·상원의원. 존 F. 케네디의 동생으로 민권 운동을 지지했다."],
+      "존 A. 셰드": ["John A. Shedd", null, "미국의 작가·교수. 1928년 저서 『Salt from My Attic』에 이 문장을 남긴 것으로 알려져 있다."],
+      "제프 베조스": ["Jeff Bezos", "Jeff Bezos", "아마존 창업자. 온라인 서점에서 시작해 세계적인 전자상거래·클라우드 기업을 만들었다."],
+      "아리아나 허핑턴": ["Arianna Huffington", "Arianna Huffington", "허핑턴포스트 공동 창업자이자 웰니스 기업 스라이브 글로벌 창업자."],
+      "마크 저커버그": ["Mark Zuckerberg", "Mark Zuckerberg", "페이스북(현 메타) 공동 창업자이자 CEO."],
+      "닐 게이먼": ["Neil Gaiman", "Neil Gaiman", "영국의 작가. 『샌드맨』, 『신들의 전쟁』 등 판타지 작품으로 유명하다."],
+      "셰릴 샌드버그": ["Sheryl Sandberg", "Sheryl Sandberg", "전 메타 최고운영책임자(COO). 『린 인(Lean In)』의 저자."],
+      "올리버 골드스미스": ["Oliver Goldsmith", "Oliver Goldsmith", "18세기 아일랜드 출신 작가·시인. 『웨이크필드의 목사』의 저자."],
+      "로버트 드니로": ["Robert De Niro", "Robert De Niro", "미국의 배우. 『대부 2』, 『성난 황소』로 아카데미상을 받았다."],
+      "테일러 스위프트": ["Taylor Swift", "Taylor Swift", "미국의 싱어송라이터. 그래미 올해의 앨범상을 여러 차례 받았다."],
+      "로저 페더러": ["Roger Federer", "Roger Federer", "스위스의 테니스 선수. 그랜드슬램 단식 20회 우승."],
+      "애비 웜백": ["Abby Wambach", "Abby Wambach", "미국의 축구 선수. 올림픽 금메달 2회와 여자 월드컵 우승을 이끌었다."],
+      "닐 도널드 월시": ["Neale Donald Walsch", "Neale Donald Walsch", "미국의 작가. 『신과 나눈 이야기』 시리즈의 저자."],
+      "리처드 브랜슨": ["Richard Branson", "Richard Branson", "영국의 기업가. 음반·항공·우주 사업을 아우르는 버진 그룹 창업자."],
+      "지그 지글러": ["Zig Ziglar", "Zig Ziglar", "미국의 작가·동기부여 연설가. 『정상에서 만납시다』의 저자."],
+      "짐 발바노": ["Jim Valvano", "Jim Valvano", "미국의 대학농구 감독. 1983년 NC 주립대를 NCAA 우승으로 이끌었고 암 연구 재단 'V 재단'을 세웠다."],
+      "랄프 월도 에머슨": ["Ralph Waldo Emerson", "Ralph Waldo Emerson", "19세기 미국의 사상가·시인. 초월주의 운동을 이끌었다."],
+      "마틴 루서 킹 주니어": ["Martin Luther King Jr.", "Martin Luther King Jr.", "미국 민권 운동 지도자. 1964년 노벨 평화상을 받았다."],
+      "로버트 엘리엇": ["Robert S. Eliot", null, "미국의 심장 전문의. 스트레스와 심장 건강 연구로 알려져 있다."],
+      "뷔퐁": ["Comte de Buffon", "Georges-Louis Leclerc, Comte de Buffon", "18세기 프랑스의 박물학자. 방대한 『박물지』를 저술했다."],
+      "아리스토텔레스": ["Aristotle", "Aristotle", "고대 그리스의 철학자. 플라톤의 제자이자 알렉산드로스 대왕의 스승."],
+      "윌 스미스": ["Will Smith", "Will Smith", "미국의 배우·래퍼. 『행복을 찾아서』, 『알리』 등에 출연했다."],
+      "앤절라 더크워스": ["Angela Duckworth", "Angela Duckworth", "미국 펜실베이니아대 심리학 교수. 『그릿(GRIT)』의 저자."],
+      "토머스 에디슨": ["Thomas Edison", "Thomas Edison", "미국의 발명가. 전구·축음기 등 1,000건이 넘는 특허를 남겼다."],
+      "빈스 롬바디": ["Vince Lombardi", "Vince Lombardi", "미국 미식축구 감독. 슈퍼볼 우승 트로피에 그의 이름이 붙어 있다."],
+      "코비 브라이언트": ["Kobe Bryant", "Kobe Bryant", "미국의 농구 선수. LA 레이커스에서 NBA 우승 5회를 달성했다."],
+      "랜스 암스트롱": ["Lance Armstrong", "Lance Armstrong", "미국의 사이클 선수. 고환암을 이겨냈으나, 이후 도핑으로 투르 드 프랑스 우승 기록이 박탈되었다."],
+      "무하마드 알리": ["Muhammad Ali", "Muhammad Ali", "미국의 복서. 헤비급 세계 챔피언을 세 차례 지낸 복싱의 전설."],
+      "에릭 토머스": ["Eric Thomas", "Eric Thomas (motivational speaker)", "미국의 동기부여 연설가. 노숙 생활을 딛고 박사 학위를 받았다."],
+      "레스 브라운": ["Les Brown", "Les Brown (speaker)", "미국의 동기부여 연설가이자 전 오하이오주 하원의원."],
+      "오비디우스": ["Ovid", "Ovid", "고대 로마의 시인. 『변신 이야기』의 저자."],
+      "빈센트 반 고흐": ["Vincent van Gogh", "Vincent van Gogh", "네덜란드의 후기 인상주의 화가. 『별이 빛나는 밤』으로 유명하다."],
+      "로버트 콜리어": ["Robert Collier", "Robert Collier (author)", "미국의 자기계발 작가. 『시대의 비밀(The Secret of the Ages)』의 저자."],
+      "요기 베라": ["Yogi Berra", "Yogi Berra", "뉴욕 양키스의 포수. 월드시리즈 10회 우승과 재치 있는 어록으로 유명하다."],
+      "엘리우드 킵초게": ["Eliud Kipchoge", "Eliud Kipchoge", "케냐의 마라톤 선수. 2019년 인류 최초로 마라톤 2시간 벽을 깼다(비공인 기록)."],
+      "노먼 빈센트 필": ["Norman Vincent Peale", "Norman Vincent Peale", "미국의 목사·작가. 『긍정적 사고방식』의 저자."],
+      "잭 캔필드": ["Jack Canfield", "Jack Canfield", "미국의 작가. 『영혼을 위한 닭고기 수프』 공동 저자."],
+      "오그 만디노": ["Og Mandino", "Og Mandino", "미국의 작가. 『세상에서 가장 위대한 세일즈맨』의 저자."],
+      "W. 클레멘트 스톤": ["W. Clement Stone", "W. Clement Stone", "미국의 기업가·자선가. 나폴레온 힐과 함께 긍정적 마음가짐에 관한 책을 썼다."],
+      "월트 디즈니": ["Walt Disney", "Walt Disney", "미국의 애니메이터·기업가. 미키 마우스와 디즈니랜드를 만들었다."],
+      "스티브 잡스": ["Steve Jobs", "Steve Jobs", "애플 공동 창업자. 매킨토시와 아이폰으로 개인용 기술의 흐름을 바꿨다."],
+      "사이먼 시넥": ["Simon Sinek", "Simon Sinek", "영국 태생 미국 작가. 『나는 왜 이 일을 하는가(Start with Why)』의 저자."],
+      "캐럴 드웩": ["Carol Dweck", "Carol Dweck", "미국 스탠퍼드대 심리학 교수. '성장 마인드셋' 개념을 정립했다."],
+      "헬렌 켈러": ["Helen Keller", "Helen Keller", "미국의 작가·사회운동가. 시청각 장애를 딛고 대학을 졸업했다."],
+      "마야 안젤루": ["Maya Angelou", "Maya Angelou", "미국의 시인·작가·민권운동가. 자전적 소설 『새장에 갇힌 새가 왜 노래하는지 나는 아네』의 저자."],
+      "이순신": ["Yi Sun-sin", "Yi Sun-sin", "조선의 장군. 임진왜란 때 수군을 이끌어 나라를 지켰고 『난중일기』를 남겼다."],
+      "캘빈 쿨리지": ["Calvin Coolidge", "Calvin Coolidge", "미국 제30대 대통령(1923–1929)."],
+      "세리나 윌리엄스": ["Serena Williams", "Serena Williams", "미국의 테니스 선수. 그랜드슬램 단식 23회 우승."],
+      "마리 퀴리": ["Marie Curie", "Marie Curie", "폴란드 태생의 프랑스 과학자. 물리학·화학 두 분야에서 노벨상을 받았다."],
+      "벤저민 프랭클린": ["Benjamin Franklin", "Benjamin Franklin", "미국 건국의 아버지 중 한 명이자 과학자·발명가·저술가."],
+      "김연아": ["Kim Yuna", "Kim Yuna", "대한민국의 피겨스케이팅 선수. 2010 밴쿠버 올림픽 금메달리스트."],
+      "스티븐 킹": ["Stephen King", "Stephen King", "미국의 소설가. 『샤이닝』, 『미저리』 등을 쓴 공포 소설의 거장."],
+      "말콤 글래드웰": ["Malcolm Gladwell", "Malcolm Gladwell", "캐나다의 저널리스트·작가. 『아웃라이어』, 『티핑 포인트』의 저자."],
+      "아놀드 슈워제너거": ["Arnold Schwarzenegger", "Arnold Schwarzenegger", "오스트리아 출신 보디빌더·배우이자 전 캘리포니아 주지사."],
+      "데이비드 고긴스": ["David Goggins", "David Goggins", "미 해군 네이비실 출신 울트라마라토너. 『누구도 나를 파괴할 수 없다』의 저자."],
+      "레이 달리오": ["Ray Dalio", "Ray Dalio", "세계 최대 헤지펀드 브리지워터 어소시에이츠 창업자. 『원칙』의 저자."],
+      "랭스턴 휴스": ["Langston Hughes", "Langston Hughes", "미국의 시인·작가. 할렘 르네상스를 대표하는 문인."],
+      "헨리 데이비드 소로": ["Henry David Thoreau", "Henry David Thoreau", "19세기 미국의 사상가·작가. 『월든』, 『시민 불복종』의 저자."],
+      "파울로 코엘료": ["Paulo Coelho", "Paulo Coelho", "브라질의 소설가. 『연금술사』의 저자."],
+      "앨런 케이": ["Alan Kay", "Alan Kay", "미국의 컴퓨터 과학자. 객체지향 프로그래밍과 그래픽 사용자 인터페이스의 선구자로 튜링상을 받았다."],
+      "김구": ["Kim Ku", "Kim Ku", "대한민국 임시정부 주석을 지낸 독립운동가. 호는 백범이며 『백범일지』를 남겼다."],
+      "말랄라 유사프자이": ["Malala Yousafzai", "Malala Yousafzai", "파키스탄의 여성 교육 운동가. 17세에 최연소 노벨 평화상 수상자가 되었다."],
+      "존 F. 케네디": ["John F. Kennedy", "John F. Kennedy", "미국 제35대 대통령. 아폴로 계획으로 달 착륙 목표를 제시했다."],
+      "피터 드러커": ["Peter Drucker", "Peter Drucker", "오스트리아 태생 미국의 경영학자. '현대 경영학의 아버지'로 불린다."],
+      "워런 버핏": ["Warren Buffett", "Warren Buffett", "버크셔 해서웨이 회장. '오마하의 현인'으로 불리는 투자가."],
+      "정주영": ["Chung Ju-yung", "Chung Ju-yung", "현대그룹 창업자. 건설·자동차·조선 산업을 일군 기업가."],
+      "이건희": ["Lee Kun-hee", "Lee Kun-hee", "전 삼성그룹 회장. 1993년 '신경영 선언'으로 삼성의 체질을 바꿨다."],
+      "리드 호프먼": ["Reid Hoffman", "Reid Hoffman", "링크드인 공동 창업자이자 벤처 투자가."],
+      "빌 게이츠": ["Bill Gates", "Bill Gates", "마이크로소프트 공동 창업자이자 게이츠 재단 공동 설립자."],
+      "젠슨 황": ["Jensen Huang", "Jensen Huang", "엔비디아 공동 창업자이자 CEO. 대만 출생."],
+      "잭 웰치": ["Jack Welch", "Jack Welch", "제너럴 일렉트릭(GE) 전 회장. 20년간 GE를 이끈 경영자."],
+      "소크라테스": ["Socrates", "Socrates", "고대 그리스 아테네의 철학자. 문답법으로 서양 철학의 기초를 놓았다."],
+      "달라이 라마": ["Dalai Lama", "14th Dalai Lama", "티베트 불교의 지도자(제14대). 1989년 노벨 평화상을 받았다."],
+      "빅터 프랭클": ["Viktor Frankl", "Viktor Frankl", "오스트리아의 정신의학자. 나치 수용소 경험을 담은 『죽음의 수용소에서』의 저자."],
+      "마르쿠스 아우렐리우스": ["Marcus Aurelius", "Marcus Aurelius", "로마 제국의 황제이자 스토아 철학자. 『명상록』의 저자."],
+      "법정 스님": ["Beopjeong", "Beopjeong", "대한민국의 승려·수필가. 『무소유』의 저자."],
+      "로버트 월딩거": ["Robert Waldinger", "Robert J. Waldinger", "하버드 의대 정신의학 교수. 80년 넘게 이어진 '하버드 성인 발달 연구'의 책임자."],
+      "찰리 채플린": ["Charlie Chaplin", "Charlie Chaplin", "영국 출신 희극 배우·감독. 무성영화 시대의 상징."],
+      "랜디 포시": ["Randy Pausch", "Randy Pausch", "카네기멜런대 컴퓨터과학 교수. 췌장암 투병 중 남긴 '마지막 강의'로 전 세계에 감동을 줬다."],
+      "공자": ["Confucius", "Confucius", "중국 춘추시대의 사상가. 유교의 창시자로, 제자들이 『논어』에 그의 말을 남겼다."],
+      "사티아 나델라": ["Satya Nadella", "Satya Nadella", "마이크로소프트 CEO. 인도 출생."],
+      "마하트마 간디": ["Mahatma Gandhi", "Mahatma Gandhi", "인도 독립운동 지도자. 비폭력 저항 운동을 이끌었다."],
+      "브레네 브라운": ["Brené Brown", "Brené Brown", "미국 휴스턴대 연구교수. 취약성과 용기에 관한 연구로 유명하다."],
+      "레오나르도 다빈치": ["Leonardo da Vinci", "Leonardo da Vinci", "이탈리아 르네상스의 화가·과학자·발명가. 『모나리자』, 『최후의 만찬』을 그렸다."],
+      "정약용": ["Jeong Yak-yong", "Jeong Yak-yong", "조선 후기 실학자. 호는 다산이며 『목민심서』 등 500여 권을 남겼다."],
+      "켄 로빈슨": ["Ken Robinson", "Ken Robinson (educationalist)", "영국의 교육학자. TED 강연 '학교가 창의력을 죽이는가'로 유명하다."],
+      "리처드 파인만": ["Richard Feynman", "Richard Feynman", "미국의 이론물리학자. 1965년 노벨 물리학상을 받았다."],
+      "찰리 멍거": ["Charlie Munger", "Charlie Munger", "버크셔 해서웨이 전 부회장. 워런 버핏의 오랜 동업자."]
+    };
+    function authorLabel(a) {
+      if (people[a]) return `${a} (${people[a][0]})`;
+      if (sourceNames[a]) return `${a} (${sourceNames[a]})`;
+      return a;
+    }
+    function escAttr(t) { return String(t).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;"); }
+    function authorHtml(a) {
+      const label = escAttr(authorLabel(a));
+      return people[a]
+        ? `<button type="button" class="author-link" data-person="${escAttr(a)}" title="인물 소개 보기">${label}</button>`
+        : `<span class="author-plain">${label}</span>`;
+    }
+
+    const sourceNames = {"격언": "Proverb", "일본 속담": "Japanese Proverb", "한국 속담": "Korean Proverb", "중국 속담": "Chinese Proverb", "마태복음 7:7": "Matthew 7:7"};
+
+    // ────── UI 렌더링 ──────
+    let allQuotes = [];
+    for (const category in quoteData) {
+      allQuotes = allQuotes.concat(quoteData[category]);
+    }
+
+    function renderVideos(data) {
+      const grid = document.getElementById("videoGrid");
+      grid.innerHTML = "";
+      if (data.length === 0) {
+        grid.innerHTML = '<div class="empty-message">검색 결과가 없습니다.</div>';
+        return;
+      }
+      data.forEach(v => {
+        const card = document.createElement("a");
+        card.href = `https://www.youtube.com/watch?v=${v.id}`;
+        card.target = "_blank";
+        card.className = "video-card";
+        card.innerHTML = `
+          <div class="thumb-box">
+            <img src="https://i.ytimg.com/vi/${v.id}/hqdefault.jpg" loading="lazy" alt="${v.title}">
+            <span class="play-badge">YouTube</span>
+          </div>
+          <div class="info-box">
+            <span class="badge">${videoCategories[v.category]}</span>
+            <h3>${v.title}</h3>
+            <div class="speaker">${v.speaker}</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function renderQuotes(data) {
+      const grid = document.getElementById("quoteGrid");
+      grid.innerHTML = "";
+      if (data.length === 0) {
+        grid.innerHTML = '<div class="empty-message">검색 결과가 없습니다.</div>';
+        return;
+      }
+      data.forEach((q, i) => {
+        const card = document.createElement("div");
+        card.className = "quote-card";
+        card.innerHTML = `
+          <div class="quote-ko">${q.ko}</div>
+          <div class="quote-en">${q.en}</div>
+          <div class="quote-foot">
+            <div class="quote-author">${authorHtml(q.author)}</div>
+            <button class="copy-btn">📋 복사</button>
+          </div>
+        `;
+        card.querySelector(".copy-btn").onclick = (e) => copyQuote(q, e.currentTarget);
+        grid.appendChild(card);
+      });
+    }
+
+    function copyQuote(q, btn) {
+      const text = `${q.ko}\n\n${q.en}\n- ${authorLabel(q.author)}`;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = "✅ 복사됨";
+        btn.classList.add("done");
+        setTimeout(() => { btn.textContent = "📋 복사"; btn.classList.remove("done"); }, 1500);
+      });
+    }
+
+    // 필터 탭 생성 (카테고리 + 명사)
+    function makeBtn(label, key, isActive) {
+      const btn = document.createElement("button");
+      btn.className = "filter-btn" + (isActive ? " active" : "");
+      btn.textContent = label;
+      btn.onclick = () => filterVideos(key, btn);
+      return btn;
+    }
+    function createFilterTabs() {
+      const tabs = document.getElementById("filterTabs");
+      tabs.innerHTML = "";
+      for (const [key, label] of Object.entries(videoCategories)) tabs.appendChild(makeBtn(label, key, key === "all"));
+      const sTabs = document.getElementById("speakerTabs");
+      sTabs.innerHTML = "";
+      speakers.forEach(sp => sTabs.appendChild(makeBtn(sp, sp, false)));
+    }
+
+    // 명사 목록: 세 줄까지만 보이고 접기/펼치기
+    let speakerExpanded = false;
+    function layoutSpeakerTabs() {
+      const box = document.getElementById("speakerTabs");
+      const toggle = document.getElementById("speakerToggle");
+      const btns = [...box.children];
+      box.style.maxHeight = "none";
+      if (!btns.length) return;
+      const tops = [...new Set(btns.map(b => b.offsetTop))].sort((a, b) => a - b);
+      if (tops.length <= 3) { toggle.style.display = "none"; return; }
+      toggle.style.display = "";
+      const firstTop = tops[0];
+      const lastInRow3 = btns.filter(b => b.offsetTop === tops[2]).pop();
+      const collapsedH = lastInRow3.offsetTop + lastInRow3.offsetHeight - firstTop + 2;
+      box.style.maxHeight = speakerExpanded ? box.scrollHeight + "px" : collapsedH + "px";
+      toggle.textContent = speakerExpanded ? "접기 ▲" : `더보기 ▼ (전체 ${btns.length}명)`;
+    }
+    document.getElementById("speakerToggle").onclick = () => { speakerExpanded = !speakerExpanded; layoutSpeakerTabs(); };
+    window.addEventListener("resize", layoutSpeakerTabs);
+
+    function createQuoteTabs() {
+      const tabs = document.getElementById("quoteTabs");
+      tabs.innerHTML = "";
+      for (const [key, label] of Object.entries(quoteCategories)) {
+        const btn = document.createElement("button");
+        btn.className = `filter-btn ${key === 'all' ? 'active' : ''}`;
+        btn.textContent = label;
+        btn.onclick = () => filterQuotes(key, btn);
+        tabs.appendChild(btn);
+      }
+    }
+
+    let currentVideoFilter = "all";
+    let currentQuoteFilter = "all";
+
+    function filterVideos(cat, btn) {
+      currentVideoFilter = cat;
+      document.querySelectorAll("#filterTabs .filter-btn, #speakerTabs .filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      applyVideoFilters();
+    }
+
+    function filterQuotes(cat, btn) {
+      currentQuoteFilter = cat;
+      document.querySelectorAll("#quoteTabs .filter-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      applyQuoteFilters();
+    }
+
+    function applyVideoFilters() {
+      const search = document.getElementById("searchInput").value.toLowerCase();
+      let filtered = rawVideos;
+
+      if (currentVideoFilter !== "all") {
+        if (videoCategories[currentVideoFilter]) {
+          filtered = filtered.filter(v => v.category === currentVideoFilter);
+        } else {
+          filtered = filtered.filter(v => v.speaker === currentVideoFilter);
+        }
+      }
+
+      if (search) {
+        filtered = filtered.filter(v => v.title.toLowerCase().includes(search) || v.speaker.toLowerCase().includes(search));
+      }
+
+      document.getElementById("counterText").textContent = `${filtered.length}개 영상`;
+      renderVideos(filtered);
+    }
+
+    function applyQuoteFilters() {
+      const search = document.getElementById("quoteSearch").value.toLowerCase();
+      let filtered = currentQuoteFilter === "all" ? allQuotes : quoteData[currentQuoteFilter];
+
+      if (search) {
+        filtered = filtered.filter(q => q.ko.toLowerCase().includes(search) || q.en.toLowerCase().includes(search) || authorLabel(q.author).toLowerCase().includes(search));
+      }
+
+      document.getElementById("quoteCounter").textContent = `${filtered.length}개 명언`;
+      renderQuotes(filtered);
+    }
+
+    // 섹션 탭
+    document.querySelectorAll(".section-btn").forEach(btn => {
+      btn.onclick = function() {
+        document.querySelectorAll(".section-btn").forEach(b => b.classList.remove("active"));
+        this.classList.add("active");
+        const section = this.dataset.section;
+        document.getElementById("videoSection").classList.toggle("hidden", section !== "videos");
+        document.getElementById("quoteSection").classList.toggle("hidden", section !== "quotes");
+        if (section === "quotes" && !document.getElementById("randomText").textContent) showRandomQuote();
+      };
+    });
+
+    // 오늘의 명언
+    function showRandomQuote() {
+      const q = allQuotes[Math.floor(Math.random() * allQuotes.length)];
+      document.getElementById("randomText").textContent = q.ko;
+      document.getElementById("randomEnText").textContent = q.en;
+      document.getElementById("randomAuthor").innerHTML = "— " + authorHtml(q.author);
+    }
+
+    document.getElementById("randomBtn").onclick = showRandomQuote;
+
+    // 검색
+    document.getElementById("searchInput").oninput = applyVideoFilters;
+    document.getElementById("quoteSearch").oninput = applyQuoteFilters;
+
+    // 다운로드
+    document.getElementById("downloadHtmlBtn").onclick = function() {
+      const html = document.documentElement.outerHTML;
+      const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "명연설_명언_아카이브.html";
+      link.click();
+    };
+
+    // ────── 인물 팝업 ──────
+    const wikiCache = {};
+    async function fetchWiki(title) {
+      if (wikiCache[title]) return wikiCache[title];
+      const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&origin=*&redirects=1&prop=langlinks|pageimages&lllang=ko&pithumbsize=400&titles=" + encodeURIComponent(title);
+      const j = await (await fetch(url)).json();
+      const page = Object.values(j.query.pages)[0] || {};
+      const info = { img: page.thumbnail ? page.thumbnail.source : null, ko: page.langlinks ? page.langlinks[0]["*"] : null, en: page.title || title };
+      wikiCache[title] = info;
+      return info;
+    }
+    function wikiUrl(lang, title) { return `https://${lang}.wikipedia.org/wiki/${encodeURIComponent(title.replace(/ /g, "_"))}`; }
+    function linkBtn(cls, href, text) { return `<a class="modal-btn ${cls}" href="${href}" target="_blank" rel="noopener">${text}</a>`; }
+
+    let lastFocus = null;
+    function openPerson(name) {
+      const p = people[name];
+      if (!p) return;
+      const [en, wiki, intro] = p;
+      lastFocus = document.activeElement;
+      const photo = document.getElementById("personPhoto");
+      photo.innerHTML = name.charAt(0);
+      document.getElementById("personName").textContent = name;
+      document.getElementById("personEn").textContent = en;
+      document.getElementById("personIntro").textContent = intro;
+      const mine = allQuotes.filter(q => q.author === name);
+      document.getElementById("personQuotes").innerHTML = `<h4>이 아카이브에 실린 명언 ${mine.length}개</h4><ul>` +
+        mine.map(q => `<li>${escAttr(q.ko)}<span>${escAttr(q.en)}</span></li>`).join("") + "</ul>";
+      const links = document.getElementById("personLinks");
+      const credit = document.getElementById("personCredit");
+      if (wiki) {
+        links.innerHTML = linkBtn("primary", wikiUrl("en", wiki), "📖 위키백과에서 더 보기") + linkBtn("secondary", wikiUrl("en", wiki), "🌐 English Wikipedia");
+        credit.textContent = "사진 출처: Wikipedia / Wikimedia Commons";
+        fetchWiki(wiki).then(info => {
+          if (document.getElementById("personName").textContent !== name) return;
+          if (info.img) {
+            const img = new Image();
+            img.alt = name;
+            img.onload = () => { photo.innerHTML = ""; photo.appendChild(img); };
+            img.src = info.img;
+          }
+          links.innerHTML = (info.ko ? linkBtn("primary", wikiUrl("ko", info.ko), "📖 한국어 위키백과에서 더 보기") : linkBtn("primary", wikiUrl("en", info.en), "📖 위키백과에서 더 보기"))
+            + linkBtn("secondary", wikiUrl("en", info.en), "🌐 English Wikipedia")
+            + linkBtn("secondary", "https://www.google.com/search?q=" + encodeURIComponent(en), "🔍 Google 검색");
+          if (!info.img) credit.textContent = "";
+        }).catch(() => {});
+      } else {
+        links.innerHTML = linkBtn("primary", "https://www.google.com/search?q=" + encodeURIComponent(en), "🔍 Google에서 더 보기");
+        credit.textContent = "";
+      }
+      document.getElementById("personModal").classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      document.getElementById("modalClose").focus();
+    }
+    function closePerson() {
+      document.getElementById("personModal").classList.add("hidden");
+      document.body.style.overflow = "";
+      if (lastFocus) lastFocus.focus();
+    }
+    document.addEventListener("click", e => {
+      const btn = e.target.closest(".author-link");
+      if (btn) { openPerson(btn.dataset.person); return; }
+      if (e.target.id === "personModal") closePerson();
+    });
+    document.getElementById("modalClose").onclick = closePerson;
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape" && !document.getElementById("personModal").classList.contains("hidden")) closePerson();
+    });
+
+    // 초기 렌더링
+    document.getElementById("videoTotal").textContent = rawVideos.length;
+    document.getElementById("videoTotalTab").textContent = rawVideos.length;
+    document.getElementById("quoteTotal").textContent = allQuotes.length;
+    document.getElementById("quoteTotalTab").textContent = allQuotes.length;
+    createFilterTabs();
+    layoutSpeakerTabs();
+    createQuoteTabs();
+    applyVideoFilters();
+    applyQuoteFilters();
+  </script>
+</body>
+</html>
