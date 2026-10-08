@@ -1,0 +1,196 @@
+{
+ "version": 1,
+ "items": [
+  {
+   "category": "Travel",
+   "title": "福岡家族旅行 2026",
+   "description": "후쿠오카 가족여행 플래너",
+   "href": "https://dec16pjh.github.io/fukuoka-trip-2026/",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/fukuoka.png",
+   "web": false
+  },
+  {
+   "category": "Travel",
+   "title": "강릉 가족여행 1박 2일",
+   "description": "아이와 함께한 코스",
+   "href": "https://dec16pjh.github.io/gangneung-trip/",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/gangneung.png",
+   "web": false
+  },
+  {
+   "category": "Project",
+   "title": "Art Prompt Studio",
+   "description": "화풍을 고르고 주제를 입력하면 AI가 완성하는 이미지 생성 프롬프트",
+   "href": "https://dec16pjh.github.io/MyPage_JP/art-prompt-studio.html",
+   "label": "ART PROMPT\nSTUDIO",
+   "web": true,
+   "webImage": "https://dec16pjh.github.io/john-park-web/__l5e/assets-v1/42953cfb-cd81-40df-933b-c4379b8b28fc/artprompt-studio.png",
+   "webSize": "wide"
+  },
+  {
+   "category": "Project",
+   "title": "명연설 & 명언 아카이브",
+   "description": "재생 가능한 명연설 영상과 명언 300선, 한국어/영어 병기",
+   "href": "https://dec16pjh.github.io/MyPage_JP/speech-archive.html",
+   "label": "SPEECH &\nQUOTE ARCHIVE",
+   "web": true,
+   "webImage": "https://dec16pjh.github.io/john-park-web/__l5e/assets-v1/abc55887-28dd-45e9-bd49-ed0f6adb5739/speech-archive.png",
+   "webSize": "wide"
+  },
+  {
+   "category": "Project",
+   "title": "AI 여행 플래너",
+   "description": "Claude 기반 일정 생성 웹앱",
+   "href": "https://dec16pjh.github.io/trip-planner/",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/tripplanner.png",
+   "web": true,
+   "size": "square"
+  },
+  {
+   "category": "Project",
+   "title": "바이어 Agent 설계도",
+   "description": "AI 에이전트 구조 설계",
+   "href": "https://claude.ai/code/artifact/bb756f15-fb2e-4153-b5ee-e286aec6f880",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/buyeragent.png",
+   "web": false
+  },
+  {
+   "category": "Project",
+   "title": "Buyer Desk",
+   "description": "글로벌 바이어 755개사 통합 대시보드",
+   "href": "https://buyer-hub.freeist.chatgpt.site/",
+   "label": "GLOBAL\nBUYER CRM",
+   "web": false
+  },
+  {
+   "category": "Project",
+   "title": "SAT Study App",
+   "description": "수빈이를 위한 SAT 학습 웹앱",
+   "href": "https://subin-sat-studio.freeist.chatgpt.site/",
+   "label": "SAT\nSTUDY APP",
+   "web": true
+  },
+  {
+   "category": "Project",
+   "title": "Voice Adopter (In Process)",
+   "description": "음성 인터페이스 연동 앱, 개발 진행 중",
+   "href": "https://voice-adopter.freeist.chatgpt.site/",
+   "label": "VOICE\nADOPTER",
+   "web": true
+  },
+  {
+   "category": "Project",
+   "title": "나는 다른 사람에게 어떻게 보일까",
+   "description": "SNS에서 보이는 나의 모습",
+   "href": "https://persona-mirror.freeist.chatgpt.site/",
+   "label": "PERSONA\nMIRROR",
+   "web": true
+  },
+  {
+   "category": "Project",
+   "title": "나의 최애 강아지는?",
+   "description": "사진으로 알아보는 강아지 외모 취향 테스트",
+   "href": "https://claude.ai/artifact/C1BnFvHEWM4xY8rCZCd78W",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/dogquiz.png",
+   "web": false
+  },
+  {
+   "category": "Project",
+   "title": "나의 최애 고양이는?",
+   "description": "사진으로 알아보는 고양이 외모 취향 테스트",
+   "href": "https://claude.ai/artifact/P52ZzSy9jBmV2K97dSurQV",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/catquiz.png",
+   "web": false
+  },
+  {
+   "category": "Project",
+   "title": "My Favorite Pet",
+   "description": "강아지·고양이 취향 찾기, 65종 품종 탐색",
+   "href": "https://who-is-my-favorite-dog.freeist.chatgpt.site/",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/petfinder.png",
+   "web": false
+  },
+  {
+   "category": "Project",
+   "title": "무엇으로 결정할까",
+   "description": "선택지의 기대값을 계산해주는 의사결정 계산기",
+   "href": "https://decision-compass.freeist.chatgpt.site/",
+   "label": "DECISION\nCOMPASS",
+   "web": true,
+   "webImage": "https://dec16pjh.github.io/john-park-web/__l5e/assets-v1/e4891f4c-39b2-4e57-9244-39fc18d8c0a0/decision-compass.png",
+   "webSize": "wide"
+  },
+  {
+   "category": "Creative",
+   "title": "John's Painting",
+   "description": "그동안 그려온 그림 모음",
+   "href": "https://dec16pjh.github.io/MyPage_JP/painting.html",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/painting/IMG_6242_2.jpg",
+   "web": true,
+   "size": "wide"
+  },
+  {
+   "category": "Creative",
+   "title": "입술에 묻은 건 비밀",
+   "description": "웹툰 EP.01",
+   "href": "https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/lip-secret-ep01.html",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/lipsecret.webp",
+   "web": true,
+   "group": "webtoon",
+   "size": "tall"
+  },
+  {
+   "category": "Creative",
+   "title": "광화문, 3초",
+   "description": "JP 히어로 웹툰 1화",
+   "href": "https://dec16pjh.github.io/fukuoka-trip-2026/webtoon/gwanghwamun-3sec-ep1.html",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/gwanghwamun.png",
+   "web": true,
+   "group": "webtoon",
+   "size": "wide"
+  },
+  {
+   "category": "Creative",
+   "title": "귀족학교 생존기",
+   "description": "웹툰 1–2화 연재본",
+   "href": "https://dec16pjh.github.io/webtoon_syn/",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/webtoonsyn.png",
+   "web": true,
+   "group": "webtoon",
+   "size": "tall"
+  },
+  {
+   "category": "Creative",
+   "title": "브런치 아카이브",
+   "description": "그동안 쓴 글 모음",
+   "href": "https://dec16pjh.github.io/brunch-archive/",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/brunch.png",
+   "web": true,
+   "size": "wide"
+  },
+  {
+   "category": "Creative",
+   "title": "오늘의 길한 방향",
+   "description": "오늘의 방위 운세",
+   "href": "https://claude.ai/code/artifact/39667f1e-2e8f-4798-8a94-48de65bf0fde",
+   "image": "https://dec16pjh.github.io/MyPage_JP/assets/ganghan.png",
+   "web": false
+  },
+  {
+   "category": "Education",
+   "title": "내가 받은 AI 교육",
+   "description": "수강한 AI 교육과정 일정 모음",
+   "href": "https://dec16pjh.github.io/MyPage_JP/education.html",
+   "label": "🎓\nAI EDUCATION",
+   "web": true
+  },
+  {
+   "category": "Publishing",
+   "title": "Publishing",
+   "description": "펴낸 글과 책 모음",
+   "href": "https://dec16pjh.github.io/MyPage_JP/publishing.html",
+   "label": "📚\nEBOOK PUBLISHING",
+   "web": true
+  }
+ ]
+}
