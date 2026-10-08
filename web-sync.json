@@ -191,6 +191,14 @@
    "href": "https://dec16pjh.github.io/MyPage_JP/publishing.html",
    "label": "📚\nEBOOK PUBLISHING",
    "web": true
+  },
+  {
+   "category": "Website",
+   "title": "공생원 웹사이트",
+   "description": "공생원 소개 웹사이트",
+   "href": "https://dec16pjh.github.io/GSWsite/",
+   "label": "🏠\nGSW SITE",
+   "web": true
   }
  ]
 }
