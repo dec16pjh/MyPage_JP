@@ -199,6 +199,14 @@
    "href": "https://dec16pjh.github.io/GSWsite/",
    "label": "🏠\nGSW SITE",
    "web": true
+  },
+  {
+   "category": "Website",
+   "title": "블링부스터 웹사이트",
+   "description": "Bling Booster 공식 웹사이트",
+   "href": "https://www.blingbooster.co.kr/",
+   "label": "✨\nBLING BOOSTER",
+   "web": true
   }
  ]
 }
