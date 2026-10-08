@@ -68,7 +68,7 @@
    "description": "수빈이를 위한 SAT 학습 웹앱",
    "href": "https://subin-sat-studio.freeist.chatgpt.site/",
    "label": "SAT\nSTUDY APP",
-   "web": true
+   "web": false
   },
   {
    "category": "Project",
