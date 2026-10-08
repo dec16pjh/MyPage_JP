@@ -108,7 +108,7 @@
    "description": "강아지·고양이 취향 찾기, 65종 품종 탐색",
    "href": "https://who-is-my-favorite-dog.freeist.chatgpt.site/",
    "image": "https://dec16pjh.github.io/MyPage_JP/assets/petfinder.png",
-   "web": true
+   "web": false
   },
   {
    "category": "Project",
