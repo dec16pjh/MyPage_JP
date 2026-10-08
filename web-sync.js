@@ -60,7 +60,7 @@
 
   if (typeof document === 'undefined') return;
 
-  var CATS = { travel: 'Travel', project: 'Project', creative: 'Creative', education: 'Education', publishing: 'Publishing' };
+  var CATS = { travel: 'Travel', project: 'Project', creative: 'Creative', education: 'Education', publishing: 'Publishing', website: 'Website' };
   var KEY = 'webSyncToken';
 
   var css = document.createElement('style');
