@@ -215,6 +215,22 @@
    "href": "https://www.okf-food.com/",
    "label": "🍙\nOKF 명품김",
    "web": true
+  },
+  {
+   "category": "Website",
+   "title": "수빌딩 웹사이트",
+   "description": "SU Building · 기업과 브랜드의 독립적인 업무 거점",
+   "href": "https://www.subd.kr/",
+   "label": "SU\nBUILDING",
+   "web": true
+  },
+  {
+   "category": "Website",
+   "title": "K-inner Beauty OEM/ODM",
+   "description": "INNER ATLAS by TIUM GLOBAL · 이너뷰티 제품 개발·제조 연결",
+   "href": "https://www.tiumglobal.com/",
+   "label": "K-INNER\nBEAUTY\nOEM·ODM",
+   "web": true
   }
  ]
 }
